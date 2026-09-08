@@ -67,9 +67,32 @@ const app = Fastify({
 app.register(sentryPlugin)
 app.register(jwtPlugin)
 app.register(cookiePlugin)
-// Security headers. CSP is disabled because we serve the Vite-built SPA from
-// the same origin and inline styles/scripts are unavoidable without rework.
-app.register(helmet, { contentSecurityPolicy: false })
+// Security headers. SEC-01: a Content-Security-Policy is enforced (was disabled).
+// Built on helmet's defaults — which already allow inline styles (style-src
+// 'unsafe-inline', needed for the SPA's inline styles and the print documents),
+// block inline scripts (script-src 'self', script-src-attr 'none'), and set
+// object-src 'none' / base-uri 'self'. We widen only what this app genuinely
+// needs: Google Analytics (script + beacon) and https images (Cloudflare R2 +
+// og). The Vite build emits only same-origin hashed scripts, and the print
+// helpers no longer inject inline <script>, so script-src 'self' holds.
+// NOTE: smoke-test on staging before prod — load the app with DevTools open and
+// confirm no CSP violations (login, an R2 product image, a receipt print). To
+// roll back instantly, set `contentSecurityPolicy: false`.
+app.register(helmet, {
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      'script-src': ["'self'", 'https://www.googletagmanager.com'],
+      'connect-src': [
+        "'self'",
+        'https://www.google-analytics.com',
+        'https://region1.google-analytics.com',
+        'https://www.googletagmanager.com',
+      ],
+      'img-src': ["'self'", 'data:', 'https:'],
+    },
+  },
+})
 app.register(rateLimit, {
   global: false, // opt-in per-route via config.rateLimit
   redis,
