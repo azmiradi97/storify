@@ -120,7 +120,9 @@ async function seedTenantDefaults(
   const passwordHash = await hashPassword(ownerPassword)
   await db.user.create({
     data: {
-      email: ownerEmail,
+      // Normalized so the owner can log in regardless of the casing they typed
+      // at signup (login lookups lowercase too).
+      email: ownerEmail.trim().toLowerCase(),
       passwordHash,
       fullName: ownerName,
       roleId: roleMap['super_admin']!,

@@ -39,7 +39,9 @@ export const listCustomersSchema = z.object({
 
 export const documentUploadSchema = z.object({
   docType: z.string().min(1).max(100),
-  contentType: z.enum(['image/jpeg', 'image/png', 'image/pdf']),
+  // 'application/pdf' is the correct MIME for PDFs — the old 'image/pdf' was a
+  // typo that rejected every real PDF upload (clients send 'application/pdf').
+  contentType: z.enum(['image/jpeg', 'image/png', 'application/pdf']),
   fileName: z.string().min(1),
 })
 

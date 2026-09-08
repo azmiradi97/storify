@@ -35,6 +35,11 @@ export default function Login() {
    */
   function landingFor(user: AuthUser): string {
     const can = (r: string, a: string) => user.permissions?.[r]?.includes(a) ?? false
+    const onboardingKey = `hesba_onboarded_${user.id}`
+    if (!localStorage.getItem(onboardingKey)) {
+      localStorage.setItem(onboardingKey, '1')
+      return '/settings'
+    }
     if (can('invoices', 'create')) return '/pos'
     if (can('invoices', 'read')) return '/invoices'
     if (can('products', 'read')) return '/products'
@@ -65,6 +70,19 @@ export default function Login() {
     onSuccess: ({ accessToken, user, subdomain }) => {
       setAuth(user, accessToken, subdomain)
       track('login_success', { role: user.roleSlug })
+
+      const baseDomain = import.meta.env.VITE_BASE_DOMAIN as string | undefined
+      const onMainDomain = baseDomain && window.location.hostname === baseDomain
+
+      if (onMainDomain && subdomain) {
+        // Transfer session to the tenant subdomain via URL hash so the
+        // subdomain origin can pick it up (localStorage is not shared).
+        const payload = btoa(JSON.stringify({ accessToken, user, subdomain }))
+        window.location.href = `https://${subdomain}.${baseDomain}/#s=${payload}`
+        return
+      }
+
+      // Already on the subdomain (or dev): navigate in-app.
       toast.success('تم تسجيل الدخول بنجاح')
       navigate(requestedFrom ?? landingFor(user), { replace: true })
     },

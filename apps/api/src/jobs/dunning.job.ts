@@ -22,8 +22,13 @@ export function getDunningQueue() {
   })
 }
 
-// Retry intervals: day 3, day 7, day 14
-const RETRY_INTERVALS_DAYS = [3, 7, 14]
+// Minimum gap between retry charges on a failing card. Escalation itself is
+// driven by failed-attempt COUNT in handleWebhookFailure (3 → PAST_DUE,
+// 7 → SUSPENDED, 14 → CANCELLED); this only paces how often we re-attempt so a
+// declining card isn't hammered every day. (JOB-01: the old [3,7,14] array with
+// `.some(>=)` was dead past its first element — every gap ≥3 days already
+// matched — so it collapsed to exactly this single 3-day gate.)
+const RETRY_GAP_DAYS = 3
 
 export function startDunningWorker() {
   const worker = new Worker(
@@ -62,9 +67,13 @@ async function runDunningCycle() {
   //   • at least one failed attempt recorded
   // TRIALING is excluded because trial subs don't have a charge to retry until
   // they actually convert; trial-expiry.job handles them separately.
+  // SUSPENDED is INCLUDED (JOB-01): a sub is suspended at 7 failed attempts, but
+  // the CANCELLED milestone is 14 — if we stopped retrying at suspension the sub
+  // would linger SUSPENDED forever and never auto-cancel. CANCELLED is terminal
+  // and excluded.
   const subs = await masterDb.subscription.findMany({
     where: {
-      status: { in: ['PAST_DUE', 'ACTIVE'] },
+      status: { in: ['ACTIVE', 'PAST_DUE', 'SUSPENDED'] },
       failedAttempts: { gt: 0 },
       providerCardToken: { not: null },
     },
@@ -86,12 +95,11 @@ async function runDunningCycle() {
 
     const daysSinceFailure = Math.floor((now.getTime() - anchor.getTime()) / (24 * 3600 * 1000))
 
-    // Pick the largest interval ≤ daysSinceFailure — i.e. the most recent
-    // retry milestone the sub has passed. The 24h job cadence means we'll
-    // attempt at most one retry per day per sub even if multiple milestones
-    // are eligible.
-    const retryDue = RETRY_INTERVALS_DAYS.some((d) => daysSinceFailure >= d)
-    if (!retryDue) continue
+    // Re-attempt once the gap since the last failure has elapsed. lastFailedAt
+    // is refreshed on each failed retry (in handleWebhookFailure), so this
+    // paces retries to roughly one every RETRY_GAP_DAYS until the card recovers
+    // or the sub reaches the CANCELLED milestone.
+    if (daysSinceFailure < RETRY_GAP_DAYS) continue
 
     try {
       const amountCents = new Decimal(sub.priceAtSubscription.toString())

@@ -5,6 +5,42 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import App from './App'
 import './styles/globals.css'
+import { useAuthStore, type AuthUser } from './stores/auth.store'
+
+// ── Cross-domain session transfer ──────────────────────────────────────────
+// After login on the main domain (hesbaapp.com), the user is redirected to
+// their store subdomain (akml.hesbaapp.com) with the session encoded in the
+// URL hash: #s=<base64(JSON)>. We decode it here — before React renders —
+// so the app starts already authenticated and navigates to the right page.
+;(function restoreSessionFromHash() {
+  const hash = window.location.hash
+  if (!hash.startsWith('#s=')) return
+  try {
+    const { accessToken, user, subdomain } = JSON.parse(atob(hash.slice(3))) as {
+      accessToken: string
+      user: AuthUser
+      subdomain: string
+    }
+    useAuthStore.getState().setAuth(user, accessToken, subdomain)
+
+    // Decide landing: first login → /settings, otherwise → /pos (or best available)
+    const onboardingKey = `hesba_onboarded_${user.id}`
+    const can = (r: string, a: string) => user.permissions?.[r]?.includes(a) ?? false
+    let destination = '/pos'
+    if (!localStorage.getItem(onboardingKey)) {
+      localStorage.setItem(onboardingKey, '1')
+      destination = '/settings'
+    } else if (!can('invoices', 'create')) {
+      destination = '/dashboard'
+    }
+
+    // Replace hash with the real path so React Router sees the right route
+    window.history.replaceState(null, '', destination)
+  } catch {
+    // Malformed hash — ignore and let the app render normally
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
+  }
+})()
 
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {

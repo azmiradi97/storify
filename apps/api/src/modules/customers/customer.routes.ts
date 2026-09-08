@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto'
 import type { FastifyInstance } from 'fastify'
 import { authenticate, requirePermission } from '../../shared/middleware/auth.middleware'
 import type { JWTPayload } from '../../shared/middleware/auth.middleware'
-import { getUploadUrl } from '../../config/r2'
+import { getUploadUrl, getDownloadUrl, keyFromPublicUrl } from '../../config/r2'
 import { contentDispositionAttachment } from '../../shared/utils/content-disposition'
 import {
   createCustomerSchema,
@@ -196,6 +196,38 @@ export async function customerRoutes(app: FastifyInstance) {
         })
 
         return reply.status(201).send({ success: true, data: { document: doc, uploadUrl } })
+      } catch {
+        return reply.status(503).send({
+          success: false,
+          error: { code: 'storage_unavailable', message: 'R2 storage not configured' },
+        })
+      }
+    },
+  )
+
+  // ─── GET /api/customers/:id/documents/:docId/download ─────────────────────────
+  // API-02: returns a short-lived presigned GET URL so customer documents (often
+  // national-ID scans) can live in a PRIVATE bucket instead of being served from
+  // a permanent public URL. Pairs with flipping the R2 bucket to private (ops).
+  app.get<{ Params: { id: string; docId: string } }>(
+    '/:id/documents/:docId/download',
+    { preHandler: requirePermission('customers', 'read') },
+    async (request, reply) => {
+      const doc = await request.tenantDb.customerDocument.findFirst({
+        where: { id: request.params.docId, customerId: request.params.id },
+        select: { fileUrl: true },
+      })
+      if (!doc) {
+        return reply.status(404).send({ success: false, error: { code: 'not_found', message: 'المستند غير موجود' } })
+      }
+
+      const key = keyFromPublicUrl(doc.fileUrl)
+      // Legacy/external URL we can't re-sign — hand back what we stored.
+      if (!key) return reply.send({ success: true, data: { downloadUrl: doc.fileUrl } })
+
+      try {
+        const downloadUrl = await getDownloadUrl(key, 300)
+        return reply.send({ success: true, data: { downloadUrl } })
       } catch {
         return reply.status(503).send({
           success: false,

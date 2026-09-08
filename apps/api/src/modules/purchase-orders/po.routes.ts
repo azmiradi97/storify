@@ -3,7 +3,8 @@ import { authenticate, requirePermission } from '../../shared/middleware/auth.mi
 import type { JWTPayload } from '../../shared/middleware/auth.middleware'
 import { requireFeature } from '../../shared/middleware/feature.middleware'
 import { auditLog } from '../../shared/utils/audit'
-import { toDecimal } from '../../shared/utils/decimal'
+import { toDecimal, roundMoney, ZERO } from '../../shared/utils/decimal'
+import { weightedAverageCost } from '../../shared/utils/cost'
 import { createPoSchema, updatePoSchema, receivePoSchema, poPaymentSchema, listPoSchema } from './po.schema'
 
 export async function purchaseOrderRoutes(app: FastifyInstance) {
@@ -55,7 +56,9 @@ export async function purchaseOrderRoutes(app: FastifyInstance) {
     const actor = request.user as JWTPayload
     const { supplierId, branchId, items, expectedDate, paymentType } = parsed.data
 
-    const totalAmount = items.reduce((sum, i) => sum + i.unitCost * i.quantity, 0)
+    // MONEY-01: compute liability with Decimal math, never native float * / +.
+    const total = items.reduce((sum, i) => sum.plus(toDecimal(i.unitCost).times(i.quantity)), ZERO)
+    const totalAmount = roundMoney(total).toString()
 
     const po = await request.tenantDb.purchaseOrder.create({
       data: {
@@ -72,7 +75,7 @@ export async function purchaseOrderRoutes(app: FastifyInstance) {
             variantId: i.variantId,
             quantity: i.quantity,
             unitCost: i.unitCost,
-            subtotal: i.unitCost * i.quantity,
+            subtotal: roundMoney(toDecimal(i.unitCost).times(i.quantity)).toString(),
           })),
         },
       },
@@ -151,10 +154,10 @@ export async function purchaseOrderRoutes(app: FastifyInstance) {
               variantId: i.variantId,
               quantity: i.quantity,
               unitCost: i.unitCost,
-              subtotal: i.unitCost * i.quantity,
+              subtotal: roundMoney(toDecimal(i.unitCost).times(i.quantity)).toString(),
             })),
           })
-          newTotal = toDecimal(items.reduce((s, i) => s + i.unitCost * i.quantity, 0))
+          newTotal = roundMoney(items.reduce((s, i) => s.plus(toDecimal(i.unitCost).times(i.quantity)), ZERO))
         }
 
         return tx.purchaseOrder.update({
@@ -281,15 +284,38 @@ export async function purchaseOrderRoutes(app: FastifyInstance) {
         })
       }
 
-      // Cost of just this batch (proportional supplier liability).
-      const batchCost = batch.reduce((sum, b) => sum + toDecimal(b.item.unitCost).toNumber() * b.quantity, 0)
+      // Cost of just this batch (proportional supplier liability). MONEY-01:
+      // Decimal math, no native float.
+      const batchCost = roundMoney(
+        batch.reduce((sum, b) => sum.plus(toDecimal(b.item.unitCost).times(b.quantity)), ZERO),
+      )
 
       const result = await request.tenantDb.$transaction(async (tx) => {
         for (const { item, quantity } of batch) {
+          // ACC-03: roll the variant's cost_price forward by weighted moving
+          // average so COGS reflects real purchase cost. Read on-hand quantity
+          // (across branches) and the current cost BEFORE this batch increments
+          // stock, then blend in the received units at their unit cost.
+          const onHand = await tx.stock.aggregate({
+            where: { variantId: item.variantId },
+            _sum: { quantity: true },
+          })
+          const existingQty = onHand._sum.quantity ?? 0
+          const currentVariant = await tx.productVariant.findUnique({
+            where: { id: item.variantId },
+            select: { costPrice: true },
+          })
+          const newCost = weightedAverageCost(existingQty, currentVariant?.costPrice, quantity, item.unitCost)
+
           await tx.stock.upsert({
             where: { uq_stock_variant_branch: { variantId: item.variantId, branchId: po.branchId } },
             create: { variantId: item.variantId, branchId: po.branchId, quantity, minQuantity: 0, updatedAt: new Date() },
             update: { quantity: { increment: quantity }, updatedAt: new Date() },
+          })
+
+          await tx.productVariant.update({
+            where: { id: item.variantId },
+            data: { costPrice: newCost },
           })
 
           await tx.stockMovement.create({

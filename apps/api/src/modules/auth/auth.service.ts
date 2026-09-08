@@ -32,8 +32,10 @@ export async function loginUser(
   email: string,
   password: string,
 ): Promise<LoginResult> {
+  // Email lookups are normalized (the column is case-sensitive VARCHAR, not
+  // CITEXT) so "Owner@x.com" and "owner@x.com" resolve to the same account.
   const user = await db.user.findUnique({
-    where: { email },
+    where: { email: email.trim().toLowerCase() },
     include: { role: true },
   })
 
@@ -54,6 +56,7 @@ export async function loginUser(
   })
 
   const payload: JWTPayload = {
+    scope: 'tenant',
     userId: user.id,
     tenantId,
     schemaName,
@@ -128,7 +131,7 @@ export async function requestPasswordReset(
   email: string,
   ip: string,
 ): Promise<void> {
-  const user = await db.user.findUnique({ where: { email } })
+  const user = await db.user.findUnique({ where: { email: email.trim().toLowerCase() } })
   // Always return without error — never reveal whether the email exists
   if (!user || !user.isActive) return
 

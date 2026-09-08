@@ -67,7 +67,10 @@ api.interceptors.request.use(async (config) => {
 })
 
 let isRefreshing = false
-let refreshQueue: Array<(token: string) => void> = []
+// Each queued request keeps both a success and a failure handler so a failed
+// refresh can REJECT them (settling the promise) instead of leaving them to
+// hang forever.
+let refreshQueue: Array<{ onToken: (token: string) => void; onError: (err: unknown) => void }> = []
 
 // Auto-refresh on 401
 api.interceptors.response.use(
@@ -78,10 +81,13 @@ api.interceptors.response.use(
       return Promise.reject(err)
     }
     if (isRefreshing) {
-      return new Promise((resolve) => {
-        refreshQueue.push((token) => {
-          original.headers.Authorization = `Bearer ${token}`
-          resolve(api(original))
+      return new Promise((resolve, reject) => {
+        refreshQueue.push({
+          onToken: (token) => {
+            original.headers.Authorization = `Bearer ${token}`
+            resolve(api(original))
+          },
+          onError: reject,
         })
       })
     }
@@ -96,15 +102,15 @@ api.interceptors.response.use(
       )
       const newToken = data.data.accessToken
       useAuthStore.getState().setAccessToken(newToken)
-      refreshQueue.forEach((cb) => cb(newToken))
+      refreshQueue.forEach((q) => q.onToken(newToken))
       refreshQueue = []
       original.headers.Authorization = `Bearer ${newToken}`
       return api(original)
     } catch (refreshErr) {
-      // Refresh failed — drain the queue with a rejection so pending requests
-      // resolve instead of hanging forever, and surface a toast so the user
-      // understands why the next click bounces them to /login.
-      refreshQueue.forEach(() => {})
+      // Refresh failed — reject every queued request so they settle (instead of
+      // hanging forever) and each caller's catch runs; surface a toast so the
+      // user understands why the next click bounces them to /login.
+      refreshQueue.forEach((q) => q.onError(refreshErr ?? err))
       refreshQueue = []
       const state = useAuthStore.getState()
       if (state.accessToken || state.user) {

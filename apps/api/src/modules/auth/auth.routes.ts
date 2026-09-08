@@ -13,6 +13,7 @@ import {
 import { authenticate, requirePermission } from '../../shared/middleware/auth.middleware'
 import type { JWTPayload } from '../../shared/middleware/auth.middleware'
 import { requireUnderLimit } from '../../shared/middleware/limit.middleware'
+import { permissionsWithinActor } from '../../shared/utils/permissions'
 
 const REFRESH_COOKIE = 'refreshToken'
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 // 7 days
@@ -36,6 +37,8 @@ function cookieOpts(maxAge: number) {
     sameSite: 'lax' as const,
     path: '/',
     maxAge,
+    // Share the refresh cookie across all subdomains (*.hesbaapp.com)
+    ...(config.APP_BASE_DOMAIN ? { domain: `.${config.APP_BASE_DOMAIN}` } : {}),
   }
 }
 
@@ -141,6 +144,7 @@ export async function authRoutes(app: FastifyInstance) {
     }
 
     const payload: JWTPayload = {
+      scope: 'tenant',
       userId: user.id,
       tenantId: data.tenantId,
       schemaName: data.schemaName,
@@ -334,11 +338,34 @@ export async function authRoutes(app: FastifyInstance) {
     if (!parsed.success) {
       return reply.status(400).send({ success: false, error: { code: 'validation_error', message: parsed.error.errors[0].message } })
     }
-    const { fullName, email, password, roleId, branchId } = parsed.data
+    const { fullName, password, roleId, branchId } = parsed.data
+    // Normalize on write so logins (also normalized) always match — the email
+    // column is case-sensitive VARCHAR, not CITEXT.
+    const email = parsed.data.email.trim().toLowerCase()
     const existing = await request.tenantDb.user.findUnique({ where: { email } })
     if (existing) {
       return reply.status(409).send({ success: false, error: { code: 'conflict', message: 'البريد الإلكتروني مستخدم بالفعل' } })
     }
+
+    // HESBA-SEC-02: a user can't assign a role above their own privilege.
+    const creator = request.user as JWTPayload
+    const targetRole = await request.tenantDb.role.findUnique({
+      where: { id: roleId },
+      select: { slug: true, permissions: true },
+    })
+    if (!targetRole) {
+      return reply.status(400).send({ success: false, error: { code: 'invalid_role', message: 'الدور غير موجود' } })
+    }
+    if (creator.roleSlug !== 'super_admin') {
+      const targetPerms = (targetRole.permissions as Record<string, string[]>) ?? {}
+      if (targetRole.slug === 'super_admin' || !permissionsWithinActor(targetPerms, creator.permissions)) {
+        return reply.status(403).send({
+          success: false,
+          error: { code: 'permission_escalation', message: 'لا يمكنك تعيين دور بصلاحيات أعلى من صلاحياتك' },
+        })
+      }
+    }
+
     const { hashPassword } = await import('../../shared/utils/password')
     const passwordHash = await hashPassword(password)
     const user = await request.tenantDb.user.create({
@@ -376,6 +403,15 @@ export async function authRoutes(app: FastifyInstance) {
         return reply.status(400).send({
           success: false,
           error: { code: 'validation_error', message: parsed.error.errors[0].message },
+        })
+      }
+
+      // HESBA-SEC-02: can't create a role granting permissions you don't hold.
+      const creator = request.user as JWTPayload
+      if (creator.roleSlug !== 'super_admin' && !permissionsWithinActor(parsed.data.permissions, creator.permissions)) {
+        return reply.status(403).send({
+          success: false,
+          error: { code: 'permission_escalation', message: 'لا يمكنك منح صلاحيات لا تملكها' },
         })
       }
 
@@ -438,6 +474,19 @@ export async function authRoutes(app: FastifyInstance) {
         return reply.status(400).send({
           success: false,
           error: { code: 'validation_error', message: parsed.error.errors[0].message },
+        })
+      }
+
+      // HESBA-SEC-02: can't escalate a role's permissions beyond your own.
+      const editor = request.user as JWTPayload
+      if (
+        editor.roleSlug !== 'super_admin' &&
+        parsed.data.permissions !== undefined &&
+        !permissionsWithinActor(parsed.data.permissions, editor.permissions)
+      ) {
+        return reply.status(403).send({
+          success: false,
+          error: { code: 'permission_escalation', message: 'لا يمكنك منح صلاحيات لا تملكها' },
         })
       }
 

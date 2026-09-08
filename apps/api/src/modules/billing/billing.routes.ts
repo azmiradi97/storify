@@ -19,6 +19,47 @@ const checkoutSchema = z.object({
   phone: z.string(),
 })
 
+// Paymob webhook — PUBLIC, no tenant context. Must be registered OUTSIDE the
+// tenant-scoped instance: Paymob's servers send no tenant subdomain, so
+// tenantMiddleware would 400 the callback before this handler runs (the bug
+// behind the missed-payment incidents in the master migration history). The
+// tenant is resolved from merchant_order_id; integrity is enforced via HMAC.
+export async function billingWebhookRoutes(app: FastifyInstance) {
+  app.post('/billing/paymob/webhook', async (request, reply) => {
+    const hmac = (request.query as Record<string, string>).hmac
+    if (!hmac) return reply.code(400).send({ message: 'missing_hmac' })
+
+    const payload = request.body as PaymobWebhookPayload
+    const isValid = verifyPaymobWebhook(payload, hmac)
+    if (!isValid) {
+      request.log.warn('[Paymob] HMAC verification failed')
+      return reply.code(401).send({ message: 'invalid_hmac' })
+    }
+
+    const obj = payload.obj
+    const merchantOrderId = obj.order?.merchant_order_id ?? ''
+
+    if (obj.success && !obj.is_refunded && !obj.is_voided) {
+      await handleWebhookSuccess({
+        orderId: obj.order?.id,
+        transactionId: obj.id,
+        amountCents: obj.amount_cents,
+        cardToken: obj.token,
+        merchantOrderId,
+      })
+    } else if (obj.error_occured || (!obj.success && !obj.pending)) {
+      await handleWebhookFailure({
+        transactionId: obj.id,
+        amountCents: obj.amount_cents,
+        errorMessage: 'Payment declined by gateway',
+        merchantOrderId,
+      })
+    }
+
+    return reply.code(200).send({ received: true })
+  })
+}
+
 export async function billingRoutes(app: FastifyInstance) {
   app.post(
     '/billing/checkout',
@@ -45,40 +86,9 @@ export async function billingRoutes(app: FastifyInstance) {
     },
   )
 
-  // Paymob webhook — no auth, verified via HMAC
-  app.post('/billing/paymob/webhook', async (request, reply) => {
-    const hmac = (request.query as Record<string, string>).hmac
-    if (!hmac) return reply.code(400).send({ message: 'missing_hmac' })
-
-    const payload = request.body as PaymobWebhookPayload
-    const isValid = verifyPaymobWebhook(payload, hmac)
-    if (!isValid) {
-      console.warn('[Paymob] HMAC verification failed')
-      return reply.code(401).send({ message: 'invalid_hmac' })
-    }
-
-    const obj = payload.obj
-    const merchantOrderId = obj.order?.merchant_order_id ?? ''
-
-    if (obj.success && !obj.is_refunded && !obj.is_voided) {
-      await handleWebhookSuccess({
-        orderId: obj.order?.id,
-        transactionId: obj.id,
-        amountCents: obj.amount_cents,
-        cardToken: obj.token,
-        merchantOrderId,
-      })
-    } else if (obj.error_occured || (!obj.success && !obj.pending)) {
-      await handleWebhookFailure({
-        transactionId: obj.id,
-        amountCents: obj.amount_cents,
-        errorMessage: 'Payment declined by gateway',
-        merchantOrderId,
-      })
-    }
-
-    return reply.code(200).send({ received: true })
-  })
+  // NOTE: the Paymob webhook is intentionally NOT here — it's a public route
+  // (no tenant context) registered via `billingWebhookRoutes` outside the
+  // tenant-scoped instance. See that export below and apps/api/src/index.ts.
 
   app.get(
     '/billing/portal',

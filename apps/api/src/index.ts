@@ -27,7 +27,7 @@ import { workOrderRoutes } from './modules/services/workOrder.routes'
 import { reportRoutes } from './modules/reports/report.routes'
 import { couponRoutes } from './modules/coupons/coupon.routes'
 import { etaRoutes } from './modules/eta/eta.routes'
-import { billingRoutes } from './modules/billing/billing.routes'
+import { billingRoutes, billingWebhookRoutes } from './modules/billing/billing.routes'
 import { adminRoutes } from './modules/admin/admin.routes'
 import { seedOwnerFromEnv } from './modules/admin/admin.auth.service'
 import { migrateAllTenants } from '@hesba/database'
@@ -42,6 +42,16 @@ import { startRenewalWorker, scheduleRenewal } from './jobs/renewal.job'
 const app = Fastify({
   logger: {
     level: config.NODE_ENV === 'development' ? 'info' : 'warn',
+    // Strip credentials before anything reaches the logs (or Sentry, which
+    // ingests breadcrumbs from them). `remove` drops the field entirely.
+    redact: {
+      paths: [
+        'req.headers.authorization',
+        'req.headers.cookie',
+        'res.headers["set-cookie"]',
+      ],
+      remove: true,
+    },
     transport:
       config.NODE_ENV === 'development'
         ? { target: 'pino-pretty', options: { colorize: true } }
@@ -149,6 +159,14 @@ app.get('/health', async (_req, reply) => {
   })
 })
 
+// Caddy on-demand TLS ask endpoint — returns 200 only for *.APP_BASE_DOMAIN
+app.get('/internal/check-tenant', async (req, reply) => {
+  const domain = (req.query as Record<string, string>).domain ?? ''
+  const base = config.APP_BASE_DOMAIN
+  if (base && domain.endsWith(`.${base}`)) return reply.status(200).send()
+  return reply.status(400).send()
+})
+
 // ─── API surface — CORS registered here so static assets bypass it ──────────
 app.register(async function apiContext(api) {
   await api.register(cors, {
@@ -185,6 +203,13 @@ app.register(async function apiContext(api) {
 
   // ─── Platform-owner admin panel (cross-tenant, no tenant scoping) ────────
   api.register(adminRoutes, { prefix: '/api/admin' })
+
+  // ─── Paymob webhook (public) ─────────────────────────────────────────────
+  // Registered OUTSIDE the tenant-scoped instance below: Paymob's servers send
+  // no tenant subdomain, so tenantMiddleware would 400 the callback before it
+  // runs. The handler resolves the tenant from merchant_order_id and verifies
+  // the HMAC itself.
+  api.register(billingWebhookRoutes, { prefix: '/api' })
 
   // ─── Tenant-scoped routes (tenant middleware required) ──────────────────────
   api.register(async function tenantScoped(sub) {

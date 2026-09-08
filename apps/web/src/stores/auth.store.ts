@@ -46,9 +46,13 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'hesba-auth',
+      // Access token is intentionally NOT persisted — keeping it out of
+      // localStorage shrinks the XSS blast radius (a malicious script can't
+      // lift a live bearer token). On reload, ensureFreshAccessToken() in
+      // api/client.ts mints a new one from the httpOnly refresh cookie, using
+      // the persisted `user` as the signal that a session exists.
       partialize: (state) => ({
         user: state.user,
-        accessToken: state.accessToken,
         tenantSubdomain: state.tenantSubdomain,
       }),
     },

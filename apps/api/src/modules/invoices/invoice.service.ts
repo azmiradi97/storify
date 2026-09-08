@@ -172,6 +172,23 @@ export async function createInvoice(
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
+  // Batch-load active product discounts for every product in the cart in ONE
+  // query (previously a findFirst ran per line item — an N+1 on the POS hot
+  // path). Keep the first active discount per product to mirror findFirst.
+  const productIds = [...new Set(variants.map((v) => v.productId))]
+  const activeDiscounts = await db.productDiscount.findMany({
+    where: {
+      productId: { in: productIds },
+      isActive: true,
+      startDate: { lte: today },
+      endDate: { gte: today },
+    },
+  })
+  const discountByProduct = new Map<string, (typeof activeDiscounts)[number]>()
+  for (const d of activeDiscounts) {
+    if (!discountByProduct.has(d.productId)) discountByProduct.set(d.productId, d)
+  }
+
   let subtotal = ZERO
   let taxTotal = ZERO
 
@@ -183,21 +200,15 @@ export async function createInvoice(
     discountAmount: Decimal
     taxAmount: Decimal
     subtotal: Decimal
+    costAtSale: Decimal
   }> = []
 
   for (const item of input.items) {
     const variant = variantMap.get(item.variantId)!
     const unitPrice = toDecimal(item.unitPrice)
 
-    // Check for active product discount
-    const productDiscount = await db.productDiscount.findFirst({
-      where: {
-        productId: variant.productId,
-        isActive: true,
-        startDate: { lte: today },
-        endDate: { gte: today },
-      },
-    })
+    // Active product discount (pre-loaded above — no per-item query).
+    const productDiscount = discountByProduct.get(variant.productId) ?? null
 
     let itemDiscount = ZERO
     if (productDiscount) {
@@ -227,6 +238,7 @@ export async function createInvoice(
       discountAmount: itemDiscount,
       taxAmount: itemTax,
       subtotal: itemSubtotal,
+      costAtSale: toDecimal(variant.costPrice),
     })
   }
 
@@ -332,6 +344,7 @@ export async function createInvoice(
           discountAmount: item.discountAmount,
           taxAmount: item.taxAmount,
           subtotal: item.subtotal,
+          costAtSale: item.costAtSale,
         },
       })
 
@@ -407,7 +420,10 @@ export async function createInvoice(
     if (input.customerId) {
       const settings = await tx.tenantSetting.findFirst()
       if (settings?.loyaltyEnabled && settings.loyaltyPointsPerUnit > 0) {
-        const pointsEarned = Math.floor(totalAmount.toNumber() / settings.loyaltyPointsPerUnit)
+        // ACC-04: points earned = spend × points-per-currency-unit. The old code
+        // divided by pointsPerUnit, which inverted the setting (a higher rate
+        // yielded FEWER points, contradicting the field name).
+        const pointsEarned = Math.floor(totalAmount.toNumber() * settings.loyaltyPointsPerUnit)
         if (pointsEarned > 0) {
           const updated = await tx.customer.update({
             where: { id: input.customerId },
@@ -498,10 +514,34 @@ export async function returnInvoice(
   // Validate return quantities don't exceed sold quantities.
   // Service items (variantId === null) cannot be returned via this flow.
   const productItems = invoice.items.filter((i) => i.variantId !== null)
+
+  // ACC-02: cap returns against the CUMULATIVE quantity already returned across
+  // every prior return on this invoice — not just against a single request.
+  // Without this, two sequential partial returns each pass the per-request check
+  // and together restock/refund more than was ever sold.
+  const priorReturnItems = await db.returnItem.findMany({
+    where: { return: { invoiceId } },
+    select: { variantId: true, quantity: true },
+  })
+  const soldByVariant = new Map<string, number>()
+  for (const it of productItems) {
+    if (it.variantId) soldByVariant.set(it.variantId, (soldByVariant.get(it.variantId) ?? 0) + it.quantity)
+  }
+  const returnedByVariant = new Map<string, number>()
+  for (const r of priorReturnItems) {
+    returnedByVariant.set(r.variantId, (returnedByVariant.get(r.variantId) ?? 0) + r.quantity)
+  }
+  // Fold this request's own lines together first, so duplicate rows in a single
+  // payload are also bounded.
+  const requestedByVariant = new Map<string, number>()
   for (const ri of input.items) {
-    const invoiceItem = productItems.find((i) => i.variantId === ri.variantId)
-    if (!invoiceItem) throw badRequest(`item_not_in_invoice:${ri.variantId}`)
-    if (ri.quantity > invoiceItem.quantity) throw badRequest(`return_qty_exceeds_sold:${ri.variantId}`)
+    requestedByVariant.set(ri.variantId, (requestedByVariant.get(ri.variantId) ?? 0) + ri.quantity)
+  }
+  for (const [variantId, requested] of requestedByVariant) {
+    const sold = soldByVariant.get(variantId)
+    if (sold == null) throw badRequest(`item_not_in_invoice:${variantId}`)
+    const already = returnedByVariant.get(variantId) ?? 0
+    if (already + requested > sold) throw badRequest(`return_qty_exceeds_sold:${variantId}`)
   }
 
   // Calculate return amount proportionally (service items have no stock to restock)
@@ -605,7 +645,22 @@ export async function cancelInvoice(
   if (invoice.status === 'cancelled') throw badRequest('already_cancelled')
   if (invoice.status === 'returned') throw badRequest('invoice_returned')
 
+  // ACC-01: a fully/partially returned invoice must not also be cancelled — the
+  // return flow already restocked and refunded, so cancelling would double both.
+  // We key off the existence of return rows rather than an overloaded status
+  // (which the revenue reports depend on staying 'completed').
+  const returnCount = await db.return.count({ where: { invoiceId } })
+  if (returnCount > 0) throw badRequest('invoice_returned')
+
   return db.$transaction(async (tx) => {
+    // ACC-06: release the coupon hold so a limited-use coupon isn't consumed by
+    // a sale that never stood. Floor at 0 defensively.
+    if (invoice.couponId) {
+      await tx.$executeRaw`
+        UPDATE coupons SET used_count = GREATEST(used_count - 1, 0)
+        WHERE id = ${invoice.couponId}::uuid
+      `
+    }
     // 1. Restore stock + log movements for product items only (service items have no stock)
     for (const item of invoice.items) {
       if (!item.variantId) continue // skip service line items

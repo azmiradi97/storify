@@ -131,6 +131,22 @@ export async function createContract(
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
+  // LOG-01: batch active product-discount lookups in one query (mirrors the POS
+  // path) instead of a findFirst per line item.
+  const productIds = [...new Set(variants.map((v) => v.productId))]
+  const activeDiscounts = await db.productDiscount.findMany({
+    where: {
+      productId: { in: productIds },
+      isActive: true,
+      startDate: { lte: today },
+      endDate: { gte: today },
+    },
+  })
+  const discountByProduct = new Map<string, (typeof activeDiscounts)[number]>()
+  for (const d of activeDiscounts) {
+    if (!discountByProduct.has(d.productId)) discountByProduct.set(d.productId, d)
+  }
+
   let subtotal = ZERO
   let taxTotal = ZERO
 
@@ -142,20 +158,14 @@ export async function createContract(
     discountAmount: Decimal
     taxAmount: Decimal
     subtotal: Decimal
+    costAtSale: Decimal
   }> = []
 
   for (const item of input.items) {
     const variant = variantMap.get(item.variantId)!
     const unitPrice = toDecimal(item.unitPrice)
 
-    const productDiscount = await db.productDiscount.findFirst({
-      where: {
-        productId: variant.productId,
-        isActive: true,
-        startDate: { lte: today },
-        endDate: { gte: today },
-      },
-    })
+    const productDiscount = discountByProduct.get(variant.productId) ?? null
 
     let itemDiscount = ZERO
     if (productDiscount) {
@@ -182,6 +192,7 @@ export async function createContract(
       discountAmount: itemDiscount,
       taxAmount: itemTax,
       subtotal: itemSubtotal,
+      costAtSale: toDecimal(variant.costPrice),
     })
   }
 
@@ -251,6 +262,7 @@ export async function createContract(
           discountAmount: item.discountAmount,
           taxAmount: item.taxAmount,
           subtotal: item.subtotal,
+          costAtSale: item.costAtSale,
         },
       })
     }
