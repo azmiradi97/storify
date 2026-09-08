@@ -13,6 +13,19 @@ function fmt2(n: number): string {
   return formatMoney(n)
 }
 
+// SEC-06: every value interpolated into a print document must be HTML-escaped.
+// These windows run at the app's origin (about:blank inherits it), so an
+// unescaped product name / customer note like `<img onerror=...>` would execute
+// with access to the in-memory session token. Escape all user-controlled text.
+function esc(v: unknown): string {
+  return String(v ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function openPrintWindow(html: string, width: number, height: number, closeDelayMs = 250): void {
   const win = window.open('', '_blank', `width=${width},height=${height}`)
   if (!win) return
@@ -38,7 +51,7 @@ export interface ReceiptInvoice {
 
 export function printReceipt(inv: ReceiptInvoice): void {
   const rows = inv.items.map((i) =>
-    `<tr><td>${i.productName}<br/><small style="color:#666">${i.sku} × ${i.quantity}</small></td><td style="text-align:left;white-space:nowrap">${Number(i.lineTotal).toFixed(2)} ج</td></tr>`
+    `<tr><td>${esc(i.productName)}<br/><small style="color:#666">${esc(i.sku)} × ${Number(i.quantity)}</small></td><td style="text-align:left;white-space:nowrap">${Number(i.lineTotal).toFixed(2)} ج</td></tr>`
   ).join('')
   const html = `<!DOCTYPE html><html dir="rtl"><head><meta charset="utf-8"><title>إيصال ${inv.invoiceNumber}</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -55,16 +68,16 @@ export function printReceipt(inv: ReceiptInvoice): void {
   </style></head><body>
     <div class="center"><h2>حِسبة</h2><p style="font-size:11px">نقطة البيع</p></div>
     <div class="dashed"></div>
-    <p>رقم الفاتورة: <b>${inv.invoiceNumber}</b></p>
+    <p>رقم الفاتورة: <b>${esc(inv.invoiceNumber)}</b></p>
     <p>التاريخ: ${formatDateTime(inv.createdAt)}</p>
-    ${inv.customerName ? `<p>العميل: ${inv.customerName}</p>` : ''}
-    <p>الدفع: ${inv.paymentMethodName}</p>
+    ${inv.customerName ? `<p>العميل: ${esc(inv.customerName)}</p>` : ''}
+    <p>الدفع: ${esc(inv.paymentMethodName)}</p>
     <div class="dashed"></div>
     <table><tbody>${rows}</tbody></table>
     <div class="dashed"></div>
     <table><tbody>
       <tr><td>المجموع الفرعي</td><td style="text-align:left">${Number(inv.subtotal).toFixed(2)} ج</td></tr>
-      ${inv.couponDiscount && inv.couponDiscount > 0 ? `<tr><td>خصم (${inv.couponCode ?? ''})</td><td style="text-align:left;color:green">-${Number(inv.couponDiscount).toFixed(2)} ج</td></tr>` : ''}
+      ${inv.couponDiscount && inv.couponDiscount > 0 ? `<tr><td>خصم (${esc(inv.couponCode ?? '')})</td><td style="text-align:left;color:green">-${Number(inv.couponDiscount).toFixed(2)} ج</td></tr>` : ''}
       ${inv.feeAmount > 0 ? `<tr><td>رسوم الدفع</td><td style="text-align:left">${Number(inv.feeAmount).toFixed(2)} ج</td></tr>` : ''}
       <tr class="total"><td>الإجمالي</td><td style="text-align:left">${Number(inv.totalAmount).toFixed(2)} ج</td></tr>
     </tbody></table>
@@ -93,8 +106,8 @@ export interface InvoiceForPrint {
 export function printInvoice(inv: InvoiceForPrint): void {
   const rows = (inv.items ?? []).map((item) => `
     <tr>
-      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb">${item.productName}</td>
-      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:center">${item.quantity}</td>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb">${esc(item.productName)}</td>
+      <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:center">${Number(item.quantity)}</td>
       <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:left">${fmt2(Number(item.unitPrice))}</td>
       <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:left">${fmt2(Number(item.totalPrice))}</td>
     </tr>`).join('')
@@ -125,15 +138,15 @@ export function printInvoice(inv: InvoiceForPrint): void {
         <p style="color:#6b7280;font-size:12px">حِسبة POS</p>
       </div>
       <div style="text-align:left">
-        <p style="font-size:18px;font-weight:700;font-family:'IBM Plex Mono',monospace">${inv.invoiceNumber}</p>
+        <p style="font-size:18px;font-weight:700;font-family:'IBM Plex Mono',monospace">${esc(inv.invoiceNumber)}</p>
         <p style="font-size:12px;color:#6b7280">${formatDateTime(inv.createdAt)}</p>
       </div>
     </div>
     <div class="meta">
-      <div class="meta-item"><label>العميل</label><p>${inv.customer?.fullName ?? 'نقدي'}</p></div>
-      <div class="meta-item"><label>طريقة الدفع</label><p>${inv.paymentMethod?.name ?? '—'}</p></div>
-      <div class="meta-item"><label>الكاشير</label><p>${inv.cashier?.fullName ?? '—'}</p></div>
-      <div class="meta-item"><label>الحالة</label><p>${inv.status === 'completed' ? 'مكتملة' : inv.status}</p></div>
+      <div class="meta-item"><label>العميل</label><p>${esc(inv.customer?.fullName ?? 'نقدي')}</p></div>
+      <div class="meta-item"><label>طريقة الدفع</label><p>${esc(inv.paymentMethod?.name ?? '—')}</p></div>
+      <div class="meta-item"><label>الكاشير</label><p>${esc(inv.cashier?.fullName ?? '—')}</p></div>
+      <div class="meta-item"><label>الحالة</label><p>${inv.status === 'completed' ? 'مكتملة' : esc(inv.status)}</p></div>
     </div>
     <table>
       <thead><tr>
@@ -166,9 +179,9 @@ export function printBarcodeLabels(labels: BarcodeLabel[], copies = 1): void {
   const repeated = labels.flatMap((l) => Array(copies).fill(l) as BarcodeLabel[])
   const cells = repeated.map((l) => `
     <div class="label">
-      <p class="name">${l.name}</p>
-      <div class="barcode">${l.barcode || l.sku}</div>
-      <p class="sku">${l.sku} — ${Number(l.price).toFixed(2)} ج</p>
+      <p class="name">${esc(l.name)}</p>
+      <div class="barcode">${esc(l.barcode || l.sku)}</div>
+      <p class="sku">${esc(l.sku)} — ${Number(l.price).toFixed(2)} ج</p>
     </div>
   `).join('')
   const html = `<!DOCTYPE html><html dir="rtl"><head><meta charset="utf-8"><title>ملصقات الباركود</title>
@@ -212,7 +225,7 @@ export interface PurchaseOrderForPrint {
 export function printPurchaseOrder(po: PurchaseOrderForPrint, statusLabel: string): void {
   const poRef = po.id.slice(0, 8).toUpperCase()
   const rows = (po.items ?? []).map((item) =>
-    `<tr><td>${item.variant.product.name}</td><td>${item.variant.sku}</td><td style="text-align:center">${item.quantity}</td><td style="text-align:left">${Number(item.unitCost).toFixed(2)} ج</td><td style="text-align:left">${Number(item.subtotal).toFixed(2)} ج</td></tr>`
+    `<tr><td>${esc(item.variant.product.name)}</td><td>${esc(item.variant.sku)}</td><td style="text-align:center">${Number(item.quantity)}</td><td style="text-align:left">${Number(item.unitCost).toFixed(2)} ج</td><td style="text-align:left">${Number(item.subtotal).toFixed(2)} ج</td></tr>`
   ).join('')
   const html = `<!DOCTYPE html><html dir="rtl"><head><meta charset="utf-8"><title>أمر شراء ${poRef}</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -227,13 +240,13 @@ export function printPurchaseOrder(po: PurchaseOrderForPrint, statusLabel: strin
     @media print{@page{margin:15mm;size:A4}}
   </style></head><body>
     <h1>حِسبة — أمر شراء</h1>
-    <h2>رقم الأمر: <strong>${poRef}</strong> | الحالة: ${statusLabel}</h2>
+    <h2>رقم الأمر: <strong>${esc(poRef)}</strong> | الحالة: ${esc(statusLabel)}</h2>
     <div class="grid">
-      <div><span>المورد</span>${po.supplier?.name ?? '—'}</div>
-      <div><span>الفرع</span>${po.branch?.name ?? '—'}</div>
-      <div><span>أنشأه</span>${po.createdBy?.fullName ?? '—'}</div>
+      <div><span>المورد</span>${esc(po.supplier?.name ?? '—')}</div>
+      <div><span>الفرع</span>${esc(po.branch?.name ?? '—')}</div>
+      <div><span>أنشأه</span>${esc(po.createdBy?.fullName ?? '—')}</div>
       <div><span>تاريخ الإنشاء</span>${formatDate(po.createdAt)}</div>
-      ${po.approvedBy ? `<div><span>وافق عليه</span>${po.approvedBy.fullName}</div>` : ''}
+      ${po.approvedBy ? `<div><span>وافق عليه</span>${esc(po.approvedBy.fullName)}</div>` : ''}
     </div>
     <table>
       <thead><tr><th>المنتج</th><th>SKU</th><th>الكمية</th><th>سعر الوحدة</th><th>الإجمالي</th></tr></thead>
@@ -267,8 +280,8 @@ export interface WorkOrderReceiptData {
 export function printWorkOrderReceipt(wo: WorkOrderReceiptData): void {
   const rows = wo.services.map((s) =>
     `<tr>
-      <td>${s.name}</td>
-      <td style="text-align:center">${s.quantity}</td>
+      <td>${esc(s.name)}</td>
+      <td style="text-align:center">${Number(s.quantity)}</td>
       <td style="text-align:left">${fmt2(s.unitPrice)}</td>
       <td style="text-align:left">${fmt2(s.lineTotal)}</td>
     </tr>`
@@ -298,14 +311,14 @@ export function printWorkOrderReceipt(wo: WorkOrderReceiptData): void {
   </style></head>
   <body>
     <div class="header">
-      <h1>إيصال خدمة — ${wo.ticketNumber}</h1>
-      ${wo.invoiceNumber ? `<p style="font-size:12px;color:#6b7280">فاتورة رقم: ${wo.invoiceNumber}</p>` : ''}
+      <h1>إيصال خدمة — ${esc(wo.ticketNumber)}</h1>
+      ${wo.invoiceNumber ? `<p style="font-size:12px;color:#6b7280">فاتورة رقم: ${esc(wo.invoiceNumber)}</p>` : ''}
       <p style="font-size:12px;color:#6b7280">التاريخ: ${formatDate(wo.createdAt)} — حِسبة Services</p>
     </div>
 
     <div class="meta">
-      <div><span>العميل</span><br/>${wo.customerName ?? 'عميل غير محدد'}</div>
-      <div><span>طريقة الدفع</span><br/>${wo.paymentMethodName ?? '—'}</div>
+      <div><span>العميل</span><br/>${esc(wo.customerName ?? 'عميل غير محدد')}</div>
+      <div><span>طريقة الدفع</span><br/>${esc(wo.paymentMethodName ?? '—')}</div>
     </div>
 
     <h2>الخدمات المنجزة</h2>
@@ -316,8 +329,8 @@ export function printWorkOrderReceipt(wo: WorkOrderReceiptData): void {
       <tfoot><tr class="total-row"><td colspan="3">الإجمالي</td><td style="text-align:left">${fmt2(total)} ج</td></tr></tfoot>
     </table>` : `<p style="color:#6b7280;font-size:12px">لا توجد خدمات مسجلة</p>`}
 
-    ${wo.diagnosisNotes ? `<div class="notes"><strong>ملاحظات التشخيص:</strong> ${wo.diagnosisNotes}</div>` : ''}
-    ${wo.workNotes ? `<div class="notes" style="margin-top:8px"><strong>ملاحظات العمل:</strong> ${wo.workNotes}</div>` : ''}
+    ${wo.diagnosisNotes ? `<div class="notes"><strong>ملاحظات التشخيص:</strong> ${esc(wo.diagnosisNotes)}</div>` : ''}
+    ${wo.workNotes ? `<div class="notes" style="margin-top:8px"><strong>ملاحظات العمل:</strong> ${esc(wo.workNotes)}</div>` : ''}
 
     <p class="paid">المبلغ المدفوع: ${fmt2(wo.paidAmount)} ج</p>
 

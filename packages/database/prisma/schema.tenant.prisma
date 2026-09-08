@@ -477,6 +477,9 @@ model InvoiceItem {
   discountAmount  Decimal @default(0) @db.Decimal(15, 4) @map("discount_amount")
   taxAmount       Decimal @default(0) @db.Decimal(15, 4) @map("tax_amount")
   subtotal        Decimal @db.Decimal(15, 4)
+  // ACC-03: unit cost captured at sale time so COGS is immutable against later
+  // cost_price edits. Null for rows created before migration 017.
+  costAtSale      Decimal? @db.Decimal(15, 4) @map("cost_at_sale")
 
   invoice Invoice         @relation(fields: [invoiceId], references: [id])
   variant ProductVariant? @relation(fields: [variantId], references: [id])

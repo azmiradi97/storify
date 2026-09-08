@@ -142,6 +142,7 @@ export async function createContract(
     discountAmount: Decimal
     taxAmount: Decimal
     subtotal: Decimal
+    costAtSale: Decimal
   }> = []
 
   for (const item of input.items) {
@@ -182,6 +183,7 @@ export async function createContract(
       discountAmount: itemDiscount,
       taxAmount: itemTax,
       subtotal: itemSubtotal,
+      costAtSale: toDecimal(variant.costPrice),
     })
   }
 
@@ -251,6 +253,7 @@ export async function createContract(
           discountAmount: item.discountAmount,
           taxAmount: item.taxAmount,
           subtotal: item.subtotal,
+          costAtSale: item.costAtSale,
         },
       })
     }

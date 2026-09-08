@@ -123,7 +123,7 @@ export async function getSalesReport(
     ...(dateFilter ? { createdAt: dateFilter } : {}),
   }
 
-  const [totals, byPaymentMethod, invoices] = await Promise.all([
+  const [totals, byPaymentMethod, periodRows, invoices] = await Promise.all([
     db.invoice.aggregate({
       where,
       _sum: { totalAmount: true, subtotal: true, taxTotal: true, discountAmount: true, feeAmount: true },
@@ -135,6 +135,11 @@ export async function getSalesReport(
       _sum: { totalAmount: true, feeAmount: true },
       _count: true,
     }),
+    // DATA-01: the time-series must cover EVERY matching invoice, not just the
+    // most recent 500 used for the drill-down table below — otherwise the chart
+    // silently under-reports and won't sum to the headline total. Select only
+    // the two columns the buckets need so this stays cheap.
+    db.invoice.findMany({ where, select: { createdAt: true, totalAmount: true } }),
     db.invoice.findMany({
       where,
       select: {
@@ -165,9 +170,9 @@ export async function getSalesReport(
   })
   const pmMap = new Map(paymentMethods.map((p) => [p.id, p]))
 
-  // Group invoices by period
+  // Group invoices by period (over the FULL matching set — see DATA-01 note)
   const grouped: Record<string, { period: string; revenue: number; count: number }> = {}
-  for (const inv of invoices) {
+  for (const inv of periodRows) {
     const d = inv.createdAt
     let period: string
     if (opts.groupBy === 'month') {
@@ -403,16 +408,18 @@ export async function getProfitLoss(
     _count: true,
   }).catch(() => ({ _sum: { paidAmount: null }, _count: 0 } as const))
 
-  // COGS — cost_price × quantity for all sold items in the period
+  // COGS — cost × quantity for all sold items in the period. ACC-03: prefer the
+  // cost snapshotted at sale time; fall back to the live variant cost only for
+  // rows created before migration 017 (which have no snapshot).
   const soldItems = await db.invoiceItem.findMany({
     where: { invoice: invoiceWhere },
-    include: { variant: { select: { costPrice: true } } },
+    select: { quantity: true, costAtSale: true, variant: { select: { costPrice: true } } },
   })
   // Service items (variantId === null) have no product cost — skip them.
-  const cogs = soldItems.reduce(
-    (sum, item) => item.variant ? sum + toDecimal(item.variant.costPrice).times(item.quantity).toNumber() : sum,
-    0,
-  )
+  const cogs = soldItems.reduce((sum, item) => {
+    const unitCost = item.costAtSale ?? item.variant?.costPrice ?? null
+    return unitCost != null ? sum + toDecimal(unitCost).times(item.quantity).toNumber() : sum
+  }, 0)
 
   // Approved expenses
   const expenseAgg = await db.expense.aggregate({
