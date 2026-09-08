@@ -221,7 +221,10 @@ export async function getStockReport(
   const stock = await db.stock.findMany({
     where: {
       ...branchFilter,
-      ...(opts.lowStockOnly ? {} : {}), // filter applied client-side after fetch
+      // LOG-02: push the low-stock predicate into SQL (column-vs-column via a
+      // Prisma field reference) instead of fetching the whole table and
+      // filtering in memory.
+      ...(opts.lowStockOnly ? { quantity: { lte: db.stock.fields.minQuantity } } : {}),
     },
     include: {
       variant: {
@@ -234,7 +237,7 @@ export async function getStockReport(
     orderBy: [{ branchId: 'asc' }, { variant: { product: { name: 'asc' } } }],
   })
 
-  const filtered = opts.lowStockOnly ? stock.filter((s) => s.quantity <= s.minQuantity) : stock
+  const filtered = stock
 
   const totalVariants = filtered.length
   const lowStockCount = filtered.filter((s) => s.quantity <= s.minQuantity).length

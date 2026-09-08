@@ -420,7 +420,10 @@ export async function createInvoice(
     if (input.customerId) {
       const settings = await tx.tenantSetting.findFirst()
       if (settings?.loyaltyEnabled && settings.loyaltyPointsPerUnit > 0) {
-        const pointsEarned = Math.floor(totalAmount.toNumber() / settings.loyaltyPointsPerUnit)
+        // ACC-04: points earned = spend × points-per-currency-unit. The old code
+        // divided by pointsPerUnit, which inverted the setting (a higher rate
+        // yielded FEWER points, contradicting the field name).
+        const pointsEarned = Math.floor(totalAmount.toNumber() * settings.loyaltyPointsPerUnit)
         if (pointsEarned > 0) {
           const updated = await tx.customer.update({
             where: { id: input.customerId },

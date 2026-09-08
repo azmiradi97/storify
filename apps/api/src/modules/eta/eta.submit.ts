@@ -37,6 +37,15 @@ export async function submitInvoiceToEta(params: EtaSubmitParams): Promise<EtaSu
 
   const client = new EtaClient(clientId, clientSecret, tenantSettings.is_production ?? false)
 
+  // ETA-02: the attempt number is the next in sequence for this invoice, so a
+  // resubmission after a rejection is distinguishable from the first try in the
+  // eta_submissions audit trail (previously every row was hard-coded to 1).
+  const attemptRows = (await db.$queryRawUnsafe(
+    `SELECT COALESCE(MAX(attempt_number), 0) + 1 AS n FROM eta_submissions WHERE invoice_id = $1`,
+    invoiceId,
+  )) as Array<{ n: number | bigint }>
+  const attemptNumber = Number(attemptRows[0]?.n ?? 1)
+
   const document = buildEtaPayload(payloadParams)
   const serialized = serializeCanonical(document)
 
@@ -54,7 +63,7 @@ export async function submitInvoiceToEta(params: EtaSubmitParams): Promise<EtaSu
   } catch (err) {
     await db.$executeRawUnsafe(`
       INSERT INTO eta_submissions (id, invoice_id, attempt_number, status, request_payload, error_message, created_at)
-      VALUES (gen_random_uuid(), $1, 1, 'failed', $2::jsonb, $3, NOW())
+      VALUES (gen_random_uuid(), $1, ${attemptNumber}, 'failed', $2::jsonb, $3, NOW())
     `, invoiceId, JSON.stringify(signedDocument), String(err))
 
     return { success: false, etaStatus: 'failed', etaError: { message: String(err) } }
@@ -70,7 +79,7 @@ export async function submitInvoiceToEta(params: EtaSubmitParams): Promise<EtaSu
   if (accepted) {
     await db.$executeRawUnsafe(`
       INSERT INTO eta_submissions (id, invoice_id, attempt_number, status, submission_id, request_payload, response_body, eta_uuid, created_at)
-      VALUES (gen_random_uuid(), $1, 1, 'accepted', $2, $3::jsonb, $4::jsonb, $5, NOW())
+      VALUES (gen_random_uuid(), $1, ${attemptNumber}, 'accepted', $2, $3::jsonb, $4::jsonb, $5, NOW())
     `, invoiceId, response.submissionId, JSON.stringify(signedDocument), JSON.stringify(response), accepted.uuid)
 
     return {
@@ -86,7 +95,7 @@ export async function submitInvoiceToEta(params: EtaSubmitParams): Promise<EtaSu
 
   await db.$executeRawUnsafe(`
     INSERT INTO eta_submissions (id, invoice_id, attempt_number, status, submission_id, request_payload, response_body, error_message, created_at)
-    VALUES (gen_random_uuid(), $1, 1, 'rejected', $2, $3::jsonb, $4::jsonb, $5, NOW())
+    VALUES (gen_random_uuid(), $1, ${attemptNumber}, 'rejected', $2, $3::jsonb, $4::jsonb, $5, NOW())
   `, invoiceId, response.submissionId ?? null, JSON.stringify(signedDocument), JSON.stringify(response), JSON.stringify(errDetail))
 
   return {
