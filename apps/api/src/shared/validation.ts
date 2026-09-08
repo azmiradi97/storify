@@ -10,3 +10,11 @@ export const passwordSchema = z
   .min(12, 'كلمة المرور يجب ألا تقل عن 12 حرفاً')
   .regex(/[A-Za-z]/, 'كلمة المرور يجب أن تحتوي على حرف إنجليزي واحد على الأقل')
   .regex(/[0-9]/, 'كلمة المرور يجب أن تحتوي على رقم واحد على الأقل')
+
+// MONEY-02: money inputs accept a number OR a numeric string (coerce) and reject
+// NaN / ±Infinity that plain `z.number()` allows. This matters because Postgres
+// `numeric` can actually store 'Infinity', so an unguarded amount could poison a
+// stored total. Output stays a `number`, so downstream code is unaffected.
+export const amountPositive = z.coerce.number().finite().positive()
+export const amountNonNeg = z.coerce.number().finite().min(0)
+export const percent = z.coerce.number().finite().min(0).max(100)

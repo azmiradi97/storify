@@ -115,7 +115,8 @@ export async function customerRoutes(app: FastifyInstance) {
     async (request, reply) => {
       const { z } = await import('zod')
       const schema = z.object({
-        amount: z.number().positive(),
+        // MONEY-02: accept string-or-number, reject NaN/±Infinity.
+        amount: z.coerce.number().finite().positive(),
         type: z.enum(['add', 'deduct']),
         note: z.string().optional(),
       })

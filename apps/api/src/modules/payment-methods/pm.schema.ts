@@ -1,11 +1,12 @@
 import { z } from 'zod'
+import { amountNonNeg, percent } from '../../shared/validation'
 
 export const createPmSchema = z.object({
   name: z.string().min(1).max(100),
   type: z.enum(['cash', 'card', 'ewallet', 'bnpl', 'bank_transfer']),
   feeType: z.enum(['none', 'percentage', 'fixed', 'both']).default('none'),
-  feePercentage: z.number().min(0).default(0),
-  feeFixed: z.number().min(0).default(0),
+  feePercentage: percent.default(0),
+  feeFixed: amountNonNeg.default(0),
   feeBearer: z.enum(['customer', 'merchant', 'negotiable']).default('merchant'),
   notes: z.string().optional(),
 })
@@ -13,8 +14,8 @@ export const createPmSchema = z.object({
 export const updatePmSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   feeType: z.enum(['none', 'percentage', 'fixed', 'both']).optional(),
-  feePercentage: z.number().min(0).optional(),
-  feeFixed: z.number().min(0).optional(),
+  feePercentage: percent.optional(),
+  feeFixed: amountNonNeg.optional(),
   feeBearer: z.enum(['customer', 'merchant', 'negotiable']).optional(),
   isActive: z.boolean().optional(),
   notes: z.string().optional().nullable(),

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { amountNonNeg, amountPositive, percent } from '../../shared/validation'
 
 export const createInvoiceSchema = z.object({
   branchId: z.string().uuid().optional(),
@@ -6,20 +7,20 @@ export const createInvoiceSchema = z.object({
   currencyId: z.string().uuid().optional(),
   customerId: z.string().uuid().optional(),
   couponCode: z.string().optional(),
-  creditAmount: z.coerce.number().min(0).optional(),
+  creditAmount: amountNonNeg.optional(),
   // ACC-04: loyalty points to redeem on this sale (integer). Validated against
   // the customer's balance, the store's loyalty settings, and a max-fraction cap
   // server-side in createInvoice.
   redeemPoints: z.coerce.number().int().min(0).optional(),
   splitPaymentMethodId: z.string().uuid().optional(),
-  splitPaymentAmount: z.coerce.number().min(0).optional(),
+  splitPaymentAmount: amountNonNeg.optional(),
   feeBearer: z.enum(['customer', 'merchant']).optional(),
   notes: z.string().optional(),
   externalFinancing: z
     .object({
       companyName: z.string().min(1).max(200),
       referenceNo: z.string().max(200).optional(),
-      commissionPct: z.number().min(0).max(100).default(0),
+      commissionPct: percent.default(0),
     })
     .optional(),
   items: z
@@ -27,7 +28,7 @@ export const createInvoiceSchema = z.object({
       z.object({
         variantId: z.string().uuid(),
         quantity: z.number().int().positive(),
-        unitPrice: z.number().positive(),
+        unitPrice: amountPositive,
       }),
     )
     .min(1),
