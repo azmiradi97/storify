@@ -1,6 +1,7 @@
 import type { TenantPrismaClient } from '@hesba/database'
 import { Decimal, toDecimal, roundMoney, ZERO } from '../../shared/utils/decimal'
 import { calculateFee } from '../../shared/utils/fee'
+import { computeLoyaltyRedemption, LOYALTY_MIN_REDEEM_POINTS } from '../../shared/utils/loyalty'
 import type { CreateInvoiceInput, ReturnInvoiceInput } from './invoice.schema'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -275,7 +276,32 @@ export async function createInvoice(
   )
   // Credit reduces the amount actually charged via payment method (capped at total)
   if (creditUsed.greaterThan(totalBeforeCredit)) creditUsed = totalBeforeCredit
-  const totalAmount = roundMoney(totalBeforeCredit.minus(creditUsed))
+
+  // ACC-04: loyalty points redemption — applied after credit, capped at 50% of
+  // the sale and at the amount still owed. Validated against the store's loyalty
+  // setting, a minimum-points floor, and the customer's balance.
+  let loyaltyPointsUsed = 0
+  let loyaltyDiscount = ZERO
+  if (input.redeemPoints && input.redeemPoints > 0 && input.customerId) {
+    const [loyaltySettings, loyaltyCustomer] = await Promise.all([
+      db.tenantSetting.findFirst({ select: { loyaltyEnabled: true, loyaltyPointValue: true } }),
+      db.customer.findUnique({ where: { id: input.customerId }, select: { loyaltyPoints: true } }),
+    ])
+    if (!loyaltySettings?.loyaltyEnabled) throw badRequest('loyalty_disabled')
+    if (!loyaltyCustomer) throw badRequest('customer_not_found')
+    if (input.redeemPoints < LOYALTY_MIN_REDEEM_POINTS) throw badRequest('loyalty_below_min')
+    if (input.redeemPoints > loyaltyCustomer.loyaltyPoints) throw badRequest('insufficient_loyalty_points')
+    const redemption = computeLoyaltyRedemption({
+      requestedPoints: input.redeemPoints,
+      pointValue: loyaltySettings.loyaltyPointValue,
+      saleTotal: totalBeforeCredit,
+      amountRemaining: totalBeforeCredit.minus(creditUsed),
+    })
+    loyaltyPointsUsed = redemption.pointsUsed
+    loyaltyDiscount = redemption.discount
+  }
+
+  const totalAmount = roundMoney(totalBeforeCredit.minus(creditUsed).minus(loyaltyDiscount))
 
   const effectiveFeeBearer = input.feeBearer ?? paymentMethod.feeBearer
 
@@ -293,6 +319,20 @@ export async function createInvoice(
       creditBalanceAfter = updated.creditBalance.toString()
     }
 
+    // ACC-04: consume redeemed points. Conditional decrement is race-safe — a
+    // concurrent redemption that already spent the balance leaves count=0 and
+    // aborts the whole invoice instead of driving points negative.
+    let loyaltyBalanceAfterRedeem: number | null = null
+    if (loyaltyPointsUsed > 0 && input.customerId) {
+      const res = await tx.customer.updateMany({
+        where: { id: input.customerId, loyaltyPoints: { gte: loyaltyPointsUsed } },
+        data: { loyaltyPoints: { decrement: loyaltyPointsUsed } },
+      })
+      if (res.count === 0) throw badRequest('insufficient_loyalty_points')
+      const c = await tx.customer.findUnique({ where: { id: input.customerId }, select: { loyaltyPoints: true } })
+      loyaltyBalanceAfterRedeem = c?.loyaltyPoints ?? null
+    }
+
     const invoice = await tx.invoice.create({
       data: {
         branchId: input.branchId,
@@ -303,7 +343,7 @@ export async function createInvoice(
         couponId,
         exchangeRate: toDecimal(currency.rateToBase),
         subtotal,
-        discountAmount: couponDiscount.plus(creditUsed),
+        discountAmount: couponDiscount.plus(creditUsed).plus(loyaltyDiscount),
         taxTotal,
         feePercentage: toDecimal(paymentMethod.feePercentage),
         feeFixed: toDecimal(paymentMethod.feeFixed),
@@ -468,6 +508,23 @@ export async function createInvoice(
             invoiceNumber,
             amount: creditUsed.toString(),
             newBalance: creditBalanceAfter,
+          },
+        },
+      })
+    }
+    if (loyaltyPointsUsed > 0 && input.customerId) {
+      await tx.auditLog.create({
+        data: {
+          actorId: cashierId,
+          entity: 'customer',
+          entityId: input.customerId,
+          action: 'loyalty_redeemed',
+          after: {
+            invoiceId: invoice.id,
+            invoiceNumber,
+            points: loyaltyPointsUsed,
+            amount: loyaltyDiscount.toString(),
+            newBalance: loyaltyBalanceAfterRedeem,
           },
         },
       })
@@ -685,12 +742,13 @@ export async function cancelInvoice(
     //    instrumentation simply skip these steps.
     let refundedCredit = '0'
     let reversedLoyalty = 0
+    let refundedLoyaltyPoints = 0
     if (invoice.customerId) {
       const customerAudits = await tx.auditLog.findMany({
         where: {
           entity: 'customer',
           entityId: invoice.customerId,
-          action: { in: ['credit_used', 'loyalty_earned'] },
+          action: { in: ['credit_used', 'loyalty_earned', 'loyalty_redeemed'] },
         },
       })
       type AuditAfter = { invoiceId?: string; amount?: string; points?: number }
@@ -699,6 +757,9 @@ export async function cancelInvoice(
       )
       const loyaltyEntry = customerAudits.find(
         (e) => e.action === 'loyalty_earned' && (e.after as AuditAfter | null)?.invoiceId === invoiceId,
+      )
+      const loyaltyRedeemedEntry = customerAudits.find(
+        (e) => e.action === 'loyalty_redeemed' && (e.after as AuditAfter | null)?.invoiceId === invoiceId,
       )
 
       if (creditEntry) {
@@ -751,6 +812,33 @@ export async function cancelInvoice(
           })
         }
       }
+      // ACC-04: give back points that were redeemed on this sale.
+      if (loyaltyRedeemedEntry) {
+        const points = Number((loyaltyRedeemedEntry.after as AuditAfter).points ?? 0)
+        if (points > 0) {
+          const updated = await tx.customer.update({
+            where: { id: invoice.customerId },
+            data: { loyaltyPoints: { increment: points } },
+            select: { loyaltyPoints: true },
+          })
+          refundedLoyaltyPoints = points
+          await tx.auditLog.create({
+            data: {
+              actorId,
+              entity: 'customer',
+              entityId: invoice.customerId,
+              action: 'loyalty_redeem_refunded',
+              after: {
+                invoiceId,
+                invoiceNumber: invoice.invoiceNumber,
+                points,
+                newBalance: updated.loyaltyPoints,
+                note: 'استرداد نقاط مستبدلة بسبب إلغاء الفاتورة',
+              },
+            },
+          })
+        }
+      }
     }
 
     // 3. Mark the invoice cancelled
@@ -772,6 +860,7 @@ export async function cancelInvoice(
           itemCount: invoice.items.length,
           refundedCredit,
           reversedLoyalty,
+          refundedLoyaltyPoints,
         },
       },
     })

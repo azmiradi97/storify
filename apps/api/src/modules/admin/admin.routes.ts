@@ -5,6 +5,7 @@ import { config } from '../../config/env'
 import { masterDb, getTenantDb } from '../../config/database'
 import { redis } from '../../config/redis'
 import { hashPassword } from '../../shared/utils/password'
+import { passwordSchema } from '../../shared/validation'
 import { migrateAllTenants } from '@hesba/database'
 import {
   authenticatePlatformAdmin,
@@ -732,7 +733,7 @@ export async function adminRoutes(app: FastifyInstance) {
     const createAdminSchema = z.object({
       email: z.string().email(),
       fullName: z.string().min(1).max(200),
-      password: z.string().min(8),
+      password: passwordSchema,
       role: z.enum(['OWNER', 'ADMIN']).default('ADMIN'),
     })
 
@@ -774,7 +775,7 @@ export async function adminRoutes(app: FastifyInstance) {
       fullName: z.string().min(1).max(200).optional(),
       isActive: z.boolean().optional(),
       role: z.enum(['OWNER', 'ADMIN']).optional(),
-      password: z.string().min(8).optional(),
+      password: passwordSchema.optional(),
     })
 
     scoped.patch<{ Params: { id: string } }>(

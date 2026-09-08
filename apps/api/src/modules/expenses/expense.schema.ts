@@ -1,10 +1,11 @@
 import { z } from 'zod'
+import { amountPositive } from '../../shared/validation'
 
 export const createExpenseSchema = z.object({
   branchId: z.string().uuid(),
   categoryId: z.string().uuid(),
   description: z.string().min(1),
-  amount: z.number().positive(),
+  amount: amountPositive,
   paymentMethod: z.string().max(50).optional(),
   receiptUrl: z.string().url().optional(),
   expenseDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format: YYYY-MM-DD'),
@@ -12,7 +13,7 @@ export const createExpenseSchema = z.object({
 
 export const updateExpenseSchema = z.object({
   description: z.string().min(1).optional(),
-  amount: z.number().positive().optional(),
+  amount: amountPositive.optional(),
   paymentMethod: z.string().max(50).optional().nullable(),
   receiptUrl: z.string().url().optional().nullable(),
   expenseDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),

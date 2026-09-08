@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { amountPositive } from '../../shared/validation'
 
 export const createSupplierSchema = z.object({
   name: z.string().min(1).max(200),
@@ -31,7 +32,7 @@ export const listSuppliersSchema = z.object({
 export const createTransactionSchema = z.object({
   branchId: z.string().uuid(),
   type: z.enum(['payment', 'purchase', 'return']),
-  amount: z.number().positive(),
+  amount: amountPositive,
   reference: z.string().optional(),
   note: z.string().optional(),
 })

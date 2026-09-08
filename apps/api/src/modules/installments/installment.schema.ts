@@ -1,13 +1,14 @@
 import { z } from 'zod'
+import { amountNonNeg, amountPositive, percent } from '../../shared/validation'
 
 export const createInstallmentSchema = z.object({
   branchId: z.string().uuid(),
   paymentMethodId: z.string().uuid(),
   currencyId: z.string().uuid(),
   customerId: z.string().uuid(),
-  downPayment: z.number().min(0),
+  downPayment: amountNonNeg,
   installmentsCount: z.number().int().min(1).max(120),
-  interestRate: z.number().min(0).max(100).default(0),
+  interestRate: percent.default(0),
   firstDueDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Format: YYYY-MM-DD'),
   guarantorName: z.string().max(200).optional(),
   guarantorPhone: z.string().max(50).optional(),
@@ -18,7 +19,7 @@ export const createInstallmentSchema = z.object({
       z.object({
         variantId: z.string().uuid(),
         quantity: z.number().int().positive(),
-        unitPrice: z.number().positive(),
+        unitPrice: amountPositive,
       }),
     )
     .min(1),

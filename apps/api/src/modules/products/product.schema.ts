@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { amountPositive } from '../../shared/validation'
 
 // ─── Variant ──────────────────────────────────────────────────────────────────
 
@@ -6,8 +7,8 @@ export const variantInputSchema = z.object({
   sku: z.string().max(100).optional(),
   barcode: z.string().max(100).optional(),
   attributes: z.record(z.string()).default({}),
-  costPrice: z.number().positive(),
-  sellPrice: z.number().positive(),
+  costPrice: amountPositive,
+  sellPrice: amountPositive,
   imageUrl: z.string().url().optional(),
 })
 
@@ -15,8 +16,8 @@ export const variantUpdateSchema = z.object({
   sku: z.string().max(100).optional(),
   barcode: z.string().max(100).optional(),
   attributes: z.record(z.string()).optional(),
-  costPrice: z.number().positive().optional(),
-  sellPrice: z.number().positive().optional(),
+  costPrice: amountPositive.optional(),
+  sellPrice: amountPositive.optional(),
   imageUrl: z.string().url().optional().nullable(),
   isActive: z.boolean().optional(),
 })

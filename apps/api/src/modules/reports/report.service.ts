@@ -20,6 +20,23 @@ function buildDateFilter(from?: string, to?: string) {
   }
 }
 
+// DATA-03: one correct period-bucketing key shared by every time-series report.
+// Week uses a UTC Monday-floor — the sales report's previous hand-rolled ISO
+// "YYYY-Www" formula was wrong at year boundaries (it keyed the week number off
+// the date's own calendar year and jan-4's LOCAL weekday). Month = YYYY-MM,
+// day = YYYY-MM-DD, week = the Monday date (the shape the returns report already
+// used, so both reports now bucket identically).
+function periodKey(d: Date, groupBy: 'day' | 'week' | 'month'): string {
+  if (groupBy === 'month') return d.toISOString().slice(0, 7)
+  if (groupBy === 'week') {
+    const monday = new Date(d)
+    const day = monday.getUTCDay() || 7 // Sun=0 → treat as 7 so Monday-floor works
+    if (day !== 1) monday.setUTCDate(monday.getUTCDate() - (day - 1))
+    return monday.toISOString().slice(0, 10)
+  }
+  return d.toISOString().slice(0, 10)
+}
+
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 
 export async function getDashboard(db: TenantPrismaClient, tenantId: string, branchId?: string) {
@@ -173,18 +190,7 @@ export async function getSalesReport(
   // Group invoices by period (over the FULL matching set — see DATA-01 note)
   const grouped: Record<string, { period: string; revenue: number; count: number }> = {}
   for (const inv of periodRows) {
-    const d = inv.createdAt
-    let period: string
-    if (opts.groupBy === 'month') {
-      period = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    } else if (opts.groupBy === 'week') {
-      // ISO week
-      const jan4 = new Date(d.getFullYear(), 0, 4)
-      const weekNum = Math.ceil(((d.getTime() - jan4.getTime()) / 86400000 + jan4.getDay() + 1) / 7)
-      period = `${d.getFullYear()}-W${String(weekNum).padStart(2, '0')}`
-    } else {
-      period = d.toISOString().slice(0, 10)
-    }
+    const period = periodKey(inv.createdAt, opts.groupBy)
     if (!grouped[period]) grouped[period] = { period, revenue: 0, count: 0 }
     grouped[period].revenue += toDecimal(inv.totalAmount).toNumber()
     grouped[period].count += 1
@@ -510,21 +516,10 @@ export async function getReturnsReport(
     }),
   ])
 
-  // Bucket by period for the time-series chart.
-  const periodKey = (d: Date) => {
-    if (groupBy === 'month') return d.toISOString().slice(0, 7) // YYYY-MM
-    if (groupBy === 'week') {
-      // ISO-week start (Mon). Cheap floor; not locale-aware but matches sales chart.
-      const monday = new Date(d)
-      const day = monday.getUTCDay() || 7
-      if (day !== 1) monday.setUTCDate(monday.getUTCDate() - (day - 1))
-      return monday.toISOString().slice(0, 10)
-    }
-    return d.toISOString().slice(0, 10) // YYYY-MM-DD
-  }
+  // Bucket by period for the time-series chart (shared helper — see DATA-03).
   const periodMap = new Map<string, { period: string; amount: number; count: number }>()
   for (const r of returns) {
-    const k = periodKey(r.createdAt)
+    const k = periodKey(r.createdAt, groupBy)
     const entry = periodMap.get(k) ?? { period: k, amount: 0, count: 0 }
     entry.amount += Number(r.amount)
     entry.count++

@@ -1,12 +1,13 @@
 import { z } from 'zod'
 import type { FastifyInstance } from 'fastify'
 import { authenticate, requirePermission } from '../../shared/middleware/auth.middleware'
+import { amountPositive, amountNonNeg } from '../../shared/validation'
 
 const couponBody = z.object({
   code: z.string().min(1).max(100).toUpperCase(),
   discountType: z.enum(['percentage', 'fixed']),
-  discountValue: z.coerce.number().positive(),
-  minAmount: z.coerce.number().min(0).optional(),
+  discountValue: amountPositive,
+  minAmount: amountNonNeg.optional(),
   maxUses: z.coerce.number().int().positive().optional(),
   expiresAt: z.string().datetime().optional(),
   isActive: z.boolean().default(true),

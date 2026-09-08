@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { amountPositive } from '../../shared/validation'
 
 export const createPoSchema = z.object({
   supplierId: z.string().uuid(),
@@ -10,7 +11,7 @@ export const createPoSchema = z.object({
       z.object({
         variantId: z.string().uuid(),
         quantity: z.number().int().positive(),
-        unitCost: z.number().positive(),
+        unitCost: amountPositive,
       }),
     )
     .min(1),
@@ -28,7 +29,7 @@ export const updatePoSchema = z.object({
       z.object({
         variantId: z.string().uuid(),
         quantity: z.number().int().positive(),
-        unitCost: z.number().positive(),
+        unitCost: amountPositive,
       }),
     )
     .min(1)
@@ -53,7 +54,7 @@ export const receivePoSchema = z.object({
 })
 
 export const poPaymentSchema = z.object({
-  amount: z.number().positive(),
+  amount: amountPositive,
   paymentMethod: z.string().max(50).optional(),
   receiptUrl: z.string().url().optional(),
 })

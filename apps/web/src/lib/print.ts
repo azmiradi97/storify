@@ -198,13 +198,11 @@ export function printBarcodeLabels(labels: BarcodeLabel[], copies = 1): void {
       @media print{@page{margin:6mm;size:A4}body{padding:0}}
     </style></head><body>
     <div class="grid">${cells}</div>
-    <script>window.onload=function(){window.print();window.close()}</script>
   </body></html>`
-  // Self-closing script in HTML handles print/close, so no setTimeout needed here
-  const win = window.open('', '_blank', 'width=800,height=600')
-  if (!win) return
-  win.document.write(html)
-  win.document.close()
+  // SEC-01: no inline <script> in the printed document — the parent triggers
+  // print/close via openPrintWindow so a strict script-src CSP holds. Barcode
+  // fonts need a beat to load before printing, hence the longer close delay.
+  openPrintWindow(html, 800, 600, 500)
 }
 
 // ─── Purchase order ──────────────────────────────────────────────────────────
