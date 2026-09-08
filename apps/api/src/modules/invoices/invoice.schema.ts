@@ -7,6 +7,10 @@ export const createInvoiceSchema = z.object({
   customerId: z.string().uuid().optional(),
   couponCode: z.string().optional(),
   creditAmount: z.coerce.number().min(0).optional(),
+  // ACC-04: loyalty points to redeem on this sale (integer). Validated against
+  // the customer's balance, the store's loyalty settings, and a max-fraction cap
+  // server-side in createInvoice.
+  redeemPoints: z.coerce.number().int().min(0).optional(),
   splitPaymentMethodId: z.string().uuid().optional(),
   splitPaymentAmount: z.coerce.number().min(0).optional(),
   feeBearer: z.enum(['customer', 'merchant']).optional(),

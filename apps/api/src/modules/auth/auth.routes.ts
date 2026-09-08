@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import type { FastifyInstance } from 'fastify'
 import { config } from '../../config/env'
+import { passwordSchema } from '../../shared/validation'
 import {
   loginUser,
   getRefreshTokenData,
@@ -27,7 +28,7 @@ const forgotSchema = z.object({ email: z.string().email() })
 
 const resetSchema = z.object({
   token: z.string().min(1),
-  newPassword: z.string().min(8),
+  newPassword: passwordSchema,
 })
 
 function cookieOpts(maxAge: number) {
@@ -328,7 +329,7 @@ export async function authRoutes(app: FastifyInstance) {
   const createUserSchema = z.object({
     fullName: z.string().min(1),
     email: z.string().email(),
-    password: z.string().min(8),
+    password: passwordSchema,
     roleId: z.string().uuid(),
     branchId: z.string().uuid().optional(),
   })
@@ -570,7 +571,7 @@ export async function authRoutes(app: FastifyInstance) {
   // ─── PATCH /api/auth/me/password — change own password ───────────────────
   const changePasswordSchema = z.object({
     currentPassword: z.string().min(1),
-    newPassword: z.string().min(8),
+    newPassword: passwordSchema,
   })
 
   app.patch('/me/password', { preHandler: [authenticate] }, async (request, reply) => {

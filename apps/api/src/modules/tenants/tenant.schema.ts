@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { passwordSchema } from '../../shared/validation'
 
 export const registerTenantSchema = z.object({
   name: z.string().min(2).max(200),
@@ -10,7 +11,7 @@ export const registerTenantSchema = z.object({
   planSlug: z.enum(['starter', 'professional', 'enterprise']),
   ownerName: z.string().min(2).max(200),
   ownerEmail: z.string().email(),
-  ownerPassword: z.string().min(8),
+  ownerPassword: passwordSchema,
 })
 
 export type RegisterTenantInput = z.infer<typeof registerTenantSchema>
