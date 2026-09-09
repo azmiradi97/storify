@@ -10,6 +10,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import { Button, Input, Badge, Table, Drawer, Pagination, Modal, Alert, DateRangePicker, Select, ConfirmDialog } from '@/components/ui'
 import { api } from '@/api/client'
 import { cn } from '@/lib/cn'
+import { passwordSchema } from '@/lib/validation'
 import type { PaginationMeta } from '@/types/api'
 import { exportRowsToExcel } from '@/lib/export'
 import { formatDate, formatDateTime } from '@/lib/format'
@@ -764,7 +765,7 @@ interface Role {
 const userSchema = z.object({
   fullName: z.string().min(1, 'الاسم مطلوب'),
   email: z.string().email('بريد غير صالح'),
-  password: z.string().min(8, 'كلمة المرور يجب أن تكون 8 أحرف على الأقل'),
+  password: passwordSchema,
   roleId: z.string().uuid('اختر دوراً'),
   branchId: z.string().uuid().optional().or(z.literal('')),
 })
@@ -1718,7 +1719,7 @@ function AuditLogSettings() {
 
 const pwSchema = z.object({
   currentPassword: z.string().min(1, 'كلمة المرور الحالية مطلوبة'),
-  newPassword: z.string().min(8, 'كلمة المرور الجديدة يجب أن تكون 8 أحرف على الأقل'),
+  newPassword: passwordSchema,
   confirmPassword: z.string().min(1, 'تأكيد كلمة المرور مطلوب'),
 }).refine((d) => d.newPassword === d.confirmPassword, {
   message: 'كلمتا المرور غير متطابقتان',
