@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { passwordSchema } from '@/lib/validation'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
@@ -28,7 +29,7 @@ const schema = z.object({
   planSlug: z.string().min(1, 'اختر الباقة'),
   ownerName: z.string().min(2, 'الاسم مطلوب'),
   ownerEmail: z.string().email('بريد إلكتروني غير صالح'),
-  ownerPassword: z.string().min(8, 'كلمة المرور يجب أن تكون 8 أحرف على الأقل'),
+  ownerPassword: passwordSchema,
 })
 
 type FormData = z.infer<typeof schema>

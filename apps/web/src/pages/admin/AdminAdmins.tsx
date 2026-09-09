@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { passwordSchema } from '@/lib/validation'
 import toast from 'react-hot-toast'
 import { Plus, ShieldX } from 'lucide-react'
 import { Navigate } from 'react-router-dom'
@@ -26,7 +27,7 @@ interface AdminRow {
 const createSchema = z.object({
   email: z.string().email(),
   fullName: z.string().min(1),
-  password: z.string().min(8, 'الحد الأدنى 8 أحرف'),
+  password: passwordSchema,
   role: z.enum(['OWNER', 'ADMIN']).default('ADMIN'),
 })
 type CreateForm = z.infer<typeof createSchema>
@@ -169,7 +170,7 @@ function CreateAdminModal({ onClose, onCreated }: { onClose: () => void; onCreat
       <div className="flex flex-col gap-3">
         <Input label="الاسم الكامل" error={errors.fullName?.message} {...register('fullName')} />
         <Input label="البريد الإلكتروني" type="email" error={errors.email?.message} {...register('email')} />
-        <Input label="كلمة المرور" type="password" error={errors.password?.message} {...register('password')} hint="الحد الأدنى 8 أحرف" />
+        <Input label="كلمة المرور" type="password" error={errors.password?.message} {...register('password')} hint="12 حرفاً على الأقل، مع حرف ورقم" />
         <Select label="الدور" {...register('role')}>
           <option value="ADMIN">مسؤول (وصول كامل، لا يدير مسؤولين)</option>
           <option value="OWNER">مالك (يدير المسؤولين)</option>
