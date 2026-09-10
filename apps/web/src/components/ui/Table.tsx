@@ -48,7 +48,7 @@ export function Table<T>({
     <div className={cn('overflow-x-auto rounded-xl border border-gray-700', className)}>
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-700 bg-gray-900">
+          <tr className="border-b border-gray-700 bg-gray-750">
             {selection && (
               <th className="w-10 px-3 py-3">
                 <CheckboxCell
@@ -75,8 +75,13 @@ export function Table<T>({
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan={totalCols} className="text-center py-12 text-gray-500">
-                {emptyMessage}
+              <td colSpan={totalCols} className="text-center py-14">
+                <div className="flex flex-col items-center gap-2 text-gray-500">
+                  <svg className="w-8 h-8 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
+                  </svg>
+                  <span className="text-sm">{emptyMessage}</span>
+                </div>
               </td>
             </tr>
           ) : (

@@ -172,7 +172,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
           <select
             value={typeFilter}
             onChange={(e) => { setTypeFilter(e.target.value as typeof typeFilter); setTxnPage(1) }}
-            className="bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-xs text-gray-100 focus:outline-none focus:border-brand-500"
+            className="bg-gray-800 border border-gray-700 rounded px-2 py-1.5 text-xs text-gray-100 focus:outline-none focus:border-brand-500"
           >
             <option value="">كل الأنواع</option>
             <option value="purchase">مشتريات</option>
@@ -288,7 +288,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
           <Input label="مرجع (رقم شيك / تحويل)" {...register('reference')} />
           <div>
             <label className="text-sm text-gray-400 block mb-1">ملاحظة (اختياري)</label>
-            <textarea {...register('note')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+            <textarea {...register('note')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
         </div>
       </Modal>
@@ -446,7 +446,7 @@ export default function Suppliers() {
           <div>
             <label className="text-sm text-gray-400 block mb-1">ملاحظات</label>
             <textarea {...register('notes')} rows={3}
-              className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
         </form>
       </Drawer>

@@ -142,7 +142,7 @@ function BudgetUpsertModal({
                 disabled={!!existing}
                 className={cn(
                   'flex-1 px-3 py-2 rounded-md text-sm border transition-colors disabled:opacity-60',
-                  period === p ? 'border-brand-500 bg-brand-600/10 text-brand-300' : 'border-gray-600 text-gray-400',
+                  period === p ? 'border-brand-500 bg-brand-500/10 text-brand-400' : 'border-gray-600 text-gray-400',
                 )}
               >
                 {p === 'monthly' ? 'شهرياً' : 'سنوياً'}
@@ -343,7 +343,7 @@ function TemplateUpsertDrawer({
         <Input label="اسم القالب" placeholder="مثال: إيجار المحل" error={errors.name?.message} {...register('name')} />
         <div>
           <label className="text-sm text-gray-400 block mb-1">الوصف</label>
-          <textarea {...register('description')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+          <textarea {...register('description')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           {errors.description && <p className="text-xs text-danger-400 mt-1">{errors.description.message}</p>}
         </div>
         <Input label="المبلغ (ج)" type="number" step="0.01" error={errors.amount?.message} {...register('amount')} />

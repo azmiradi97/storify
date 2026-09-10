@@ -143,7 +143,7 @@ function ReceiveModal({ po, onClose, onConfirm, isPending }: { po: PurchaseOrder
                         value={qty[it.id] ?? 0}
                         disabled={outstanding === 0}
                         onChange={(e) => setItemQty(it.id, Number(e.target.value), outstanding)}
-                        className="w-16 text-center bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-gray-100 font-mono focus:outline-none focus:border-brand-500 disabled:opacity-40"
+                        className="w-16 text-center bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm text-gray-100 font-mono focus:outline-none focus:border-brand-500 disabled:opacity-40"
                       />
                     </td>
                   </tr>
@@ -161,7 +161,7 @@ function ReceiveModal({ po, onClose, onConfirm, isPending }: { po: PurchaseOrder
         <Input label="تاريخ الاستلام" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         <div>
           <label className="text-sm text-gray-400 block mb-1">ملاحظات (اختياري)</label>
-          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
         </div>
       </div>
     </Modal>
@@ -250,7 +250,7 @@ function VariantSearchField({
         value={selected || q}
         placeholder="بحث عن منتج بالاسم أو SKU..."
         onChange={(e) => { setSelected(''); search(e.target.value) }}
-        className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500"
+        className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)]"
       />
       <input type="hidden" {...register(`items.${index}.variantId`)} />
       {results.length > 0 && (

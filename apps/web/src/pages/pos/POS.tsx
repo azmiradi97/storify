@@ -635,7 +635,7 @@ export default function POS() {
                         className={cn(
                           'flex items-center justify-between rounded-md px-3 py-2 text-sm border transition-all',
                           selectedPM?.id === pm.id
-                            ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                            ? 'bg-brand-500/12 border-brand-500 text-brand-400'
                             : 'border-gray-700 text-gray-300 hover:border-gray-500',
                         )}
                       >
@@ -654,7 +654,7 @@ export default function POS() {
                       className={cn(
                         'flex-1 py-1 rounded text-xs border transition-all',
                         feeBearer === 'merchant'
-                          ? 'border-brand-500 text-brand-400 bg-brand-600/10'
+                          ? 'border-brand-500 text-brand-400 bg-brand-500/10'
                           : 'border-gray-700 text-gray-500',
                       )}
                     >
@@ -686,7 +686,7 @@ export default function POS() {
                   onClick={() => setSelectedCurrency(null)}
                   className={cn(
                     'px-2.5 py-1 rounded text-xs border transition-all',
-                    !selectedCurrency ? 'border-brand-500 text-brand-300 bg-brand-600/20' : 'border-gray-700 text-gray-400 hover:border-gray-500',
+                    !selectedCurrency ? 'border-brand-500 text-brand-400 bg-brand-500/12' : 'border-gray-700 text-gray-400 hover:border-gray-500',
                   )}
                 >
                   افتراضي
@@ -697,7 +697,7 @@ export default function POS() {
                     onClick={() => setSelectedCurrency(selectedCurrency?.id === c.id ? null : c)}
                     className={cn(
                       'px-2.5 py-1 rounded text-xs border transition-all font-mono',
-                      selectedCurrency?.id === c.id ? 'border-brand-500 text-brand-300 bg-brand-600/20' : 'border-gray-700 text-gray-400 hover:border-gray-500',
+                      selectedCurrency?.id === c.id ? 'border-brand-500 text-brand-400 bg-brand-500/12' : 'border-gray-700 text-gray-400 hover:border-gray-500',
                     )}
                   >
                     {c.code} ({c.symbol})
@@ -737,7 +737,7 @@ export default function POS() {
                         className={cn(
                           'flex items-center justify-between rounded-md px-3 py-1.5 text-xs border transition-all',
                           splitPM?.id === pm.id
-                            ? 'bg-brand-600/20 border-brand-500 text-brand-300'
+                            ? 'bg-brand-500/12 border-brand-500 text-brand-400'
                             : 'border-gray-700 text-gray-400 hover:border-gray-500',
                         )}
                       >
@@ -755,7 +755,7 @@ export default function POS() {
                         min={0}
                         max={Math.max(0, total - appliedCredit)}
                         step={0.01}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-1.5 text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
+                        className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
                         dir="ltr"
                       />
                       {splitAmountNum > 0 && (
@@ -793,7 +793,7 @@ export default function POS() {
                   onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                   onKeyDown={(e) => e.key === 'Enter' && validateCoupon()}
                   placeholder="كود الخصم..."
-                  className="flex-1 bg-gray-700 border border-gray-600 rounded-md px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
                 />
                 <button
                   onClick={validateCoupon}
