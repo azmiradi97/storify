@@ -617,7 +617,7 @@ function Pricing({ plans }: { plans: Plan[] }) {
                         <div className="text-xs text-gray-500 mb-1">ابتداءً من</div>
                         <div className="flex items-baseline gap-1">
                           <span className="font-numeric text-4xl font-bold num num-primary">
-                            {ENTERPRISE_ANCHOR_PRICE.toLocaleString()}
+                            {ENTERPRISE_ANCHOR_PRICE.toLocaleString('ar-EG-u-nu-latn')}
                           </span>
                           <span className="text-gray-400 text-sm">جنيه / شهر</span>
                         </div>
@@ -640,10 +640,10 @@ function Pricing({ plans }: { plans: Plan[] }) {
                           const savings = Math.max(0, yearlyEquivOfMonthly - annual)
                           return (
                             <p className="text-xs text-success-500 mt-1">
-                              فاتورة سنوية {annual.toLocaleString()} جنيه
+                              فاتورة سنوية {annual.toLocaleString('ar-EG-u-nu-latn')} جنيه
                               {savings > 0 && (
                                 <span className="mr-1 text-gray-400">
-                                  (توفير {savings.toLocaleString()} جنيه/سنة)
+                                  (توفير {savings.toLocaleString('ar-EG-u-nu-latn')} جنيه/سنة)
                                 </span>
                               )}
                             </p>

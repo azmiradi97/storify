@@ -282,7 +282,7 @@ export async function customerRoutes(app: FastifyInstance) {
       for (const i of invoices) {
         invSheet.addRow([
           i.invoice_number ?? '—',
-          new Date(i.created_at).toLocaleDateString('ar-EG'),
+          new Date(i.created_at).toLocaleDateString('ar-EG-u-nu-latn'),
           i.pm_name ?? '—',
           Number(i.total_amount),
           i.status,
@@ -295,7 +295,7 @@ export async function customerRoutes(app: FastifyInstance) {
       instSheet.addRow(['التاريخ', 'إجمالي العقد', 'المتبقي', 'الحالة'])
       headerStyle(instSheet.lastRow!)
       for (const c of installments) {
-        instSheet.addRow([new Date(c.created_at).toLocaleDateString('ar-EG'), Number(c.total_amount), Number(c.remaining_amount), c.status])
+        instSheet.addRow([new Date(c.created_at).toLocaleDateString('ar-EG-u-nu-latn'), Number(c.total_amount), Number(c.remaining_amount), c.status])
       }
       instSheet.columns.forEach((c) => { c.width = 18 })
 
@@ -304,7 +304,7 @@ export async function customerRoutes(app: FastifyInstance) {
       retSheet.addRow(['رقم الفاتورة', 'التاريخ', 'المبلغ', 'النوع'])
       headerStyle(retSheet.lastRow!)
       for (const r of returns) {
-        retSheet.addRow([r.invoice_number ?? '—', new Date(r.created_at).toLocaleDateString('ar-EG'), Number(r.amount), r.return_type === 'refund' ? 'استرداد نقدي' : 'رصيد'])
+        retSheet.addRow([r.invoice_number ?? '—', new Date(r.created_at).toLocaleDateString('ar-EG-u-nu-latn'), Number(r.amount), r.return_type === 'refund' ? 'استرداد نقدي' : 'رصيد'])
       }
       retSheet.columns.forEach((c) => { c.width = 18 })
 

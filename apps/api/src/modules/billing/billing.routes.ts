@@ -159,7 +159,7 @@ export async function billingRoutes(app: FastifyInstance) {
           template: 'subscription_cancellation_scheduled',
           data: {
             tenantName: tenant.name,
-            periodEnd: updated.currentPeriodEnd.toLocaleDateString('ar-EG'),
+            periodEnd: updated.currentPeriodEnd.toLocaleDateString('ar-EG-u-nu-latn'),
           },
         }).catch(() => {})
       }
