@@ -149,7 +149,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
         <div className="overflow-x-auto rounded-lg border border-gray-700">
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-gray-900/70 border-b border-gray-700">
+              <tr className="bg-gray-750 border-b border-gray-700">
                 <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium w-10">#</th>
                 <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">الاستحقاق</th>
                 <th className="text-right px-3 py-2.5 text-[11px] text-gray-500 font-medium">المبلغ</th>

@@ -78,7 +78,7 @@ export function Drawer({ open, onClose, title, children, width = 'w-96', footer 
     <>
       <div
         className={cn(
-          'fixed inset-0 z-modal bg-gray-900/70 backdrop-blur-sm transition-opacity duration-slow',
+          'fixed inset-0 z-modal bg-black/40 backdrop-blur-sm transition-opacity duration-slow',
           open ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
         onClick={onClose}
@@ -108,7 +108,7 @@ export function Drawer({ open, onClose, title, children, width = 'w-96', footer 
               type="button"
               onClick={onClose}
               aria-label="إغلاق"
-              className="shrink-0 w-9 h-9 rounded-md bg-gray-700/60 hover:bg-gray-600 text-gray-200 hover:text-white flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="shrink-0 w-9 h-9 rounded-md bg-gray-750 hover:bg-gray-700 text-gray-400 hover:text-gray-100 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
               <X className="w-5 h-5" />
             </button>

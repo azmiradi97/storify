@@ -124,7 +124,7 @@ export default function AdminDashboard() {
               <h3 className="text-sm font-semibold text-gray-100 mb-1">ترقيات قاعدة البيانات (Tenant Migrations)</h3>
               <p className="text-xs text-gray-500 mb-3">تطبيق أي ملفات SQL جديدة على جميع المتاجر — آمن للتشغيل مرات متعددة (idempotent).</p>
               {migrationResult && (
-                <div className={`text-xs rounded-lg px-3 py-2 mb-3 ${migrationResult.failed === 0 ? 'bg-success-900/30 text-success-300' : 'bg-danger-900/30 text-danger-300'}`}>
+                <div className={`text-xs rounded-lg px-3 py-2 mb-3 ${migrationResult.failed === 0 ? 'bg-success-50 text-success-700' : 'bg-danger-50 text-danger-700'}`}>
                   ✅ {migrationResult.ok} متجر نجح · {migrationResult.failed > 0 ? `❌ ${migrationResult.failed} فشل` : '0 فشل'}
                   {migrationResult.errors.map((e) => (
                     <div key={e.tenantId} className="mt-1 text-danger-400 font-mono truncate">{e.tenantId}: {e.err}</div>

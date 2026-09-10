@@ -98,14 +98,14 @@
 }
 
 @layer components {
-  /* Shimmer skeleton */
+  /* Shimmer skeleton — uses gray-800/gray-750 so a palette change propagates */
   .skeleton {
     @apply bg-gray-800 rounded;
     background: linear-gradient(
       90deg,
-      #EEF4ED 25%,
-      #DCE6DE 50%,
-      #EEF4ED 75%
+      theme('colors.gray.800') 25%,
+      theme('colors.gray.750') 50%,
+      theme('colors.gray.800') 75%
     );
     background-size: 200% 100%;
     animation: shimmer 1500ms infinite;

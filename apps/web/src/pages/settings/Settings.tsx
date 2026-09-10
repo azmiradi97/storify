@@ -1695,7 +1695,7 @@ function AuditLogSettings() {
             {detail.before !== undefined && (
               <div>
                 <p className="text-xs text-gray-500 mb-1.5">قبل</p>
-                <pre dir="ltr" className="bg-gray-900 border border-danger-500/20 rounded-md p-3 text-xs text-danger-300 overflow-auto max-h-64 font-mono whitespace-pre-wrap break-words">
+                <pre dir="ltr" className="bg-danger-50 border border-danger-500/20 rounded-md p-3 text-xs text-danger-700 overflow-auto max-h-64 font-mono whitespace-pre-wrap break-words">
                   {JSON.stringify(detail.before, null, 2)}
                 </pre>
               </div>
@@ -1703,7 +1703,7 @@ function AuditLogSettings() {
             {detail.after !== undefined && (
               <div>
                 <p className="text-xs text-gray-500 mb-1.5">بعد</p>
-                <pre dir="ltr" className="bg-gray-900 border border-success-500/20 rounded-md p-3 text-xs text-success-300 overflow-auto max-h-64 font-mono whitespace-pre-wrap break-words">
+                <pre dir="ltr" className="bg-success-50 border border-success-500/20 rounded-md p-3 text-xs text-success-700 overflow-auto max-h-64 font-mono whitespace-pre-wrap break-words">
                   {JSON.stringify(detail.after, null, 2)}
                 </pre>
               </div>
