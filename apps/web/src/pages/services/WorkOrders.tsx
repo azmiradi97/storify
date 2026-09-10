@@ -413,8 +413,8 @@ function WorkOrderDetail({ id }: { id: string }) {
         </div>
         <div className="grid grid-cols-3 gap-2">
           <SmallStat label="الإجمالي" value={`${formatMoney(total)} ج`} color="text-gray-100" />
-          <SmallStat label="مدفوع" value={`${formatMoney(paid)} ج`} color="text-success-400" />
-          <SmallStat label="متبقي" value={`${formatMoney(remaining)} ج`} color={remaining > 0 ? 'text-warning-400' : 'text-gray-500'} />
+          <SmallStat label="مدفوع" value={`${formatMoney(paid)} ج`} color="text-success-600" />
+          <SmallStat label="متبقي" value={`${formatMoney(remaining)} ج`} color={remaining > 0 ? 'text-warning-600' : 'text-gray-500'} />
         </div>
         {wo.paymentMethod && (
           <p className="text-xs text-gray-500 mt-2">
@@ -528,7 +528,7 @@ function WorkOrderDetail({ id }: { id: string }) {
             {wo.paymentMethod ? (
               <p>طريقة الدفع: <span className="text-gray-100 font-medium">{wo.paymentMethod.name}</span></p>
             ) : (
-              <p className="text-warning-400">⚠️ لا توجد طريقة دفع مسجلة — سجّل دفعة أولاً ثم أصدر الفاتورة.</p>
+              <p className="text-warning-600">⚠️ لا توجد طريقة دفع مسجلة — سجّل دفعة أولاً ثم أصدر الفاتورة.</p>
             )}
             <p className="text-xs text-gray-500">لا يمكن التراجع عن هذه العملية.</p>
           </div>

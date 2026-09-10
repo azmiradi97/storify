@@ -160,7 +160,7 @@ export default function Dashboard() {
               type="button"
               onClick={() => refetchDashboard()}
               disabled={isRefetching}
-              className="text-sm font-medium text-brand-300 hover:text-brand-200 disabled:opacity-50"
+              className="text-sm font-medium text-brand-300 hover:text-brand-600 disabled:opacity-50"
             >
               {isRefetching ? 'جارٍ المحاولة…' : 'إعادة المحاولة'}
             </button>
@@ -307,7 +307,7 @@ export default function Dashboard() {
             >
               <PackageOpen className="w-5 h-5 text-warning-500 shrink-0" />
               <div className="flex-1">
-                <p className="text-sm font-medium text-warning-400">{data?.lowStockAlerts} صنف منخفض المخزون</p>
+                <p className="text-sm font-medium text-warning-600">{data?.lowStockAlerts} صنف منخفض المخزون</p>
                 <p className="text-xs text-gray-500">اضغط لعرض المخزون المنخفض</p>
               </div>
             </button>
@@ -319,7 +319,7 @@ export default function Dashboard() {
           <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">أحدث الفواتير</p>
-              <button onClick={() => navigate('/invoices')} className="text-xs text-brand-400 hover:text-brand-300 transition-colors">
+              <button onClick={() => navigate('/invoices')} className="text-xs text-brand-400 hover:text-brand-600 transition-colors">
                 عرض الكل ←
               </button>
             </div>
@@ -374,7 +374,7 @@ export default function Dashboard() {
             <div className="mt-4 bg-gray-800 border border-gray-700 rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">أكثر المنتجات مبيعاً اليوم</p>
-                <button onClick={() => navigate('/reports')} className="text-xs text-brand-400 hover:text-brand-300 transition-colors">التقارير ←</button>
+                <button onClick={() => navigate('/reports')} className="text-xs text-brand-400 hover:text-brand-600 transition-colors">التقارير ←</button>
               </div>
               <div className="flex flex-col gap-2">
                 {topProducts.map((p, i) => (

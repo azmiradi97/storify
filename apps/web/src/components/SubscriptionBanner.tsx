@@ -141,13 +141,13 @@ function bannerFor(sub: SubscriptionStatusData): BannerState | null {
 }
 
 const LEVEL_STYLES: Record<Level, string> = {
-  info: 'bg-brand-500/10 border-brand-500/30 text-brand-100',
-  warning: 'bg-warning-500/10 border-warning-500/30 text-warning-100',
-  danger: 'bg-danger-500/10 border-danger-500/30 text-danger-100',
+  info: 'bg-brand-500/10 border-brand-500/30 text-brand-600',
+  warning: 'bg-warning-500/10 border-warning-500/30 text-warning-700',
+  danger: 'bg-danger-500/10 border-danger-500/30 text-danger-700',
 }
 
 const LEVEL_ICON: Record<Level, string> = {
-  info: 'text-brand-300',
+  info: 'text-brand-500',
   warning: 'text-warning-500',
   danger: 'text-danger-500',
 }

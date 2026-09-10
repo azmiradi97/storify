@@ -478,16 +478,16 @@ export default function Reports() {
                     margin?: number
                     indent?: boolean
                   }> = [
-                    { label: 'الإيرادات', value: pnlData?.revenue ?? 0, cls: 'text-success-400' },
+                    { label: 'الإيرادات', value: pnlData?.revenue ?? 0, cls: 'text-success-600' },
                     ...(hasServicesRev
                       ? [
-                          { label: '— مبيعات (فواتير)', value: pnlData?.invoiceRevenue ?? 0, cls: 'text-success-400/70', indent: true },
+                          { label: '— مبيعات (فواتير)', value: pnlData?.invoiceRevenue ?? 0, cls: 'text-success-600/70', indent: true },
                           { label: '— خدمات (طلبات عمل)', value: pnlData?.servicesRevenue ?? 0, cls: 'text-cyan-400/80', indent: true },
                         ]
                       : []),
-                    { label: 'تكلفة المبيعات (COGS)', value: -(pnlData?.cogs ?? 0), cls: 'text-danger-400' },
+                    { label: 'تكلفة المبيعات (COGS)', value: -(pnlData?.cogs ?? 0), cls: 'text-danger-600' },
                     { label: 'إجمالي الربح', value: pnlData?.grossProfit ?? 0, cls: 'text-brand-400 font-semibold', margin: pnlData?.grossMargin },
-                    { label: 'مصروفات التشغيل', value: -(pnlData?.operatingExpenses ?? 0), cls: 'text-danger-400' },
+                    { label: 'مصروفات التشغيل', value: -(pnlData?.operatingExpenses ?? 0), cls: 'text-danger-600' },
                     { label: 'صافي الربح', value: pnlData?.netProfit ?? 0, cls: 'text-success-600 font-bold text-base', margin: pnlData?.netMargin },
                   ]
                   return rows.map((row) => (
@@ -764,7 +764,7 @@ export default function Reports() {
                   <Table
                     columns={[
                       { key: 'reason', header: 'السبب', render: (r) => <span className="text-gray-100">{r.reason}</span> },
-                      { key: 'count', header: 'عدد المرات', render: (r) => <span className="font-mono text-warning-400">{r.count}</span> },
+                      { key: 'count', header: 'عدد المرات', render: (r) => <span className="font-mono text-warning-600">{r.count}</span> },
                       { key: 'amount', header: 'الإجمالي', render: (r) => <Money value={r.amount} /> },
                     ]}
                     data={returnsData.topReasons}

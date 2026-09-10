@@ -1068,7 +1068,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
                         <button
                           type="button"
                           onClick={() => setDeleteTarget(r)}
-                          className="text-gray-500 hover:text-danger-400 transition-colors p-0.5"
+                          className="text-gray-500 hover:text-danger-600 transition-colors p-0.5"
                           aria-label={`حذف ${r.name}`}
                           title="حذف"
                         >
@@ -1080,7 +1080,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
                   {r.isSystem
                     ? <span className="block text-[10px] text-gray-500 font-normal">نظامي</span>
                     : editing && isDirty(r)
-                      ? <span className="block text-[10px] text-warning-400 font-normal">معدّل</span>
+                      ? <span className="block text-[10px] text-warning-600 font-normal">معدّل</span>
                       : null}
                 </th>
               ))}
@@ -1108,7 +1108,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
                       return (
                         <td key={r.id} className="px-3 py-2 text-center">
                           {granted ? (
-                            <span className="inline-flex w-5 h-5 rounded-full bg-success-500/15 text-success-400 items-center justify-center" aria-label="مسموح">
+                            <span className="inline-flex w-5 h-5 rounded-full bg-success-500/15 text-success-600 items-center justify-center" aria-label="مسموح">
                               <Check className="w-3 h-3" />
                             </span>
                           ) : (
@@ -1447,22 +1447,22 @@ const entityLabels: Record<string, string> = {
 }
 
 const actionLabels: Record<string, { label: string; color: string }> = {
-  create: { label: 'إنشاء', color: 'text-success-400' },
+  create: { label: 'إنشاء', color: 'text-success-600' },
   update: { label: 'تعديل', color: 'text-brand-400' },
-  delete: { label: 'حذف', color: 'text-danger-400' },
-  approve: { label: 'موافقة', color: 'text-success-400' },
-  reject: { label: 'رفض', color: 'text-warning-400' },
+  delete: { label: 'حذف', color: 'text-danger-600' },
+  approve: { label: 'موافقة', color: 'text-success-600' },
+  reject: { label: 'رفض', color: 'text-warning-600' },
   login: { label: 'دخول', color: 'text-gray-400' },
   rename: { label: 'إعادة تسمية', color: 'text-brand-400' },
   permissions_update: { label: 'تحديث صلاحيات', color: 'text-brand-400' },
-  credit_add: { label: 'إضافة رصيد', color: 'text-success-400' },
-  credit_deduct: { label: 'خصم رصيد', color: 'text-warning-400' },
-  credit_used: { label: 'استخدام رصيد', color: 'text-danger-400' },
-  loyalty_earned: { label: 'كسب نقاط ولاء', color: 'text-info-400' },
-  loyalty_reversed: { label: 'عكس نقاط ولاء', color: 'text-warning-400' },
-  cancel: { label: 'إلغاء', color: 'text-danger-400' },
-  receive: { label: 'استلام', color: 'text-success-400' },
-  partial_receive: { label: 'استلام جزئي', color: 'text-warning-400' },
+  credit_add: { label: 'إضافة رصيد', color: 'text-success-600' },
+  credit_deduct: { label: 'خصم رصيد', color: 'text-warning-600' },
+  credit_used: { label: 'استخدام رصيد', color: 'text-danger-600' },
+  loyalty_earned: { label: 'كسب نقاط ولاء', color: 'text-info-600' },
+  loyalty_reversed: { label: 'عكس نقاط ولاء', color: 'text-warning-600' },
+  cancel: { label: 'إلغاء', color: 'text-danger-600' },
+  receive: { label: 'استلام', color: 'text-success-600' },
+  partial_receive: { label: 'استلام جزئي', color: 'text-warning-600' },
 }
 
 function AuditLogSettings() {
@@ -1982,7 +1982,7 @@ function CouponsSettings() {
               </span>
             )},
             { key: 'expiresAt', header: 'الانتهاء', render: (c) => c.expiresAt
-              ? <span className={cn('text-xs font-numeric num', new Date(c.expiresAt) < new Date() ? 'text-danger-400' : 'text-gray-400')}>{formatDate(c.expiresAt)}</span>
+              ? <span className={cn('text-xs font-numeric num', new Date(c.expiresAt) < new Date() ? 'text-danger-600' : 'text-gray-400')}>{formatDate(c.expiresAt)}</span>
               : <span className="text-gray-600">—</span>
             },
             { key: 'isActive', header: 'الحالة', render: (c) => <Badge variant={c.isActive ? 'success' : 'gray'} dot>{c.isActive ? 'نشط' : 'معطّل'}</Badge> },
@@ -2230,7 +2230,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
               <span className={cn(
                 'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors',
                 step === s.n ? 'bg-brand-500 text-white'
-                  : step > s.n ? 'bg-success-500/20 text-success-400 border border-success-500/40'
+                  : step > s.n ? 'bg-success-500/20 text-success-600 border border-success-500/40'
                   : 'bg-gray-800 text-gray-500 border border-gray-700',
               )}>
                 {step > s.n ? <Check className="w-3.5 h-3.5" /> : s.n}
@@ -2302,7 +2302,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
               value={creds.etaClientSecret} onChange={setC('etaClientSecret')} />
             <div className="flex flex-col gap-1.5">
               <label className="text-sm text-gray-300">الشهادة الرقمية (PEM)
-                {settings?.etaSigningCertSet && <span className="text-success-400 text-xs mr-2">✓ محفوظة</span>}
+                {settings?.etaSigningCertSet && <span className="text-success-600 text-xs mr-2">✓ محفوظة</span>}
               </label>
               <textarea
                 dir="ltr"
@@ -2504,7 +2504,7 @@ function EtaSettings() {
                   </div>
                   <p className="text-xs text-gray-500">{inv.customer?.fullName ?? 'نقدي'} · {formatDate(inv.createdAt)}</p>
                   {inv.etaError && (
-                    <p className="text-xs text-danger-400 mt-1 bg-danger-500/10 rounded px-2 py-1 font-mono break-all">{inv.etaError}</p>
+                    <p className="text-xs text-danger-600 mt-1 bg-danger-500/10 rounded px-2 py-1 font-mono break-all">{inv.etaError}</p>
                   )}
                 </div>
                 {(inv.etaStatus === 'failed' || inv.etaStatus === 'pending') && (

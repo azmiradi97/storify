@@ -69,7 +69,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
                 {item.icon}
               </span>
               <p className="flex-1 text-sm text-gray-300">{item.label}</p>
-              <span className="font-mono font-bold text-warning-400">{item.count}</span>
+              <span className="font-mono font-bold text-warning-600">{item.count}</span>
             </button>
           ))}
         </div>

@@ -223,7 +223,7 @@ function BudgetPanel({ categories }: { categories: Category[] }) {
                       </button>
                       <button
                         onClick={() => setDeletingBudget(b)}
-                        className="text-gray-500 hover:text-danger-400 transition-colors p-1"
+                        className="text-gray-500 hover:text-danger-600 transition-colors p-1"
                         aria-label="حذف"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -234,15 +234,15 @@ function BudgetPanel({ categories }: { categories: Category[] }) {
                     <div className={cn('h-full transition-all duration-slow', tone)} style={{ width: `${pct}%` }} />
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className={cn('font-numeric num', overBudget ? 'text-danger-400 font-semibold' : 'text-gray-300')}>
+                    <span className={cn('font-numeric num', overBudget ? 'text-danger-600 font-semibold' : 'text-gray-300')}>
                       {formatNumber(spent, { maximumFractionDigits: 0 })} / {formatNumber(amount, { maximumFractionDigits: 0 })} ج
                     </span>
-                    <span className={cn('font-numeric num', overBudget ? 'text-danger-400 font-semibold' : pct >= 80 ? 'text-warning-400' : 'text-gray-500')}>
+                    <span className={cn('font-numeric num', overBudget ? 'text-danger-600 font-semibold' : pct >= 80 ? 'text-warning-600' : 'text-gray-500')}>
                       {formatNumber(pct, { maximumFractionDigits: 0 })}%
                     </span>
                   </div>
                   {overBudget && (
-                    <p className="text-[10px] text-danger-400">
+                    <p className="text-[10px] text-danger-600">
                       تجاوزت الميزانية بـ {formatNumber(spent - amount, { maximumFractionDigits: 0 })} ج
                     </p>
                   )}
@@ -344,7 +344,7 @@ function TemplateUpsertDrawer({
         <div>
           <label className="text-sm text-gray-400 block mb-1">الوصف</label>
           <textarea {...register('description')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
-          {errors.description && <p className="text-xs text-danger-400 mt-1">{errors.description.message}</p>}
+          {errors.description && <p className="text-xs text-danger-600 mt-1">{errors.description.message}</p>}
         </div>
         <Input label="المبلغ (ج)" type="number" step="0.01" error={errors.amount?.message} {...register('amount')} />
         <Select label="الفئة" error={errors.categoryId?.message} {...register('categoryId')}>
@@ -421,7 +421,7 @@ function TemplatesPanel({ categories }: { categories: Category[] }) {
                       </button>
                       <button
                         onClick={() => setDeletingTemplate(t)}
-                        className="text-gray-500 hover:text-danger-400 transition-colors p-1"
+                        className="text-gray-500 hover:text-danger-600 transition-colors p-1"
                         aria-label="حذف"
                         title="حذف"
                       >

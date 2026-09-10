@@ -17,7 +17,7 @@ const STEPS = [
     title: 'إضافة المنتجات',
     desc: 'أضف أصناف وأقسام منتجاتك حتى تكون جاهزًا للبيع.',
     href: '/products',
-    color: 'text-success-400',
+    color: 'text-success-600',
     bg: 'bg-success-500/10',
   },
   {
@@ -25,7 +25,7 @@ const STEPS = [
     title: 'ابدأ البيع',
     desc: 'افتح نقطة البيع وأجرِ أول عملية بيع.',
     href: '/pos',
-    color: 'text-warning-400',
+    color: 'text-warning-600',
     bg: 'bg-warning-500/10',
   },
 ]

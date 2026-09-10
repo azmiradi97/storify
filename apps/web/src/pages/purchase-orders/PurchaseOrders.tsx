@@ -109,7 +109,7 @@ function ReceiveModal({ po, onClose, onConfirm, isPending }: { po: PurchaseOrder
       <div className="flex flex-col gap-4">
         <p className="text-sm text-gray-400">
           عدّل الكمية لكل صنف لتسجيل استلام جزئي. ستُحوّل حالة الأمر تلقائياً إلى
-          <span className="text-warning-400 mx-1">"مستلم جزئياً"</span>
+          <span className="text-warning-600 mx-1">"مستلم جزئياً"</span>
           إذا بقيت كميات.
         </p>
 
@@ -153,7 +153,7 @@ function ReceiveModal({ po, onClose, onConfirm, isPending }: { po: PurchaseOrder
           </table>
         </div>
         <div className="flex gap-2 -mt-2">
-          <button type="button" onClick={fillAll} className="text-xs text-brand-400 hover:text-brand-300">استلام الكل المتبقي</button>
+          <button type="button" onClick={fillAll} className="text-xs text-brand-400 hover:text-brand-600">استلام الكل المتبقي</button>
           <span className="text-gray-700">·</span>
           <button type="button" onClick={clearAll} className="text-xs text-gray-500 hover:text-gray-300">مسح</button>
         </div>
@@ -636,7 +636,7 @@ export default function PurchaseOrders() {
                       <p className="text-xs"><span className="num-code">{item.variant?.sku}</span> × <span className="font-numeric num num-muted">{item.quantity}</span></p>
                       {(partial || fullyReceived) && (
                         <p className="text-[10px] mt-0.5">
-                          <span className={fullyReceived ? 'text-success-400' : 'text-warning-400'}>
+                          <span className={fullyReceived ? 'text-success-600' : 'text-warning-600'}>
                             استُلم {received}/{item.quantity}
                           </span>
                           {partial && <span className="text-gray-500"> · متبقي {outstanding}</span>}

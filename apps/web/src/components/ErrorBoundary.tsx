@@ -64,7 +64,7 @@ function DefaultFallback({ error, onReset }: { error: Error; onReset: () => void
             <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-300">
               تفاصيل الخطأ (وضع التطوير)
             </summary>
-            <pre className="mt-2 text-xs text-danger-400 font-mono bg-gray-800 rounded p-3 overflow-auto max-h-48 text-left" dir="ltr">
+            <pre className="mt-2 text-xs text-danger-600 font-mono bg-gray-800 rounded p-3 overflow-auto max-h-48 text-left" dir="ltr">
               {error.message}
               {error.stack && '\n\n' + error.stack}
             </pre>

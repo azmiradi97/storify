@@ -113,7 +113,7 @@ export default function AdminAdmins() {
                     loading={toggleMutation.isPending && toggleMutation.variables?.id === a.id}
                     onClick={() => toggleMutation.mutate({ id: a.id, isActive: !a.isActive })}
                   >
-                    {a.isActive ? <><ShieldX className="w-4 h-4 text-danger-400" />تعطيل</> : 'تفعيل'}
+                    {a.isActive ? <><ShieldX className="w-4 h-4 text-danger-600" />تعطيل</> : 'تفعيل'}
                   </Button>
                 )
               ) },

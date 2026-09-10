@@ -272,7 +272,7 @@ function TrustBar() {
     { label: 'الفروع', value: 'بلا حدود' },
   ]
   return (
-    <section className="border-y border-gray-800 bg-gray-900/40">
+    <section className="border-y border-gray-700 bg-gray-800/60">
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {items.map((it) => (
           <div key={it.label} className="text-center">
