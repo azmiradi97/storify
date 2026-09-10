@@ -218,7 +218,7 @@ export default function WorkOrders() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث برقم التذكرة..."
-                className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500"
+                className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500"
               />
             </div>
             <Select

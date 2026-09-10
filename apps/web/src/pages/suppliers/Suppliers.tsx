@@ -383,7 +383,7 @@ export default function Suppliers() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="بحث باسم المورد أو الهاتف..."
-              className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500"
             />
           </div>
           <Button onClick={openNew}><Plus className="w-4 h-4" />مورد جديد</Button>

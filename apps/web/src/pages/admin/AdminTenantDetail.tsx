@@ -281,7 +281,7 @@ export default function AdminTenantDetail() {
                   )}
                 </div>
                 <div className="text-left">
-                  <p className="font-mono text-base text-brand-300" dir="ltr">{formatMoney(Number(s.priceAtSubscription))} EGP</p>
+                  <p className="font-mono text-base text-brand-600" dir="ltr">{formatMoney(Number(s.priceAtSubscription))} EGP</p>
                 </div>
               </div>
 

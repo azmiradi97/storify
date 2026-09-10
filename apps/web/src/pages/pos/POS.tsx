@@ -755,7 +755,7 @@ export default function POS() {
                         min={0}
                         max={Math.max(0, total - appliedCredit)}
                         step={0.01}
-                        className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
+                        className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-xs text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500 font-mono"
                         dir="ltr"
                       />
                       {splitAmountNum > 0 && (
@@ -793,7 +793,7 @@ export default function POS() {
                   onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                   onKeyDown={(e) => e.key === 'Enter' && validateCoupon()}
                   placeholder="كود الخصم..."
-                  className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500 font-mono"
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500 font-mono"
                 />
                 <button
                   onClick={validateCoupon}
@@ -948,7 +948,7 @@ export default function POS() {
                 }
               }}
               placeholder="0.00"
-              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-lg font-mono text-gray-100 placeholder-gray-600 focus:outline-none focus:border-brand-500 text-left"
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-lg font-mono text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-brand-500 text-left"
               dir="ltr"
             />
             {actualCash !== '' && eodDashboard && (() => {

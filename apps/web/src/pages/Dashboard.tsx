@@ -160,7 +160,7 @@ export default function Dashboard() {
               type="button"
               onClick={() => refetchDashboard()}
               disabled={isRefetching}
-              className="text-sm font-medium text-brand-300 hover:text-brand-600 disabled:opacity-50"
+              className="text-sm font-medium text-brand-600 hover:text-brand-600 disabled:opacity-50"
             >
               {isRefetching ? 'جارٍ المحاولة…' : 'إعادة المحاولة'}
             </button>

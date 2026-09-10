@@ -33,7 +33,7 @@ export function FeatureGate({ feature, title, description, children }: FeatureGa
           <Lock className="w-5 h-5" />
         </div>
         <h2 className="text-xl font-semibold text-gray-100 mb-2">
-          ميزة <span className="text-brand-300">{title}</span> غير متاحة في باقتك
+          ميزة <span className="text-brand-600">{title}</span> غير متاحة في باقتك
         </h2>
         <p className="text-sm text-gray-400 mb-5 leading-relaxed">
           {description ?? 'هذه الميزة متاحة في الباقات الأعلى — قم بالترقية لتفعيلها فوراً.'}

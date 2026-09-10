@@ -117,7 +117,7 @@ export default function AdminPlans() {
                 <Badge variant={p.isActive ? 'success' : 'gray'}>{p.isActive ? 'مفعّلة' : 'معطّلة'}</Badge>
               </div>
 
-              <p className="font-mono text-2xl text-brand-300 mb-1" dir="ltr">
+              <p className="font-mono text-2xl text-brand-600 mb-1" dir="ltr">
                 {formatMoney(Number(p.priceMonthly))} <span className="text-xs text-gray-500">EGP/شهر</span>
               </p>
               <p className="text-xs text-gray-500 mb-4" dir="ltr">

@@ -150,7 +150,7 @@ export default function Services() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="بحث باسم الخدمة..."
-                className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-500"
+                className="w-full bg-gray-800 border border-gray-700 rounded-md pr-9 pl-3 py-2 text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500"
               />
             </div>
             <Select value={categoryFilter} onChange={(e) => { setCategoryFilter(e.target.value); setPage(1) }} className="w-48">
