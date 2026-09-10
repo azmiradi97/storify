@@ -359,7 +359,7 @@ function WorkOrderDetail({ id }: { id: string }) {
       {/* Item / customer */}
       <section>
         <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-2">العنصر</h3>
-        <div className="bg-gray-900/40 border border-gray-700 rounded-md p-3 text-sm">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-3 text-sm">
           <p className="text-gray-400 mb-1">
             <span className="text-xs text-gray-600">النوع: </span>{ITEM_TYPE_LABEL[wo.itemType]}
           </p>
@@ -370,7 +370,7 @@ function WorkOrderDetail({ id }: { id: string }) {
       {wo.customer && (
         <section>
           <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-2">العميل</h3>
-          <div className="bg-gray-900/40 border border-gray-700 rounded-md p-3 text-sm">
+          <div className="bg-gray-750 border border-gray-700 rounded-md p-3 text-sm">
             <p className="text-gray-200">{wo.customer.fullName}</p>
             {wo.customer.phone && <p className="text-xs num-code text-gray-500" dir="ltr">{wo.customer.phone}</p>}
             {wo.customer.email && <p className="text-xs text-gray-500" dir="ltr">{wo.customer.email}</p>}
@@ -563,7 +563,7 @@ function WorkOrderDetail({ id }: { id: string }) {
 
 function SmallStat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
-    <div className="bg-gray-900/50 border border-gray-700 rounded px-2 py-1.5">
+    <div className="bg-gray-800 border border-gray-700 rounded px-2 py-1.5">
       <p className="text-[10px] uppercase tracking-wider text-gray-500">{label}</p>
       <p className={cn('font-mono text-sm mt-0.5 num', color)}>{value}</p>
     </div>
@@ -572,7 +572,7 @@ function SmallStat({ label, value, color }: { label: string; value: string; colo
 
 function NoteBlock({ label, text }: { label: string; text: string }) {
   return (
-    <div className="bg-gray-900/40 border border-gray-700 rounded p-2.5">
+    <div className="bg-gray-750 border border-gray-700 rounded p-2.5">
       <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">{label}</p>
       <p className="text-xs text-gray-300 whitespace-pre-wrap">{text}</p>
     </div>
@@ -627,7 +627,7 @@ function ServiceLineRow({ workOrderId, line }: {
 
   const lineTotal = Number(line.unitPrice) * line.quantity
   return (
-    <div className="flex items-center justify-between bg-gray-900/40 border border-gray-700 rounded px-3 py-2 text-sm">
+    <div className="flex items-center justify-between bg-gray-750 border border-gray-700 rounded px-3 py-2 text-sm">
       <div className="flex-1 min-w-0">
         <p className="text-gray-200 truncate">{line.service.name}</p>
         <p className="text-xs text-gray-500">

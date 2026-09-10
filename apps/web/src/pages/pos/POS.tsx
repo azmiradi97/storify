@@ -1025,7 +1025,7 @@ export default function POS() {
               </div>
             </div>
 
-            <div className="bg-gray-900 rounded-md p-3 flex flex-col gap-1 max-h-40 overflow-y-auto">
+            <div className="bg-gray-800 rounded-md p-3 flex flex-col gap-1 max-h-40 overflow-y-auto">
               {completedInvoice.items.map((item, i) => (
                 <div key={i} className="flex justify-between text-sm py-1 border-b border-gray-800 last:border-0">
                   <div>

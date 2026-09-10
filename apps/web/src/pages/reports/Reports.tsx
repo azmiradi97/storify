@@ -493,7 +493,7 @@ export default function Reports() {
                   return rows.map((row) => (
                     <div
                       key={row.label}
-                      className={`flex justify-between items-center px-6 py-4 ${row.indent ? 'bg-gray-900/30 py-2.5 pr-10' : ''}`}
+                      className={`flex justify-between items-center px-6 py-4 ${row.indent ? 'bg-gray-750/60 py-2.5 pr-10' : ''}`}
                     >
                       <div>
                         <span className={`text-sm ${row.indent ? 'text-gray-500' : 'text-gray-300'}`}>{row.label}</span>

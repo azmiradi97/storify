@@ -211,7 +211,7 @@ function BudgetPanel({ categories }: { categories: Category[] }) {
               const overBudget = spent > amount
               const tone = overBudget ? 'bg-danger-500' : pct >= 80 ? 'bg-warning-500' : 'bg-success-500'
               return (
-                <div key={b.id} className="bg-gray-900 border border-gray-700 rounded-md p-3 flex flex-col gap-2">
+                <div key={b.id} className="bg-gray-800 border border-gray-700 rounded-md p-3 flex flex-col gap-2">
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-100 truncate">{b.category.name}</p>
@@ -409,7 +409,7 @@ function TemplatesPanel({ categories }: { categories: Category[] }) {
             {templates.map((t) => {
               const isBusy = isInstantiating && instantiatingId === t.id
               return (
-                <div key={t.id} className="bg-gray-900 border border-gray-700 rounded-md p-3 flex flex-col gap-2">
+                <div key={t.id} className="bg-gray-800 border border-gray-700 rounded-md p-3 flex flex-col gap-2">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-gray-100 truncate">{t.name}</p>

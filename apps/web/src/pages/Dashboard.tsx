@@ -190,7 +190,7 @@ export default function Dashboard() {
           <StatCard
             label="فواتير اليوم"
             value={data?.today.invoiceCount ?? 0}
-            accentColor="bg-violet-500"
+            accentColor="bg-warning-500"
             icon={<ShoppingBag className="w-4 h-4" />}
             onClick={() => navigate(`/invoices?from=${fmt(today)}&to=${fmt(today)}`)}
           />
