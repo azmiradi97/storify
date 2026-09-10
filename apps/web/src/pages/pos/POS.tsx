@@ -498,7 +498,7 @@ export default function POS() {
               </div>
             ) : (
               <table className="w-full text-sm">
-                <thead className="bg-gray-900 border-b border-gray-700">
+                <thead className="bg-gray-750 border-b border-gray-700">
                   <tr>
                     <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase">المنتج</th>
                     <th className="text-center px-4 py-3 text-xs text-gray-500 uppercase w-32">الكمية</th>
@@ -900,22 +900,22 @@ export default function POS() {
       <Modal open={showEOD} onClose={() => setShowEOD(false)} title="إغلاق اليوم — ملخص النقدية">
         <div className="flex flex-col gap-5">
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-gray-900 rounded-lg p-3 text-center">
+            <div className="bg-gray-750 rounded-lg p-3 text-center">
               <p className="text-xs text-gray-500 mb-1">إجمالي المبيعات</p>
               <p className="text-lg font-mono font-bold text-gray-100">{formatNumber(eodDashboard?.revenue ?? 0, { maximumFractionDigits: 0 })} ج</p>
             </div>
-            <div className="bg-gray-900 rounded-lg p-3 text-center">
+            <div className="bg-gray-750 rounded-lg p-3 text-center">
               <p className="text-xs text-gray-500 mb-1">عدد الفواتير</p>
               <p className="text-lg font-mono font-bold text-gray-100">{eodDashboard?.invoiceCount ?? 0}</p>
             </div>
-            <div className="bg-gray-900 rounded-lg p-3 text-center">
+            <div className="bg-gray-750 rounded-lg p-3 text-center">
               <p className="text-xs text-gray-500 mb-1">رسوم الدفع</p>
               <p className="text-lg font-mono font-bold text-warning-400">{formatNumber(eodDashboard?.feeExpenses ?? 0, { maximumFractionDigits: 2 })} ج</p>
             </div>
           </div>
 
           {eodByPM && eodByPM.length > 0 && (
-            <div className="bg-gray-900 rounded-lg p-3">
+            <div className="bg-gray-750 rounded-lg p-3">
               <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">تفصيل طرق الدفع</p>
               <div className="flex flex-col gap-1">
                 {eodByPM.map((pm) => (
@@ -931,7 +931,7 @@ export default function POS() {
             </div>
           )}
 
-          <div className="bg-gray-900 rounded-lg p-4">
+          <div className="bg-gray-750 rounded-lg p-4">
             <label className="block text-xs text-gray-500 uppercase tracking-wide mb-2">جرد الدرج النقدي الفعلي (ج)</label>
             <input
               type="number"

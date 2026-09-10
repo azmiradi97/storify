@@ -55,8 +55,8 @@ export function UsageBanner() {
       role="alert"
       className={`mb-4 rounded-md border p-3 flex items-start gap-3 ${
         anyExceeded
-          ? 'bg-danger-500/10 border-danger-500/30 text-danger-200'
-          : 'bg-warning-500/10 border-warning-500/30 text-warning-200'
+          ? 'bg-danger-500/10 border-danger-500/30 text-danger-700'
+          : 'bg-warning-500/10 border-warning-500/30 text-warning-700'
       }`}
     >
       <TriangleAlert className="w-5 h-5 shrink-0 mt-0.5" />
