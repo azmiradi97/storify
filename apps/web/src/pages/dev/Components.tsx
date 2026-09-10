@@ -94,7 +94,7 @@ export default function ComponentsShowcase() {
             label="أقساط معلقة"
             value="7"
             change={{ value: '2 جديد', positive: false }}
-            accentColor="bg-violet-500"
+            accentColor="bg-warning-500"
           />
           <StatCard
             label="منتجات نفذت"

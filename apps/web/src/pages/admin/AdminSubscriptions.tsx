@@ -85,7 +85,7 @@ export default function AdminSubscriptions() {
                 <span className="text-xs">{s.billingCycle === 'YEARLY' ? 'سنوي' : 'شهري'}</span>
               ) },
               { key: 'price', header: 'السعر', render: (s) => (
-                <span className="font-mono text-brand-300" dir="ltr">{formatMoney(Number(s.priceAtSubscription))}</span>
+                <span className="font-mono text-brand-600" dir="ltr">{formatMoney(Number(s.priceAtSubscription))}</span>
               ) },
               { key: 'failed', header: 'محاولات فاشلة', render: (s) =>
                 s.failedAttempts > 0 ? (

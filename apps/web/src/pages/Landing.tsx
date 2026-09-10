@@ -201,7 +201,7 @@ function Hero() {
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-900/40 border border-brand-500/30 text-brand-300 text-xs mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-900/40 border border-brand-500/30 text-brand-600 text-xs mb-6">
           <Sparkles className="w-3.5 h-3.5" />
           نظام إدارة متاجر متكامل — مصري بالكامل
         </div>
@@ -437,7 +437,7 @@ function Features() {
     <section id="features" className="py-20 md:py-28 bg-gray-800/60 border-y border-gray-700">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 text-xs font-medium mb-4">
+          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 text-xs font-medium mb-4">
             المميزات
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-50 mb-4">
@@ -538,7 +538,7 @@ function Pricing({ plans }: { plans: Plan[] }) {
     <section id="pricing" ref={sectionRef} className="py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 text-xs font-medium mb-4">
+          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 text-xs font-medium mb-4">
             الباقات
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-50 mb-4">
@@ -836,7 +836,7 @@ function VsAlternativesStrip() {
         <div className="px-3 py-3 bg-gray-750/60 border-b border-gray-700 text-center text-gray-400">
           🧾 محاسب يدوي
         </div>
-        <div className="px-3 py-3 bg-brand-900/40 border-b border-brand-500/40 text-center font-semibold text-brand-300">
+        <div className="px-3 py-3 bg-brand-900/40 border-b border-brand-500/40 text-center font-semibold text-brand-600">
           ⚡ حِسبة
         </div>
 
@@ -921,7 +921,7 @@ function FAQ() {
     <section id="faq" className="py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-12">
-          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 text-xs font-medium mb-4">
+          <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 text-xs font-medium mb-4">
             الأسئلة الشائعة
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-50 mb-4">
