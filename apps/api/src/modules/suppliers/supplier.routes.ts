@@ -261,7 +261,7 @@ export async function supplierRoutes(app: FastifyInstance) {
       const typeLabels: Record<string, string> = { purchase: 'مشتريات', payment: 'دفعة', return: 'مرتجع' }
       for (const t of transactions) {
         txSheet.addRow([
-          new Date(t.createdAt).toLocaleDateString('ar-EG'),
+          new Date(t.createdAt).toLocaleDateString('ar-EG-u-nu-latn'),
           typeLabels[t.type] ?? t.type,
           Number(t.amount).toFixed(2),
           t.reference ?? '',
@@ -279,7 +279,7 @@ export async function supplierRoutes(app: FastifyInstance) {
       const statusLabels: Record<string, string> = { draft: 'مسودة', pending_approval: 'انتظار', approved: 'موافق', received: 'مستلم', cancelled: 'ملغي' }
       for (const po of purchaseOrders) {
         poSheet.addRow([
-          new Date(po.createdAt).toLocaleDateString('ar-EG'),
+          new Date(po.createdAt).toLocaleDateString('ar-EG-u-nu-latn'),
           statusLabels[po.status] ?? po.status,
           Number(po.totalAmount).toFixed(2) + ' ج',
         ])

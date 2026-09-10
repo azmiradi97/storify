@@ -55,7 +55,7 @@ export async function buildSalesExcel(data: {
   }>) {
     inv.addRow([
       i.id.slice(0, 8),
-      i.createdAt ? new Date(i.createdAt).toLocaleDateString('ar-EG') : '',
+      i.createdAt ? new Date(i.createdAt).toLocaleDateString('ar-EG-u-nu-latn') : '',
       i.cashier?.fullName ?? '',
       i.customer?.fullName ?? 'بدون عميل',
       i.paymentMethod?.name ?? '',

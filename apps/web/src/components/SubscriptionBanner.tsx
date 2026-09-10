@@ -35,7 +35,7 @@ function dayWord(n: number): string {
 }
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('ar-EG', {
+  return new Date(iso).toLocaleDateString('ar-EG-u-nu-latn', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

@@ -187,7 +187,7 @@ export async function handleWebhookSuccess(params: {
     await sendEmail({
       to: tenant.ownerEmail,
       template: 'payment_succeeded',
-      data: { tenantName: tenant.name, amount: `${amountCents / 100} EGP`, period: periodEnd.toLocaleDateString('ar-EG') },
+      data: { tenantName: tenant.name, amount: `${amountCents / 100} EGP`, period: periodEnd.toLocaleDateString('ar-EG-u-nu-latn') },
     }).catch((err) => {
       // Never throw from a webhook flow over an email failure — payment
       // state is already persisted. Log so the merchant-success template

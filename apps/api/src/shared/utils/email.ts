@@ -167,7 +167,7 @@ interface InvoiceReceiptData {
 }
 
 const fmtMoney = (n: number | string) =>
-  Number(n).toLocaleString('ar-EG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  Number(n).toLocaleString('ar-EG-u-nu-latn', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 function buildReceiptHtml(invoice: InvoiceReceiptData): string {
   const rows = invoice.items.map((item) => `
@@ -190,7 +190,7 @@ function buildReceiptHtml(invoice: InvoiceReceiptData): string {
         </div>
         <div style="text-align:left">
           <p style="font-size:18px;font-weight:700;font-family:monospace;margin:0">${invoice.invoiceNumber}</p>
-          <p style="font-size:12px;color:#6b7280;margin:0">${new Date(invoice.createdAt).toLocaleString('ar-EG')}</p>
+          <p style="font-size:12px;color:#6b7280;margin:0">${new Date(invoice.createdAt).toLocaleString('ar-EG-u-nu-latn')}</p>
         </div>
       </div>
       <div style="margin:24px 0;padding:16px;background:#f9fafb;border-radius:8px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px">
@@ -284,7 +284,7 @@ export async function sendInstallmentReminderEmail(data: InstallmentReminderData
       <div style="background:${tone.bg};border:1px solid ${tone.border};border-radius:8px;padding:16px;margin:20px 0">
         <div style="display:flex;justify-content:space-between;margin-bottom:8px">
           <span style="color:#6b7280;font-size:12px">المبلغ</span>
-          <strong style="font-family:monospace;color:#111;font-size:16px">${Number(data.amount).toLocaleString('ar-EG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج</strong>
+          <strong style="font-family:monospace;color:#111;font-size:16px">${Number(data.amount).toLocaleString('ar-EG-u-nu-latn', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ج</strong>
         </div>
         <div style="display:flex;justify-content:space-between">
           <span style="color:#6b7280;font-size:12px">تاريخ الاستحقاق</span>
