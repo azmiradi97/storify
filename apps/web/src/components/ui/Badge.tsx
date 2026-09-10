@@ -12,12 +12,12 @@ interface BadgeProps {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  brand: 'bg-brand-900/40 text-brand-300',
-  success: 'bg-success-700/20 text-success-500',
-  warning: 'bg-warning-700/20 text-warning-500',
-  danger: 'bg-danger-700/20 text-danger-500',
-  info: 'bg-info-700/20 text-info-500',
-  gray: 'bg-gray-700/50 text-gray-300',
+  brand: 'bg-brand-50 text-brand-600',
+  success: 'bg-success-50 text-success-700',
+  warning: 'bg-warning-50 text-warning-700',
+  danger: 'bg-danger-50 text-danger-600',
+  info: 'bg-info-50 text-info-600',
+  gray: 'bg-gray-800 text-gray-300',
 }
 
 const dotClasses: Record<BadgeVariant, string> = {
@@ -33,7 +33,7 @@ export function Badge({ variant = 'gray', children, dot, icon, className }: Badg
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-r-sm px-2 py-0.5 text-xs font-medium',
+        'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium',
         variantClasses[variant],
         className,
       )}

@@ -22,7 +22,7 @@ const config: Record<AlertVariant, { icon: typeof Info; classes: string }> = {
 export function Alert({ variant, title, children, onDismiss, className }: AlertProps) {
   const { icon: Icon, classes } = config[variant]
   return (
-    <div className={cn('flex gap-3 rounded-r-lg border p-4', classes, className)} role="alert">
+    <div className={cn('flex gap-3 rounded-lg border p-4', classes, className)} role="alert">
       <Icon className="w-5 h-5 shrink-0 mt-0.5" />
       <div className="flex-1 text-sm">
         {title && <p className="font-semibold mb-1">{title}</p>}

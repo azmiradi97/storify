@@ -50,7 +50,7 @@ function NotificationPanel({ onClose }: { onClose: () => void }) {
       id="notification-panel"
       role="dialog"
       aria-label="الإشعارات"
-      className="absolute left-0 top-full mt-2 w-80 bg-gray-800 border border-gray-700 rounded-r-xl shadow-2xl z-50 overflow-hidden"
+      className="absolute left-0 top-full mt-2 w-80 bg-gray-800 border border-gray-700 rounded-xl shadow-2xl z-50 overflow-hidden"
     >
       <div className="px-4 py-3 border-b border-gray-700">
         <p className="text-sm font-semibold text-gray-100">الإشعارات</p>
@@ -97,7 +97,7 @@ export function TopBar({ title, onMenuClick }: { title?: string; onMenuClick?: (
     (data?.etaFailures ?? 0)
 
   return (
-    <header className="h-14 bg-gray-900 border-b border-gray-800 flex items-center px-4 sm:px-6 gap-3 sm:gap-4">
+    <header className="h-14 bg-white border-b border-gray-800 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 shadow-sm">
       {onMenuClick && (
         <button
           onClick={onMenuClick}

@@ -73,10 +73,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           position="bottom-right"
           toastOptions={{
             style: {
-              background: '#1E293B',
-              color: '#F1F5F9',
-              border: '1px solid #334155',
-              fontFamily: 'IBM Plex Sans Arabic, sans-serif',
+              background: '#FFFFFF',
+              color: '#12261E',
+              border: '1px solid #D8E2DB',
+              boxShadow: '0 6px 20px rgba(20, 58, 46, 0.10)',
+              fontFamily: 'Cairo, IBM Plex Sans Arabic, sans-serif',
               direction: 'rtl',
             },
           }}

@@ -45,7 +45,7 @@ export function Table<T>({
 }: TableProps<T>) {
   const totalCols = columns.length + (selection ? 1 : 0)
   return (
-    <div className={cn('overflow-x-auto rounded-r-xl border border-gray-700', className)}>
+    <div className={cn('overflow-x-auto rounded-xl border border-gray-700', className)}>
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-gray-700 bg-gray-900">

@@ -56,13 +56,13 @@ export default function Settings() {
         <nav className="w-48 flex flex-col gap-1 shrink-0">
           {tabs.map((t) => (
             <button key={t.id} onClick={() => setTab(t.id)}
-              className={cn('text-right px-3 py-2 rounded-r-md text-sm transition-colors', tab === t.id ? 'bg-brand-600/20 text-brand-400 border-r-2 border-brand-500' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800')}
+              className={cn('text-right px-3 py-2 rounded-lg text-sm transition-all duration-fast', tab === t.id ? 'bg-brand-500/12 text-brand-400 font-medium shadow-[inset_3px_0_0_0_#1FA971]' : 'text-gray-400 hover:text-gray-200 hover:bg-gray-800')}
             >
               {t.label}
             </button>
           ))}
         </nav>
-        <div className="flex-1 bg-gray-800 rounded-r-xl border border-gray-700 p-6">
+        <div className="flex-1 bg-gray-800 rounded-xl border border-gray-700 p-6">
           {tab === 'store' && <StoreSettings />}
           {tab === 'billing' && <BillingSettings />}
           {tab === 'branches' && <BranchesSettings />}
@@ -138,7 +138,7 @@ function StoreSettings() {
     onError: () => toast.error('فشل حفظ الإعدادات'),
   })
 
-  if (isLoading) return <div className="h-40 bg-gray-800 rounded-r-xl animate-pulse" />
+  if (isLoading) return <div className="h-40 bg-gray-800 rounded-xl animate-pulse" />
 
   return (
     <form onSubmit={handleSubmit((d) => save(d))} className="flex flex-col gap-6 max-w-lg">
@@ -1019,7 +1019,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
   if (roles.length === 0) return null
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-r-xl overflow-hidden">
+    <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between gap-3">
         <h4 className="text-sm font-semibold text-gray-100">مصفوفة الصلاحيات</h4>
         {editing ? (

@@ -8,26 +8,25 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts'
 
-// Theme tokens mirroring tailwind.config.ts so charts stay on-brand
+// Theme tokens mirroring tailwind.config.ts (light theme) so charts stay on-brand
 export const chartTheme = {
-  grid: '#334155',        // gray-700
-  axisText: '#64748B',    // gray-500
-  axisLine: '#475569',    // gray-600
-  tooltipBg: '#1E293B',   // gray-800
-  tooltipBorder: '#334155',
-  tooltipText: '#F1F5F9', // gray-100
+  grid: '#E6EDE7',        // light line
+  axisText: '#5C726A',    // gray-400 (muted)
+  axisLine: '#D8E2DB',    // gray-700 (light border)
+  tooltipBg: '#FFFFFF',   // surface
+  tooltipBorder: '#D8E2DB',
+  tooltipText: '#12261E', // gray-50 (ink)
 } as const
 
 export const chartPalette = [
-  '#6366F1', // brand-500
-  '#10B981', // success-500
-  '#F59E0B', // warning-500
-  '#EF4444', // danger-500
-  '#3B82F6', // info-500
-  '#06B6D4', // cyan-500
-  '#8B5CF6', // violet-500
-  '#14B8A6', // teal-500
-  '#EC4899', // pink-500
+  '#1FA971', // brand green
+  '#F5A623', // warm amber
+  '#3B82F6', // info blue
+  '#8B5CF6', // violet
+  '#14B8A6', // teal
+  '#EC4899', // pink
+  '#06B6D4', // cyan
+  '#EF4444', // red (semantic — last so it isn't a default series colour)
 ] as const
 
 const tooltipStyle = {
@@ -57,7 +56,7 @@ interface ChartCardProps {
 }
 export function ChartCard({ title, subtitle, height = 280, children, actions }: ChartCardProps) {
   return (
-    <div className="bg-gray-800 rounded-r-xl p-4 shadow-sm border border-gray-700">
+    <div className="bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-700">
       {(title || actions) && (
         <div className="flex items-center justify-between mb-3">
           <div>
@@ -222,7 +221,7 @@ export function BarChartView<T>({
           labelStyle={tooltipLabelStyle}
           itemStyle={tooltipItemStyle}
           formatter={formatTooltip ? (v: number, n: string) => [formatTooltip(v, n), n] : undefined}
-          cursor={{ fill: 'rgba(99, 102, 241, 0.08)' }}
+          cursor={{ fill: 'rgba(31, 169, 113, 0.08)' }}
         />
         {series.length > 1 && (
           <Legend wrapperStyle={{ fontSize: 11, color: chartTheme.axisText }} />

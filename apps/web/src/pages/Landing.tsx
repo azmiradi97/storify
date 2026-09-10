@@ -340,7 +340,7 @@ function PainPoints() {
           {pains.map((p) => (
             <div
               key={p.title}
-              className="bg-gray-800/60 border border-gray-800 rounded-r-xl p-6 hover:border-gray-700 transition-colors"
+              className="bg-gray-800/60 border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors"
             >
               <div className="w-10 h-10 rounded-md bg-danger-500/10 text-danger-500 flex items-center justify-center mb-4">
                 <p.icon className="w-5 h-5" />
@@ -452,7 +452,7 @@ function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group bg-gray-800/60 border border-gray-800 rounded-r-xl p-6 hover:border-brand-500/40 hover:bg-gray-800 transition-all"
+              className="group bg-gray-800/60 border border-gray-800 rounded-xl p-6 hover:border-brand-500/40 hover:bg-gray-800 transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="w-10 h-10 rounded-md bg-brand-500/10 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors">
@@ -478,7 +478,7 @@ function MidCTA() {
   return (
     <section className="py-10">
       <div className="max-w-3xl mx-auto px-4">
-        <div className="bg-gradient-to-l from-brand-900/40 to-gray-900/40 border border-brand-500/30 rounded-r-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-gradient-to-l from-brand-900/40 to-gray-900/40 border border-brand-500/30 rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-right">
             <div className="font-semibold text-gray-100 mb-1">
               عجبتك المميزات؟ ابدأ تجربتك في 5 دقايق.
@@ -594,7 +594,7 @@ function Pricing({ plans }: { plans: Plan[] }) {
               return (
                 <div
                   key={plan.id}
-                  className={`relative bg-gray-800/60 border rounded-r-xl p-6 flex flex-col ${
+                  className={`relative bg-gray-800/60 border rounded-xl p-6 flex flex-col ${
                     isFeatured
                       ? 'border-brand-500 ring-2 ring-brand-500/30 lg:scale-105'
                       : 'border-gray-800'
@@ -819,7 +819,7 @@ function VsAlternativesStrip() {
     },
   ]
   return (
-    <div className="max-w-5xl mx-auto mb-12 bg-gray-800/40 border border-gray-800 rounded-r-xl overflow-hidden">
+    <div className="max-w-5xl mx-auto mb-12 bg-gray-800/40 border border-gray-800 rounded-xl overflow-hidden">
       <div className="px-5 py-3 border-b border-gray-800 bg-gray-900/40">
         <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">قارن بنفسك</div>
         <div className="text-sm text-gray-300">
@@ -935,7 +935,7 @@ function FAQ() {
             return (
               <div
                 key={it.q}
-                className="bg-gray-800/60 border border-gray-800 rounded-r-md overflow-hidden"
+                className="bg-gray-800/60 border border-gray-800 rounded-md overflow-hidden"
               >
                 <button
                   onClick={() => {
