@@ -32,7 +32,7 @@ function BreakdownTable({ rows, total, count, label }: { rows: MethodRow[]; tota
       ) : (
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-900/50">
+            <tr className="bg-gray-750">
               <th className="text-right px-4 py-2.5 text-xs text-gray-500 font-medium">طريقة الدفع</th>
               <th className="text-center px-4 py-2.5 text-xs text-gray-500 font-medium">عدد</th>
               <th className="text-left px-4 py-2.5 text-xs text-gray-500 font-medium">الإجمالي</th>
@@ -48,7 +48,7 @@ function BreakdownTable({ rows, total, count, label }: { rows: MethodRow[]; tota
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t-2 border-gray-600 bg-gray-900/40">
+            <tr className="border-t-2 border-gray-600 bg-gray-750">
               <td className="px-4 py-3 font-semibold text-gray-100">الإجمالي</td>
               <td className="px-4 py-3 text-center font-mono text-gray-300">{count}</td>
               <td className="px-4 py-3 text-left font-mono font-bold text-brand-400">{formatMoney(total)} ج</td>

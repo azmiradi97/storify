@@ -107,7 +107,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       ref={asideRef}
       aria-hidden={!isVisible}
       className={cn(
-        'fixed top-0 right-0 h-full w-60 bg-gray-900 border-l border-gray-800 flex flex-col z-40',
+        'fixed top-0 right-0 h-full w-60 bg-white border-l border-gray-700 flex flex-col z-40',
         'transition-transform duration-slow lg:translate-x-0',
         open ? 'translate-x-0' : 'translate-x-full',
       )}

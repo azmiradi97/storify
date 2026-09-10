@@ -88,7 +88,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
   return (
     <div className="flex flex-col gap-4">
       {/* Progress + summary */}
-      <div className="bg-gray-900 rounded-lg border border-gray-700 p-4 flex flex-col gap-3">
+      <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col gap-3">
         <div className="flex items-center justify-between text-xs">
           <span className="text-gray-400">التقدم</span>
           <span className="font-mono text-gray-300">

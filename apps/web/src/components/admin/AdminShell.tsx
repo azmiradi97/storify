@@ -71,7 +71,7 @@ export function AdminShell({ children, title }: AdminShellProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed top-0 right-0 h-full w-60 bg-gray-900 border-l border-gray-800 flex flex-col z-40',
+          'fixed top-0 right-0 h-full w-60 bg-white border-l border-gray-700 flex flex-col z-40',
           'transition-transform duration-200 lg:translate-x-0',
           sidebarOpen ? 'translate-x-0' : 'translate-x-full',
         )}
@@ -131,7 +131,7 @@ export function AdminShell({ children, title }: AdminShellProps) {
 
       <div className="lg:mr-60 flex flex-col min-h-dvh">
         {/* Top bar */}
-        <header className="h-14 bg-gray-900 border-b border-gray-800 flex items-center px-4 sm:px-6 gap-4">
+        <header className="h-14 bg-white border-b border-gray-700 shadow-sm flex items-center px-4 sm:px-6 gap-4">
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-gray-400 hover:text-gray-100"

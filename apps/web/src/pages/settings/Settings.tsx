@@ -376,7 +376,7 @@ function BillingSettings() {
     onError: (err: unknown) => toast.error(getApiErrorMessage(err)),
   })
 
-  if (statusLoading) return <div className="h-48 bg-gray-900/40 rounded-md animate-pulse" />
+  if (statusLoading) return <div className="h-48 bg-gray-750 rounded-md animate-pulse" />
 
   if (!status) {
     return (
@@ -400,21 +400,21 @@ function BillingSettings() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gray-900/40 border border-gray-700 rounded-md p-4">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-4">
           <p className="text-xs text-gray-500 mb-2">الحالة</p>
           <Badge variant={STATUS_LABEL[status.status].variant} dot>
             {STATUS_LABEL[status.status].label}
           </Badge>
         </div>
-        <div className="bg-gray-900/40 border border-gray-700 rounded-md p-4">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-4">
           <p className="text-xs text-gray-500 mb-2">الباقة</p>
           <p className="text-sm text-gray-100 font-medium">{status.planName}</p>
         </div>
-        <div className="bg-gray-900/40 border border-gray-700 rounded-md p-4">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-4">
           <p className="text-xs text-gray-500 mb-2">دورة الفوترة</p>
           <p className="text-sm text-gray-100">{status.billingCycle === 'YEARLY' ? 'سنوية' : 'شهرية'}</p>
         </div>
-        <div className="bg-gray-900/40 border border-gray-700 rounded-md p-4">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-4">
           <p className="text-xs text-gray-500 mb-2">
             {isTrialing ? 'تنتهي الفترة التجريبية' : periodEndLabel}
           </p>
@@ -1046,7 +1046,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
       <CreateRoleModal open={createOpen} onClose={() => setCreateOpen(false)} />
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-gray-900">
+          <thead className="bg-gray-750">
             <tr>
               <th className="text-right px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-medium whitespace-nowrap">المورد</th>
               <th className="text-right px-4 py-2 text-xs uppercase tracking-wider text-gray-500 font-medium whitespace-nowrap">الإجراء</th>
@@ -2209,7 +2209,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
     isSet ? 'محفوظ مسبقاً — اتركه فارغاً للإبقاء عليه، أو اكتب قيمة جديدة لاستبداله' : undefined
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-lg p-4 flex flex-col gap-5">
+    <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex flex-col gap-5">
       <div>
         <h3 className="text-base font-semibold text-gray-100">إعداد الفاتورة الإلكترونية (ETA)</h3>
         <p className="text-xs text-gray-500 mt-1 leading-relaxed">
@@ -2334,8 +2334,8 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
             <div className={cn(
               'rounded-md px-4 py-3 text-sm flex items-start gap-2',
               testResult.ok
-                ? 'bg-success-500/10 border border-success-500/30 text-success-200'
-                : 'bg-danger-500/10 border border-danger-500/30 text-danger-200',
+                ? 'bg-success-500/10 border border-success-500/30 text-success-700'
+                : 'bg-danger-500/10 border border-danger-500/30 text-danger-700',
             )}>
               {testResult.ok ? <Check className="w-4 h-4 mt-0.5 shrink-0" /> : <XCircle className="w-4 h-4 mt-0.5 shrink-0" />}
               <span>{testResult.message}</span>
@@ -2423,7 +2423,7 @@ function EtaSettings() {
   return (
     <div className="flex flex-col gap-6">
       {/* Enable/disable toggle + setup status */}
-      <div className="bg-gray-900 border border-gray-800 rounded-lg p-4 flex flex-col gap-4">
+      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex flex-col gap-4">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="text-base font-semibold text-gray-100">إرسال الإيصالات الإلكترونية (ETA)</h3>
@@ -2444,9 +2444,9 @@ function EtaSettings() {
         </div>
 
         {etaEnabled && !fullySetUp && (
-          <div className="bg-warning-500/10 border border-warning-500/30 rounded-md px-4 py-3 text-sm text-warning-200">
+          <div className="bg-warning-500/10 border border-warning-500/30 rounded-md px-4 py-3 text-sm text-warning-700">
             <p className="font-semibold mb-1">بانتظار إكمال إعداد ETA</p>
-            <p className="text-warning-200/80 text-xs leading-relaxed">
+            <p className="text-warning-600 text-xs leading-relaxed">
               متجرك مفعّل لإرسال الإيصالات الإلكترونية، لكن الإعداد لسه ناقص.
               {!hasIssuer && ' املأ بيانات الممول والعنوان في النموذج بالأسفل.'}
               {!hasCredentials && ' بيانات الاعتماد المشفّرة (Client ID و Client Secret والشهادة الرقمية) لازم يدخلها فريق الدعم بعد تسجيلك على بوابة ETA.'}
@@ -2463,7 +2463,7 @@ function EtaSettings() {
         )}
 
         {etaEnabled && fullySetUp && (
-          <div className="bg-success-500/10 border border-success-500/30 rounded-md px-4 py-3 text-xs text-success-200 leading-relaxed">
+          <div className="bg-success-500/10 border border-success-500/30 rounded-md px-4 py-3 text-xs text-success-700 leading-relaxed">
             تم إعداد ETA — الفواتير تُرسَل تلقائياً إلى مصلحة الضرائب.
           </div>
         )}
@@ -2598,7 +2598,7 @@ function PrintTemplateSettings() {
       <textarea
         value={template}
         onChange={(e) => setTemplate(e.target.value)}
-        className="w-full h-96 bg-gray-900 border border-gray-700 rounded-md px-3 py-2 text-xs text-gray-300 font-mono focus:outline-none focus:border-brand-500 resize-none"
+        className="w-full h-96 bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-xs text-gray-300 font-mono focus:outline-none focus:border-brand-500 resize-none"
         dir="ltr" spellCheck={false}
       />
       <Button onClick={() => save()} loading={isPending} className="w-fit">حفظ القالب</Button>

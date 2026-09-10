@@ -434,7 +434,7 @@ function Features() {
   ]
 
   return (
-    <section id="features" className="py-20 md:py-28 bg-gray-900/40 border-y border-gray-800">
+    <section id="features" className="py-20 md:py-28 bg-gray-800/60 border-y border-gray-700">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 text-xs font-medium mb-4">
@@ -820,20 +820,20 @@ function VsAlternativesStrip() {
   ]
   return (
     <div className="max-w-5xl mx-auto mb-12 bg-gray-800/40 border border-gray-800 rounded-xl overflow-hidden">
-      <div className="px-5 py-3 border-b border-gray-800 bg-gray-900/40">
+      <div className="px-5 py-3 border-b border-gray-700 bg-gray-750">
         <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">قارن بنفسك</div>
         <div className="text-sm text-gray-300">
           منافسنا الحقيقي مش نظام تاني — منافسنا هو الورقة والمحاسب.
         </div>
       </div>
       <div className="grid grid-cols-4 text-xs sm:text-sm">
-        <div className="px-3 py-3 bg-gray-900/30 border-b border-gray-800 text-gray-500 text-[10px] uppercase tracking-wider">
+        <div className="px-3 py-3 bg-gray-750/60 border-b border-gray-700 text-gray-500 text-[10px] uppercase tracking-wider">
           المعيار
         </div>
-        <div className="px-3 py-3 bg-gray-900/30 border-b border-gray-800 text-center text-gray-400">
+        <div className="px-3 py-3 bg-gray-750/60 border-b border-gray-700 text-center text-gray-400">
           📓 ورق / Excel
         </div>
-        <div className="px-3 py-3 bg-gray-900/30 border-b border-gray-800 text-center text-gray-400">
+        <div className="px-3 py-3 bg-gray-750/60 border-b border-gray-700 text-center text-gray-400">
           🧾 محاسب يدوي
         </div>
         <div className="px-3 py-3 bg-brand-900/40 border-b border-brand-500/40 text-center font-semibold text-brand-300">

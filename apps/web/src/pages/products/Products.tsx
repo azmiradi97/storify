@@ -541,7 +541,7 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
       </div>
 
       {showForm && (
-        <div className="bg-gray-900 rounded-md p-3 mb-3 flex flex-col gap-3">
+        <div className="bg-gray-800 rounded-md p-3 mb-3 flex flex-col gap-3">
           <div className="flex gap-2">
             <Select value={discountType} onChange={(e) => setDiscountType(e.target.value as 'percentage' | 'fixed')}>
               <option value="percentage">نسبة %</option>
@@ -571,7 +571,7 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
             const isLive = d.startDate <= today && d.endDate >= today
             const isPast = d.endDate < today
             return (
-              <div key={d.id} className="flex items-center justify-between text-sm bg-gray-900 rounded-md px-3 py-2">
+              <div key={d.id} className="flex items-center justify-between text-sm bg-gray-800 rounded-md px-3 py-2">
                 <div>
                   <span className={`font-mono font-semibold ${isLive ? 'text-success-400' : isPast ? 'text-gray-600' : 'text-brand-400'}`}>
                     {d.discountType === 'percentage' ? `${Number(d.discountValue)}%` : `${Number(d.discountValue)} ج`}

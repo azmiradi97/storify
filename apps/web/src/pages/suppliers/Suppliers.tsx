@@ -189,21 +189,21 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
         {/* Summary stats over the FILTERED set */}
         {summary && (
           <div className="grid grid-cols-3 gap-2 mb-3">
-            <div className="bg-gray-900/50 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مشتريات</p>
               <p className="font-mono text-sm text-danger-400 mt-0.5 num">
                 {formatMoney(summary.totalPurchases)} ج
               </p>
               <p className="text-[10px] text-gray-600">{summary.countPurchases} حركة</p>
             </div>
-            <div className="bg-gray-900/50 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">دفعات</p>
               <p className="font-mono text-sm text-success-400 mt-0.5 num">
                 {formatMoney(summary.totalPayments)} ج
               </p>
               <p className="text-[10px] text-gray-600">{summary.countPayments} حركة</p>
             </div>
-            <div className="bg-gray-900/50 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مرتجعات</p>
               <p className="font-mono text-sm text-warning-400 mt-0.5 num">
                 {formatMoney(summary.totalReturns)} ج
@@ -231,7 +231,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
                     <div className="flex items-center gap-2">
                       <p className={cn('text-sm font-medium', tm.color)}>{tm.label}</p>
                       {t.reference && (
-                        <span className="text-[10px] num-code bg-gray-900/60 border border-gray-700 px-1.5 py-0.5 rounded" dir="ltr">
+                        <span className="text-[10px] num-code bg-gray-800 border border-gray-700 px-1.5 py-0.5 rounded" dir="ltr">
                           {t.reference}
                         </span>
                       )}

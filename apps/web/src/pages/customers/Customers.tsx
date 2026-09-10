@@ -546,7 +546,7 @@ export default function Customers() {
             {importResult.errors.length > 0 && (
               <div>
                 <p className="text-xs text-gray-500 mb-2">الأخطاء</p>
-                <div className="max-h-48 overflow-y-auto bg-gray-900 border border-gray-700 rounded-md divide-y divide-gray-700">
+                <div className="max-h-48 overflow-y-auto bg-gray-800 border border-gray-700 rounded-md divide-y divide-gray-700">
                   {importResult.errors.map((e, i) => (
                     <div key={i} className="px-3 py-2 text-xs text-gray-300 flex items-center gap-3">
                       <span className="font-mono text-gray-500">سطر {e.row}</span>
