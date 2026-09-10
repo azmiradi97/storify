@@ -5,17 +5,17 @@
 @tailwind utilities;
 
 :root {
-  /* Brand */
-  --brand-50: #EEF2FF;
-  --brand-200: #C7D2FE;
-  --brand-400: #818CF8;
-  --brand-500: #6366F1;
-  --brand-600: #4F46E5;
-  --brand-800: #3730A3;
+  /* Brand — green (was indigo) */
+  --brand-50: #E8F7EF;
+  --brand-200: #97DBBB;
+  --brand-400: #0F6B48;
+  --brand-500: #1FA971;
+  --brand-600: #17835A;
+  --brand-800: #0D4E36;
 
   /* Typography */
-  --font-display: 'IBM Plex Sans Arabic', sans-serif;
-  --font-body: 'IBM Plex Sans Arabic', sans-serif;
+  --font-display: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+  --font-body: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
   --font-numeric: 'Inter', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
@@ -38,7 +38,7 @@
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-brand: 0 4px 14px 0 rgb(99 102 241 / 0.3);
+  --shadow-brand: 0 6px 16px 0 rgb(31 169 113 / 0.28);
 
   /* Transitions */
   --ease-fast: 150ms ease;
@@ -55,7 +55,7 @@
   html {
     direction: rtl;
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 17px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -84,7 +84,7 @@
 
   /* Focus ring */
   :focus-visible {
-    outline: 2px solid #6366F1;
+    outline: 2px solid #1FA971;
     outline-offset: 2px;
   }
 
@@ -103,9 +103,9 @@
     @apply bg-gray-800 rounded;
     background: linear-gradient(
       90deg,
-      #1E293B 25%,
-      #334155 50%,
-      #1E293B 75%
+      #EEF4ED 25%,
+      #DCE6DE 50%,
+      #EEF4ED 75%
     );
     background-size: 200% 100%;
     animation: shimmer 1500ms infinite;
@@ -133,44 +133,44 @@
 
 /* ─── react-day-picker dark theme ───────────────────────────────────────────── */
 .rdp-hesba {
-  --rdp-accent-color: #6366F1;
-  --rdp-accent-background-color: rgba(99, 102, 241, 0.18);
-  --rdp-today-color: #818CF8;
+  --rdp-accent-color: #1FA971;
+  --rdp-accent-background-color: rgba(31, 169, 113, 0.16);
+  --rdp-today-color: #17835A;
   --rdp-day-height: 36px;
   --rdp-day-width: 36px;
   --rdp-day_button-height: 34px;
   --rdp-day_button-width: 34px;
   --rdp-range_start-color: #fff;
   --rdp-range_end-color: #fff;
-  --rdp-range_middle-color: #E0E7FF;
+  --rdp-range_middle-color: #C8ECD9;
   --rdp-nav_button-height: 1.75rem;
   --rdp-nav_button-width: 1.75rem;
-  color: #F1F5F9;
+  color: #12261E;
   font-family: var(--font-body);
   font-size: 13px;
 }
 .rdp-hesba .rdp-weekday {
-  color: #64748B;
+  color: #718880;
   font-weight: 500;
   font-size: 11px;
 }
 .rdp-hesba .rdp-day_button {
-  color: #CBD5E1;
+  color: #294A3D;
 }
 .rdp-hesba .rdp-day_button:hover:not([disabled]) {
-  background-color: #334155;
+  background-color: #EEF4ED;
 }
 .rdp-hesba .rdp-day_outside .rdp-day_button {
-  color: #475569;
+  color: #9FB3AA;
 }
 .rdp-hesba .rdp-month_caption {
-  color: #F1F5F9;
+  color: #12261E;
   font-weight: 600;
 }
 .rdp-hesba .rdp-chevron {
-  fill: #94A3B8;
+  fill: #5C726A;
 }
 .rdp-hesba .rdp-button_previous:hover .rdp-chevron,
 .rdp-hesba .rdp-button_next:hover .rdp-chevron {
-  fill: #F1F5F9;
+  fill: #12261E;
 }

@@ -5,30 +5,49 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // ── Brand → fresh green (was indigo). Stops are picked for their ROLE:
+        // 600 = button fill (white text), 400 = green text on light, 500 = the
+        // accent hue for rings/highlights. See UI-refresh Phase 1.
         brand: {
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          200: '#C7D2FE',
-          300: '#A5B4FC',
-          400: '#818CF8',
-          500: '#6366F1',
-          600: '#4F46E5',
-          700: '#4338CA',
-          800: '#3730A3',
-          900: '#312E81',
+          50: '#E8F7EF',
+          100: '#C8ECD9',
+          200: '#97DBBB',
+          300: '#59C596',
+          400: '#0F6B48',
+          500: '#1FA971',
+          600: '#17835A',
+          700: '#116646',
+          800: '#0D4E36',
+          900: '#0A3A28',
         },
+        // ── Cheerful warm-yellow accent (new).
+        accent: {
+          50: '#FFF9E6',
+          100: '#FFF0C2',
+          200: '#FFE28A',
+          300: '#FFD25C',
+          400: '#FFC53D',
+          500: '#F5A623',
+          600: '#C77F12',
+          700: '#8A5A00',
+        },
+        // ── Neutral ramp REDEFINED for the LIGHT theme. The app uses low stops
+        // (50–200) for text and high stops (700–900) for surfaces, so the ramp
+        // is intentionally inverted in darkness (50 = deep ink … 900 = near
+        // white) with a slight green bias. This flips dark→light without
+        // touching the 55 component files that reference these tokens.
         gray: {
-          50: '#F8FAFC',
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
-          400: '#94A3B8',
-          500: '#64748B',
-          600: '#475569',
-          700: '#334155',
-          750: '#293548',
-          800: '#1E293B',
-          900: '#0F172A',
+          50: '#12261E',
+          100: '#1B3A2E',
+          200: '#294A3D',
+          300: '#3E5C4F',
+          400: '#5C726A',
+          500: '#718880',
+          600: '#9FB3AA',
+          700: '#D8E2DB',
+          750: '#E7EEE8',
+          800: '#EEF4ED',
+          900: '#F7FAF6',
         },
         success: {
           50: '#ECFDF5',
@@ -62,14 +81,14 @@ const config: Config = {
         cyan: { 500: '#06B6D4' },
         violet: { 500: '#8B5CF6' },
         teal: { 500: '#14B8A6' },
-        app: '#0B1220',
+        app: '#F2F6F1',
       },
       fontFamily: {
-        display: ['IBM Plex Sans Arabic', 'sans-serif'],
-        body: ['IBM Plex Sans Arabic', 'sans-serif'],
+        display: ['Cairo', 'IBM Plex Sans Arabic', 'sans-serif'],
+        body: ['Cairo', 'IBM Plex Sans Arabic', 'sans-serif'],
         numeric: ['Inter', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
-        sans: ['IBM Plex Sans Arabic', 'sans-serif'],
+        sans: ['Cairo', 'IBM Plex Sans Arabic', 'sans-serif'],
       },
       spacing: {
         'sp-1': '4px',
@@ -92,7 +111,7 @@ const config: Config = {
         md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
         lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
         xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-        brand: '0 4px 14px 0 rgb(99 102 241 / 0.3)',
+        brand: '0 6px 16px 0 rgb(31 169 113 / 0.28)',
       },
       transitionDuration: {
         fast: '150ms',
