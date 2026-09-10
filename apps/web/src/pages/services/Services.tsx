@@ -219,7 +219,7 @@ export default function Services() {
           <div>
             <label className="text-sm text-gray-400 block mb-1">الوصف</label>
             <textarea {...register('description')} rows={3}
-              className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
           <Select label="الفئة (اختياري)" {...register('categoryId')}>
             <option value="">بدون فئة</option>

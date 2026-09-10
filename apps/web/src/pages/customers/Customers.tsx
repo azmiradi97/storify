@@ -100,7 +100,7 @@ function CreditModal({ customer, onClose }: { customer: Customer; onClose: () =>
       <div>
         <label className="text-sm text-gray-400 block mb-1">ملاحظة (اختياري)</label>
         <textarea {...register('note')} rows={2}
-          className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+          className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
       </div>
       <div className="flex gap-3">
         <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>إلغاء</Button>
@@ -515,7 +515,7 @@ export default function Customers() {
           <div>
             <label className="text-sm text-gray-400 block mb-1">ملاحظات</label>
             <textarea {...register('notes')} rows={3}
-              className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
         </form>
       </Drawer>

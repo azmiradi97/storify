@@ -108,7 +108,7 @@ function AdjustModal({ entry, onClose }: { entry: StockEntry; onClose: () => voi
       </Select>
       <div>
         <label className="text-sm text-gray-400 block mb-1">ملاحظة (اختياري)</label>
-        <textarea {...register('note')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+        <textarea {...register('note')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
       </div>
       <div className="flex gap-3">
         <Button variant="secondary" className="flex-1" onClick={onClose}>إلغاء</Button>
@@ -228,7 +228,7 @@ function CreateTransferDrawer({ branches, onClose }: { branches: Branch[]; onClo
 
       <div>
         <label className="text-sm text-gray-400 block mb-1">ملاحظات (اختياري)</label>
-        <textarea {...register('notes')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+        <textarea {...register('notes')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
       </div>
 
       <div>
@@ -269,7 +269,7 @@ function CreateTransferDrawer({ branches, onClose }: { branches: Branch[]; onClo
                 type="number"
                 min={1}
                 {...register(`items.${idx}.quantity`)}
-                className="w-20 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-center text-gray-100 focus:outline-none focus:border-brand-500"
+                className="w-20 bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm text-center text-gray-100 focus:outline-none focus:border-brand-500"
               />
               <button onClick={() => remove(idx)} className="text-gray-500 hover:text-danger-500">
                 <X className="w-4 h-4" />

@@ -118,7 +118,7 @@ export function DateRangePicker({
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          'flex items-center gap-2 bg-gray-700 border border-gray-600 rounded text-gray-100 focus:outline-none focus:border-brand-500 transition-colors',
+          'flex items-center gap-2 bg-gray-800 border border-gray-700 rounded text-gray-100 focus:outline-none focus:border-brand-500 transition-colors',
           compact ? 'px-2 py-1 text-xs' : 'px-3 py-2.5 text-sm min-h-[44px]',
           (value.from || value.to) ? (compact ? 'rounded-e-none' : 'rounded-e-none') : '',
         )}
@@ -132,7 +132,7 @@ export function DateRangePicker({
           aria-label="مسح الفترة"
           onClick={clear}
           className={cn(
-            'flex items-center justify-center bg-gray-700 border border-s-0 border-gray-600 rounded-e text-gray-500 hover:text-gray-300 hover:bg-gray-600 transition-colors focus:outline-none focus:border-brand-500',
+            'flex items-center justify-center bg-gray-800 border border-s-0 border-gray-700 rounded-e text-gray-500 hover:text-gray-300 hover:bg-gray-750 transition-colors focus:outline-none focus:border-brand-500',
             compact ? 'px-1.5 py-1 h-full' : 'px-2 min-h-[44px]',
           )}
         >

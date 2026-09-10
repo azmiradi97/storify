@@ -119,7 +119,7 @@ function ReturnModal({ invoice, onClose }: { invoice: Invoice; onClose: () => vo
         <div className="flex gap-2">
           <button
             onClick={() => setReturnType('refund')}
-            className={`flex-1 py-2 rounded text-sm border transition-all ${returnType === 'refund' ? 'border-brand-500 text-brand-400 bg-brand-600/10' : 'border-gray-700 text-gray-400'}`}
+            className={`flex-1 py-2 rounded text-sm border transition-all ${returnType === 'refund' ? 'border-brand-500 text-brand-400 bg-brand-500/10' : 'border-gray-700 text-gray-400'}`}
           >استرداد نقدي</button>
           <button
             onClick={() => setReturnType('credit')}
@@ -134,7 +134,7 @@ function ReturnModal({ invoice, onClose }: { invoice: Invoice; onClose: () => vo
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           rows={2}
-          className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none"
+          className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none"
           placeholder="عيب في المنتج، مقاس خاطئ..."
         />
       </div>

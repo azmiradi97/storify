@@ -314,7 +314,7 @@ function VariantSearchField({ index, register, setValue }: {
         value={selected || q}
         placeholder="بحث عن منتج..."
         onChange={(e) => { setSelected(''); search(e.target.value) }}
-        className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500"
+        className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)]"
       />
       <input type="hidden" {...register(`items.${index}.variantId`)} />
       <input type="hidden" {...register(`items.${index}.variantLabel`)} />
@@ -499,7 +499,7 @@ function CreateContractDrawer({ onClose }: { onClose: () => void }) {
 
       <div>
         <label className="text-sm text-gray-400 block mb-1">ملاحظات (اختياري)</label>
-        <textarea {...register('notes')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+        <textarea {...register('notes')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
       </div>
 
       <div className="flex gap-3 pt-2">

@@ -1863,7 +1863,7 @@ function ExpenseCategoriesSettings() {
           <Input label="اسم الفئة" error={errors.name?.message} {...register('name')} />
           <div>
             <label className="text-sm text-gray-400 block mb-1">الوصف (اختياري)</label>
-            <textarea {...register('description')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+            <textarea {...register('description')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
         </form>
       </Drawer>
@@ -2024,7 +2024,7 @@ function CouponsSettings() {
           <Input label="الحد الأقصى للاستخدام — اختياري" type="number" {...register('maxUses')} />
           <div>
             <label className="text-sm text-gray-400 block mb-1">تاريخ الانتهاء — اختياري</label>
-            <input type="datetime-local" {...register('expiresAt')} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
+            <input type="datetime-local" {...register('expiresAt')} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)]" />
           </div>
           <label className="flex items-center gap-3 text-sm text-gray-300 cursor-pointer">
             <input type="checkbox" {...register('isActive')} className="w-4 h-4 accent-brand-500" />

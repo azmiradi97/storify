@@ -340,7 +340,7 @@ export default function Products() {
           <input
             type="number" min={1} max={50} value={labelCopies}
             onChange={(e) => setLabelCopies(Math.max(1, Number(e.target.value)))}
-            className="w-14 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-xs text-gray-100 text-center"
+            className="w-14 bg-gray-800 border border-gray-700 rounded px-2 py-1 text-xs text-gray-100 text-center"
             aria-label="عدد النسخ"
           />
           <Button variant="outline" size="sm" onClick={bulkPrintLabels}>
@@ -411,7 +411,7 @@ function CreateProductDrawer({ open, onClose, categories, taxRates, onSuccess }:
         <Input label="اسم المنتج" error={errors.name?.message} {...register('name')} />
         <div>
           <label className="text-sm text-gray-400 block mb-1">الوصف (اختياري)</label>
-          <textarea {...register('description')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+          <textarea {...register('description')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -547,12 +547,12 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
               <option value="percentage">نسبة %</option>
               <option value="fixed">مبلغ ثابت ج</option>
             </Select>
-            <input type="number" value={discountValue} onChange={(e) => setDiscountValue(e.target.value)} placeholder="القيمة" className="flex-1 bg-gray-700 border border-gray-600 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
+            <input type="number" value={discountValue} onChange={(e) => setDiscountValue(e.target.value)} placeholder="القيمة" className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
           </div>
           <div className="flex gap-2">
-            <input type="date" value={startDate} min={today} onChange={(e) => setStartDate(e.target.value)} className="flex-1 bg-gray-700 border border-gray-600 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
+            <input type="date" value={startDate} min={today} onChange={(e) => setStartDate(e.target.value)} className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
             <span className="text-gray-500 self-center">—</span>
-            <input type="date" value={endDate} min={startDate || today} onChange={(e) => setEndDate(e.target.value)} className="flex-1 bg-gray-700 border border-gray-600 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
+            <input type="date" value={endDate} min={startDate || today} onChange={(e) => setEndDate(e.target.value)} className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-2 py-1.5 text-sm text-gray-100 focus:outline-none focus:border-brand-500" />
           </div>
           <div className="flex gap-2">
             <Button variant="secondary" size="sm" className="flex-1" onClick={() => setShowForm(false)}>إلغاء</Button>
@@ -678,7 +678,7 @@ function ProductDetailDrawer({ product, onClose, categories, taxRates, onSuccess
             <Input label="اسم المنتج" error={errors.name?.message} {...register('name')} />
             <div>
               <label className="text-sm text-gray-400 block mb-1">الوصف</label>
-              <textarea {...register('description')} rows={2} className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+              <textarea {...register('description')} rows={2} className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Select label="الوحدة" {...register('unit')}>

@@ -676,7 +676,7 @@ function StatusTransitionModal({ workOrderId, target, onClose, onDone }: {
           onChange={(e) => setNote(e.target.value)}
           rows={3}
           maxLength={500}
-          className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none"
+          className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none"
         />
       </div>
     </Modal>
@@ -753,7 +753,7 @@ function AddServiceModal({ open, workOrderId, onClose, onDone }: {
           <textarea
             {...register('notes')}
             rows={2}
-            className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none"
+            className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none"
           />
         </div>
       </div>
@@ -976,7 +976,7 @@ function CreateWorkOrderModal({ open, onClose, onCreated }: {
             <div className="sm:col-span-2">
               <label className="text-sm text-gray-400 block mb-1">ملاحظات الحالة</label>
               <textarea {...register('conditionNotes')} rows={2}
-                className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+                className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
             </div>
           </>
         )}
@@ -996,7 +996,7 @@ function CreateWorkOrderModal({ open, onClose, onCreated }: {
             <div className="sm:col-span-2">
               <label className="text-sm text-gray-400 block mb-1">ملاحظات الموعد</label>
               <textarea {...register('appointmentNotes')} rows={2}
-                className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+                className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
             </div>
           </>
         )}
@@ -1004,7 +1004,7 @@ function CreateWorkOrderModal({ open, onClose, onCreated }: {
           <div className="sm:col-span-2">
             <label className="text-sm text-gray-400 block mb-1">وصف الخدمة المطلوبة</label>
             <textarea {...register('description')} rows={2}
-              className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
           </div>
         )}
 
@@ -1017,7 +1017,7 @@ function CreateWorkOrderModal({ open, onClose, onCreated }: {
         <div className="sm:col-span-2">
           <label className="text-sm text-gray-400 block mb-1">ملاحظات العميل (اختياري)</label>
           <textarea {...register('customerNotes')} rows={2}
-            className="w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 resize-none" />
+            className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)] resize-none" />
         </div>
       </form>
     </Modal>
