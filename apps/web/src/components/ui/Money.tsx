@@ -17,7 +17,7 @@ const sizeClasses = {
 }
 
 const toneClasses = {
-  neutral: 'text-gray-50',
+  neutral: 'text-gray-100',
   income: 'text-success-500',
   expense: 'text-danger-500',
 }

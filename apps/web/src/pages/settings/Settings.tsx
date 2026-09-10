@@ -1094,7 +1094,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
                   {idx === 0 ? (
                     <td
                       rowSpan={actions.length}
-                      className="px-4 py-2 text-gray-200 font-medium align-top bg-gray-900/40 whitespace-nowrap"
+                      className="px-4 py-2 text-gray-200 font-medium align-top bg-gray-750 whitespace-nowrap"
                     >
                       {permEntityLabels[entity] ?? entity}
                     </td>
