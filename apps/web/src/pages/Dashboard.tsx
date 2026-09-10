@@ -65,12 +65,12 @@ function Sparkline({ data }: { data: SalesDay[] }) {
     >
       <defs>
         <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          <stop offset="0%" stopColor="#1FA971" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#1FA971" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={area} fill="url(#sparkGrad)" />
-      <polyline points={points} fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points={points} fill="none" stroke="#1FA971" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -82,7 +82,7 @@ function PendingCard({ label, count, icon, onClick }: { label: string; count: nu
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-r-xl px-4 py-3 hover:border-warning-500/50 transition-colors text-right w-full"
+      className="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 hover:border-warning-500/50 transition-colors text-right w-full"
     >
       <span className="w-8 h-8 rounded-full bg-warning-500/10 flex items-center justify-center text-warning-500 shrink-0">{icon}</span>
       <div className="flex-1 min-w-0">
@@ -222,7 +222,7 @@ export default function Dashboard() {
 
       {/* ── Daily target progress ── */}
       {dailyTarget > 0 && (
-        <div className="bg-gray-800 border border-gray-700 rounded-r-xl p-4 mb-6">
+        <div className="bg-gray-800 border border-gray-700 rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm text-gray-300 font-medium">تقدم هدف اليوم</p>
             <p className="text-xs font-numeric num num-strong">
@@ -251,7 +251,7 @@ export default function Dashboard() {
         {/* ── Left column: sparkline + pending actions ── */}
         <div className="lg:col-span-1 flex flex-col gap-4">
           {/* 7-day sparkline card */}
-          <div className="bg-gray-800 border border-gray-700 rounded-r-xl p-4">
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">المبيعات — آخر 7 أيام</p>
             </div>
@@ -274,7 +274,7 @@ export default function Dashboard() {
 
           {/* Pending actions */}
           {pendingCount > 0 && (
-            <div className="bg-gray-800 border border-gray-700 rounded-r-xl p-4">
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
               <p className="text-xs uppercase tracking-wider text-gray-500 font-medium mb-3">إجراءات معلقة</p>
               <div className="flex flex-col gap-2">
                 <PendingCard
@@ -303,7 +303,7 @@ export default function Dashboard() {
           {(data?.lowStockAlerts ?? 0) > 0 && (
             <button
               onClick={() => navigate('/stock')}
-              className="flex items-center gap-3 bg-warning-500/10 border border-warning-500/30 rounded-r-xl px-4 py-3 hover:border-warning-500 transition-colors text-right w-full"
+              className="flex items-center gap-3 bg-warning-500/10 border border-warning-500/30 rounded-xl px-4 py-3 hover:border-warning-500 transition-colors text-right w-full"
             >
               <PackageOpen className="w-5 h-5 text-warning-500 shrink-0" />
               <div className="flex-1">
@@ -316,7 +316,7 @@ export default function Dashboard() {
 
         {/* ── Right column: recent invoices ── */}
         <div className="lg:col-span-2">
-          <div className="bg-gray-800 border border-gray-700 rounded-r-xl p-4">
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">أحدث الفواتير</p>
               <button onClick={() => navigate('/invoices')} className="text-xs text-brand-400 hover:text-brand-300 transition-colors">
@@ -360,7 +360,7 @@ export default function Dashboard() {
 
           {/* Today's fee cost banner — only shows if > 0 */}
           {(data?.today.feeExpenses ?? 0) > 0 && (
-            <div className="mt-4 bg-gray-800 border border-gray-700 rounded-r-xl p-4 flex items-center justify-between">
+            <div className="mt-4 bg-gray-800 border border-gray-700 rounded-xl p-4 flex items-center justify-between">
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">رسوم الدفع اليوم (على التاجر)</p>
                 <Money value={data!.today.feeExpenses} size="lg" />
@@ -371,7 +371,7 @@ export default function Dashboard() {
 
           {/* Top products today */}
           {topProducts && topProducts.length > 0 && (
-            <div className="mt-4 bg-gray-800 border border-gray-700 rounded-r-xl p-4">
+            <div className="mt-4 bg-gray-800 border border-gray-700 rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-xs uppercase tracking-wider text-gray-500 font-medium">أكثر المنتجات مبيعاً اليوم</p>
                 <button onClick={() => navigate('/reports')} className="text-xs text-brand-400 hover:text-brand-300 transition-colors">التقارير ←</button>

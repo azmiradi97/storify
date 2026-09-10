@@ -93,10 +93,10 @@ export function AdminShell({ children, title }: AdminShellProps) {
               onClick={() => setSidebarOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  'flex items-center gap-3 px-4 py-3 text-sm transition-all duration-fast mx-2 rounded-r-md',
+                  'flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-fast mx-2 rounded-lg',
                   isActive
-                    ? 'bg-brand-600/20 text-brand-400 border-r-2 border-brand-500'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-gray-100',
+                    ? 'bg-brand-500/12 text-brand-400 font-medium shadow-[inset_3px_0_0_0_#1FA971]'
+                    : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200',
                 )
               }
             >

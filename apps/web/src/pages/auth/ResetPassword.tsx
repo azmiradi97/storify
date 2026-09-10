@@ -65,7 +65,7 @@ export default function ResetPassword() {
           <p className="text-gray-400 text-sm">تعيين كلمة مرور جديدة</p>
         </div>
 
-        <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-8 shadow-xl">
+        <div className="bg-gray-800 rounded-xl border border-gray-700 p-8 shadow-xl">
           {error && (
             <Alert variant="danger" className="mb-6">
               {getApiErrorMessage(error, 'الرابط منتهي الصلاحية أو غير صالح')}

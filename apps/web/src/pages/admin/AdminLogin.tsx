@@ -57,7 +57,7 @@ export default function AdminLogin() {
           <p className="text-gray-400 text-sm">لوحة إدارة المنصة</p>
         </div>
 
-        <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-8 shadow-xl">
+        <div className="bg-gray-800 rounded-xl border border-gray-700 p-8 shadow-xl">
           {Boolean(error) && (
             <Alert variant="danger" className="mb-6">
               {getApiErrorMessage(error, 'خطأ في تسجيل الدخول')}

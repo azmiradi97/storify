@@ -448,7 +448,7 @@ export default function POS() {
                 id="pos-search-listbox"
                 role="listbox"
                 aria-label="نتائج البحث"
-                className="absolute z-50 top-full mt-1 w-full bg-gray-800 border border-gray-700 rounded-r-lg shadow-lg overflow-hidden"
+                className="absolute z-50 top-full mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg shadow-lg overflow-hidden"
               >
                 {searchResults.map((v, idx) => (
                   <button
@@ -490,7 +490,7 @@ export default function POS() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto bg-gray-800 rounded-r-xl border border-gray-700 min-h-[240px] lg:min-h-0">
+          <div className="flex-1 overflow-auto bg-gray-800 rounded-xl border border-gray-700 min-h-[240px] lg:min-h-0">
             {cart.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-gray-500 gap-3 py-12">
                 <ShoppingCart className="w-12 h-12 opacity-30" />
@@ -558,7 +558,7 @@ export default function POS() {
 
         {/* RIGHT: Totals + Payment */}
         <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 min-h-0 lg:overflow-y-auto lg:pb-2">
-          <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-4">
+          <div className="bg-gray-800 rounded-xl border border-gray-700 p-4">
             {customer ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -608,7 +608,7 @@ export default function POS() {
             )}
           </div>
 
-          <div className="bg-gray-800 rounded-r-xl border border-gray-700 overflow-hidden">
+          <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
             <button
               type="button"
               onClick={() => setPmSectionOpen((v) => !v)}
@@ -679,7 +679,7 @@ export default function POS() {
 
           {/* Currency selector — only shown when multiple currencies exist */}
           {currencies.length > 1 && (
-            <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-3">
+            <div className="bg-gray-800 rounded-xl border border-gray-700 p-3">
               <p className="text-xs uppercase text-gray-500 font-medium mb-2">العملة</p>
               <div className="flex flex-wrap gap-1.5">
                 <button
@@ -714,7 +714,7 @@ export default function POS() {
 
           {/* Split payment */}
           {selectedPM && (
-            <div className="bg-gray-800 rounded-r-xl border border-gray-700 overflow-hidden">
+            <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
               <button
                 type="button"
                 onClick={() => setSplitSectionOpen((v) => !v)}
@@ -772,7 +772,7 @@ export default function POS() {
           )}
 
           {/* Coupon input */}
-          <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-3">
+          <div className="bg-gray-800 rounded-xl border border-gray-700 p-3">
             {appliedCoupon ? (
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -806,7 +806,7 @@ export default function POS() {
             )}
           </div>
 
-          <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-4 flex flex-col gap-3">
+          <div className="bg-gray-800 rounded-xl border border-gray-700 p-4 flex flex-col gap-3">
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">المجموع الفرعي</span>
               <Money value={subtotal} />

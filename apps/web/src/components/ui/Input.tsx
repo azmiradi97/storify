@@ -27,10 +27,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full rounded-r-md border-[1.5px] bg-gray-800 px-3 py-2 text-sm text-gray-100',
+              'w-full rounded-md border-[1.5px] bg-gray-800 px-3 py-2 text-sm text-gray-100',
               'placeholder:text-gray-500 transition-all duration-fast',
               'border-gray-600 hover:border-gray-500',
-              'focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(99_102_241/0.12)]',
+              'focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)]',
               'disabled:bg-gray-900 disabled:border-gray-700 disabled:cursor-not-allowed disabled:opacity-60',
               error && 'border-danger-500 focus:border-danger-500 focus:shadow-[0_0_0_3px_rgb(239_68_68/0.12)]',
               startIcon && 'pr-10',

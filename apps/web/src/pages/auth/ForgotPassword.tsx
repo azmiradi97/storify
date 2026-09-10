@@ -36,7 +36,7 @@ export default function ForgotPassword() {
           <p className="text-gray-400 text-sm">إعادة تعيين كلمة المرور</p>
         </div>
 
-        <div className="bg-gray-800 rounded-r-xl border border-gray-700 p-8 shadow-xl">
+        <div className="bg-gray-800 rounded-xl border border-gray-700 p-8 shadow-xl">
           {isSuccess ? (
             <Alert variant="success">
               إذا كان البريد الإلكتروني مسجلاً، ستصلك رسالة إعادة تعيين خلال دقائق.
