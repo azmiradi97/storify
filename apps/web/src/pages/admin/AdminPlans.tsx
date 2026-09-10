@@ -141,7 +141,7 @@ export default function AdminPlans() {
                     <Pencil className="w-4 h-4" />
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => setConfirmDelete(p)} aria-label="حذف">
-                    <Trash2 className="w-4 h-4 text-danger-400" />
+                    <Trash2 className="w-4 h-4 text-danger-600" />
                   </Button>
                 </div>
               </div>

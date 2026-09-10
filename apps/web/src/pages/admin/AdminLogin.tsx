@@ -100,7 +100,7 @@ export default function AdminLogin() {
 
         <p className="text-center text-xs text-gray-600 mt-6">
           هذه صفحة دخول مالكي المنصة فقط. لو كنت صاحب متجر، استخدم{' '}
-          <a href="/login" className="text-brand-400 hover:text-brand-300">صفحة دخول المتاجر</a>.
+          <a href="/login" className="text-brand-400 hover:text-brand-600">صفحة دخول المتاجر</a>.
         </p>
       </div>
     </div>

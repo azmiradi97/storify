@@ -63,7 +63,7 @@ export default function ForgotPassword() {
           )}
 
           <p className="text-center text-sm text-gray-500 mt-6">
-            <Link to="/login" className="text-brand-400 hover:text-brand-300 transition-colors">
+            <Link to="/login" className="text-brand-400 hover:text-brand-600 transition-colors">
               العودة لتسجيل الدخول
             </Link>
           </p>

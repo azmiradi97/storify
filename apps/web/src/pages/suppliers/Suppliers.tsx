@@ -50,9 +50,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const txnTypeMap: Record<string, { label: string; color: string }> = {
-  purchase: { label: 'مشتريات', color: 'text-danger-400' },
-  payment: { label: 'دفعة', color: 'text-success-400' },
-  return: { label: 'مرتجع', color: 'text-warning-400' },
+  purchase: { label: 'مشتريات', color: 'text-danger-600' },
+  payment: { label: 'دفعة', color: 'text-success-600' },
+  return: { label: 'مرتجع', color: 'text-warning-600' },
 }
 
 // ─── Transaction Drawer ───────────────────────────────────────────────────────
@@ -191,21 +191,21 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
           <div className="grid grid-cols-3 gap-2 mb-3">
             <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مشتريات</p>
-              <p className="font-mono text-sm text-danger-400 mt-0.5 num">
+              <p className="font-mono text-sm text-danger-600 mt-0.5 num">
                 {formatMoney(summary.totalPurchases)} ج
               </p>
               <p className="text-[10px] text-gray-600">{summary.countPurchases} حركة</p>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">دفعات</p>
-              <p className="font-mono text-sm text-success-400 mt-0.5 num">
+              <p className="font-mono text-sm text-success-600 mt-0.5 num">
                 {formatMoney(summary.totalPayments)} ج
               </p>
               <p className="text-[10px] text-gray-600">{summary.countPayments} حركة</p>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مرتجعات</p>
-              <p className="font-mono text-sm text-warning-400 mt-0.5 num">
+              <p className="font-mono text-sm text-warning-600 mt-0.5 num">
                 {formatMoney(summary.totalReturns)} ج
               </p>
               <p className="text-[10px] text-gray-600">{summary.countReturns} حركة</p>
@@ -224,7 +224,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
             {txns.map((t) => {
               const tm = txnTypeMap[t.type] ?? { label: t.type, color: 'text-gray-400' }
               const sign = t.type === 'purchase' ? '+' : '-'
-              const amountColor = t.type === 'purchase' ? 'text-danger-400' : 'text-success-400'
+              const amountColor = t.type === 'purchase' ? 'text-danger-600' : 'text-success-600'
               return (
                 <div key={t.id} className="flex items-center justify-between py-2.5 border-b border-gray-700 last:border-0">
                   <div className="min-w-0">
@@ -270,11 +270,11 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
           <div>
             <p className="text-sm text-gray-400 mb-2">نوع المعاملة</p>
             <div className="flex gap-2">
-              <label className={cn('flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all', txnType === 'payment' ? 'border-success-500 text-success-400 bg-success-500/10' : 'border-gray-700 text-gray-400')}>
+              <label className={cn('flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all', txnType === 'payment' ? 'border-success-500 text-success-600 bg-success-500/10' : 'border-gray-700 text-gray-400')}>
                 <input type="radio" value="payment" {...register('type')} className="hidden" />
                 دفعة للمورد
               </label>
-              <label className={cn('flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all', txnType === 'return' ? 'border-warning-500 text-warning-400 bg-warning-500/10' : 'border-gray-700 text-gray-400')}>
+              <label className={cn('flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all', txnType === 'return' ? 'border-warning-500 text-warning-600 bg-warning-500/10' : 'border-gray-700 text-gray-400')}>
                 <input type="radio" value="return" {...register('type')} className="hidden" />
                 مرتجع للمورد
               </label>

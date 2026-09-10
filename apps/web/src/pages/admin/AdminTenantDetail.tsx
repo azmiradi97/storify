@@ -172,7 +172,7 @@ export default function AdminTenantDetail() {
 
   return (
     <AdminShell title={data.name}>
-      <Link to="/admin/tenants" className="inline-flex items-center gap-1 text-sm text-brand-400 hover:text-brand-300 mb-4">
+      <Link to="/admin/tenants" className="inline-flex items-center gap-1 text-sm text-brand-400 hover:text-brand-600 mb-4">
         <ArrowRight className="w-4 h-4" />
         كل المتاجر
       </Link>
@@ -224,7 +224,7 @@ export default function AdminTenantDetail() {
             {data.suspendedAt && (
               <div className="flex justify-between gap-2">
                 <dt className="text-gray-500">تاريخ التعليق</dt>
-                <dd className="text-warning-400">{formatDateTime(data.suspendedAt)}</dd>
+                <dd className="text-warning-600">{formatDateTime(data.suspendedAt)}</dd>
               </div>
             )}
           </dl>
@@ -277,7 +277,7 @@ export default function AdminTenantDetail() {
                     {formatDate(s.currentPeriodStart)} → {formatDate(s.currentPeriodEnd)}
                   </p>
                   {s.trialEndsAt && s.status === 'TRIALING' && (
-                    <p className="text-xs text-info-400 mt-1">تنتهي التجربة: {formatDate(s.trialEndsAt)}</p>
+                    <p className="text-xs text-info-600 mt-1">تنتهي التجربة: {formatDate(s.trialEndsAt)}</p>
                   )}
                 </div>
                 <div className="text-left">
@@ -299,7 +299,7 @@ export default function AdminTenantDetail() {
                   </Button>
                 )}
                 {s.status !== 'CANCELLED' && (
-                  <Button variant="ghost" size="sm" className="text-danger-400" onClick={() => setSubAction({ id: s.id, type: 'cancel' })}>
+                  <Button variant="ghost" size="sm" className="text-danger-600" onClick={() => setSubAction({ id: s.id, type: 'cancel' })}>
                     <Ban className="w-3.5 h-3.5" />
                     إلغاء
                   </Button>
@@ -313,7 +313,7 @@ export default function AdminTenantDetail() {
                     {s.paymentAttempts.map((p) => (
                       <li key={p.id} className="flex justify-between gap-2">
                         <span className="text-gray-500">{formatDateTime(p.attemptedAt)}</span>
-                        <span className={p.status === 'SUCCESS' ? 'text-success-400' : p.status === 'FAILED' ? 'text-danger-400' : 'text-gray-400'}>
+                        <span className={p.status === 'SUCCESS' ? 'text-success-600' : p.status === 'FAILED' ? 'text-danger-600' : 'text-gray-400'}>
                           {p.status}
                         </span>
                         <span className="text-gray-300 font-mono" dir="ltr">{formatMoney(Number(p.amount))}</span>

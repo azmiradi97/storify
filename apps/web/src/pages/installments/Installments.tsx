@@ -92,7 +92,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
         <div className="flex items-center justify-between text-xs">
           <span className="text-gray-400">التقدم</span>
           <span className="font-mono text-gray-300">
-            <span className="text-success-400">{paidCount}</span> / {payments.length} قسط
+            <span className="text-success-600">{paidCount}</span> / {payments.length} قسط
           </span>
         </div>
         <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
@@ -108,7 +108,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
         <div className="grid grid-cols-3 gap-3 pt-1">
           <div>
             <p className="text-[10px] uppercase tracking-wider text-gray-500">مدفوع</p>
-            <p className="text-sm font-mono text-success-400 num">{formatMoney(paidTotal)} ج</p>
+            <p className="text-sm font-mono text-success-600 num">{formatMoney(paidTotal)} ج</p>
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-wider text-gray-500">متبقي</p>
@@ -226,7 +226,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
                       <span className="text-gray-500 ml-2">#{idx + 1}</span>
                       {formatDate(p.dueDate)}
                     </p>
-                    <p className={`text-xs mt-0.5 ${isPaid ? 'text-success-400' : isOverdue ? 'text-danger-400' : 'text-gray-500'}`}>
+                    <p className={`text-xs mt-0.5 ${isPaid ? 'text-success-600' : isOverdue ? 'text-danger-600' : 'text-gray-500'}`}>
                       {isPaid
                         ? p.paidDate
                           ? `مدفوع · ${formatDate(p.paidDate)}`
@@ -461,7 +461,7 @@ function CreateContractDrawer({ onClose }: { onClose: () => void }) {
 
       <div className="bg-gray-750 border border-gray-700 rounded-md p-3 text-sm flex flex-col gap-1">
         <div className="flex justify-between text-gray-400"><span>إجمالي الأصناف</span><Money value={subtotal} /></div>
-        <div className="flex justify-between text-gray-400"><span>المقدم</span><span className="text-danger-400">- <Money value={downPayment} /></span></div>
+        <div className="flex justify-between text-gray-400"><span>المقدم</span><span className="text-danger-600">- <Money value={downPayment} /></span></div>
         {interestRate > 0 && <div className="flex justify-between text-gray-400"><span>الفائدة السنوية ({interestRate}% × {formatNumber(years, { maximumFractionDigits: 2 })} سنة)</span><Money value={totalInterest} /></div>}
         <div className="flex justify-between text-gray-100 font-semibold border-t border-gray-600 pt-1 mt-1">
           <span>القسط الشهري (× {installmentsCount})</span>

@@ -299,13 +299,13 @@ const transferStatusMap: Record<string, { label: string; variant: 'warning' | 's
 
 const movTypeMap: Record<string, { label: string; color: string }> = {
   manual_adjustment: { label: 'تعديل يدوي', color: 'text-brand-400' },
-  in: { label: 'دخول', color: 'text-success-400' },
-  sale: { label: 'بيع', color: 'text-danger-400' },
-  purchase: { label: 'مشتريات', color: 'text-success-400' },
-  return: { label: 'مرتجع', color: 'text-warning-400' },
+  in: { label: 'دخول', color: 'text-success-600' },
+  sale: { label: 'بيع', color: 'text-danger-600' },
+  purchase: { label: 'مشتريات', color: 'text-success-600' },
+  return: { label: 'مرتجع', color: 'text-warning-600' },
   transfer: { label: 'تحويل', color: 'text-gray-400' },
   correction: { label: 'تصحيح', color: 'text-gray-400' },
-  cancellation: { label: 'إلغاء فاتورة', color: 'text-info-400' },
+  cancellation: { label: 'إلغاء فاتورة', color: 'text-info-600' },
 }
 
 // ─── Stock Tab ────────────────────────────────────────────────────────────────

@@ -123,7 +123,7 @@ function ReturnModal({ invoice, onClose }: { invoice: Invoice; onClose: () => vo
           >استرداد نقدي</button>
           <button
             onClick={() => setReturnType('credit')}
-            className={`flex-1 py-2 rounded text-sm border transition-all ${returnType === 'credit' ? 'border-success-500 text-success-400 bg-success-500/10' : 'border-gray-700 text-gray-400'}`}
+            className={`flex-1 py-2 rounded text-sm border transition-all ${returnType === 'credit' ? 'border-success-500 text-success-600 bg-success-500/10' : 'border-gray-700 text-gray-400'}`}
           >رصيد للعميل</button>
         </div>
       </div>
@@ -362,7 +362,7 @@ export default function Invoices() {
             <div className="bg-gray-750 rounded-md border border-gray-700 p-4 flex flex-col gap-2 text-sm">
               <div className="flex justify-between text-gray-400"><span>المجموع الفرعي</span><Money value={detailInvoice.subtotal} /></div>
               {detailInvoice.discountAmount > 0 && (
-                <div className="flex justify-between text-danger-400"><span>الخصم</span><span>-<Money value={detailInvoice.discountAmount} /></span></div>
+                <div className="flex justify-between text-danger-600"><span>الخصم</span><span>-<Money value={detailInvoice.discountAmount} /></span></div>
               )}
               {detailInvoice.taxTotal > 0 && (
                 <div className="flex justify-between text-gray-400"><span>الضريبة</span><Money value={detailInvoice.taxTotal} /></div>
@@ -400,7 +400,7 @@ export default function Invoices() {
             <li>استرداد الرصيد المستخدم للعميل (إن وجد)</li>
             <li>إلغاء نقاط الولاء المكتسبة (إن وجدت)</li>
           </ul>
-          <p className="text-xs text-warning-400 bg-warning-500/10 border border-warning-500/30 rounded-md px-3 py-2">
+          <p className="text-xs text-warning-600 bg-warning-500/10 border border-warning-500/30 rounded-md px-3 py-2">
             هذا الإجراء لا يمكن التراجع عنه.
           </p>
         </div>

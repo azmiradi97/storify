@@ -73,7 +73,7 @@ export default function AdminSubscriptions() {
             emptyMessage="لا توجد اشتراكات"
             columns={[
               { key: 'tenant', header: 'المتجر', render: (s) => (
-                <Link to={`/admin/tenants/${s.tenant.id}`} className="text-brand-400 hover:text-brand-300">
+                <Link to={`/admin/tenants/${s.tenant.id}`} className="text-brand-400 hover:text-brand-600">
                   {s.tenant.name}
                 </Link>
               ) },

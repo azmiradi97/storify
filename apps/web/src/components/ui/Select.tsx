@@ -28,7 +28,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               'transition-all duration-fast',
               'border-gray-600 hover:border-gray-500',
               'focus:outline-none focus:border-brand-500 focus:shadow-[0_0_0_3px_rgb(31_169_113/0.15)]',
-              'disabled:bg-gray-900 disabled:border-gray-700 disabled:cursor-not-allowed disabled:opacity-60',
+              'disabled:bg-gray-800 disabled:border-gray-700 disabled:cursor-not-allowed disabled:opacity-60',
               error && 'border-danger-500 focus:border-danger-500 focus:shadow-[0_0_0_3px_rgb(239_68_68/0.12)]',
               'pl-8',
               className,

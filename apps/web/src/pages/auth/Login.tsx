@@ -149,7 +149,7 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <Link
                 to="/forgot-password"
-                className="text-sm text-brand-400 hover:text-brand-300 transition-colors"
+                className="text-sm text-brand-400 hover:text-brand-600 transition-colors"
               >
                 نسيت كلمة المرور؟
               </Link>
@@ -163,7 +163,7 @@ export default function Login() {
 
           <p className="text-center text-sm text-gray-500 mt-6">
             ليس لديك متجر؟{' '}
-            <Link to="/register" className="text-brand-400 hover:text-brand-300 transition-colors">
+            <Link to="/register" className="text-brand-400 hover:text-brand-600 transition-colors">
               أنشئ متجرك الآن
             </Link>
           </p>

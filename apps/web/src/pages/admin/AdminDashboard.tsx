@@ -127,7 +127,7 @@ export default function AdminDashboard() {
                 <div className={`text-xs rounded-lg px-3 py-2 mb-3 ${migrationResult.failed === 0 ? 'bg-success-50 text-success-700' : 'bg-danger-50 text-danger-700'}`}>
                   ✅ {migrationResult.ok} متجر نجح · {migrationResult.failed > 0 ? `❌ ${migrationResult.failed} فشل` : '0 فشل'}
                   {migrationResult.errors.map((e) => (
-                    <div key={e.tenantId} className="mt-1 text-danger-400 font-mono truncate">{e.tenantId}: {e.err}</div>
+                    <div key={e.tenantId} className="mt-1 text-danger-600 font-mono truncate">{e.tenantId}: {e.err}</div>
                   ))}
                 </div>
               )}
@@ -140,7 +140,7 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
             <Card>
               <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-2">إيرادات آخر 30 يوم</h3>
-              <p className="font-mono text-3xl font-bold text-success-400">
+              <p className="font-mono text-3xl font-bold text-success-600">
                 {formatMoney(data.revenueLast30Days)} <span className="text-base text-gray-500">ج.م</span>
               </p>
               <p className="text-xs text-gray-500 mt-2">
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
 
             <Card>
               <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-2">مدفوعات فاشلة آخر 30 يوم</h3>
-              <p className="font-mono text-3xl font-bold text-danger-400">
+              <p className="font-mono text-3xl font-bold text-danger-600">
                 {formatNumber(data.failedPaymentsLast30Days)}
               </p>
               <p className="text-xs text-gray-500 mt-2">قد تحتاج تدخّل (dunning)</p>

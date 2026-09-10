@@ -86,11 +86,11 @@ function CreditModal({ customer, onClose }: { customer: Customer; onClose: () =>
       <div>
         <p className="text-sm text-gray-400 mb-2">نوع التعديل</p>
         <div className="flex gap-2">
-          <label className={`flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all ${creditType === 'add' ? 'border-success-500 text-success-400 bg-success-500/10' : 'border-gray-700 text-gray-400'}`}>
+          <label className={`flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all ${creditType === 'add' ? 'border-success-500 text-success-600 bg-success-500/10' : 'border-gray-700 text-gray-400'}`}>
             <input type="radio" value="add" {...register('type')} className="hidden" />
             إضافة رصيد
           </label>
-          <label className={`flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all ${creditType === 'deduct' ? 'border-danger-500 text-danger-400 bg-danger-500/10' : 'border-gray-700 text-gray-400'}`}>
+          <label className={`flex-1 cursor-pointer py-2 rounded text-sm border text-center transition-all ${creditType === 'deduct' ? 'border-danger-500 text-danger-600 bg-danger-500/10' : 'border-gray-700 text-gray-400'}`}>
             <input type="radio" value="deduct" {...register('type')} className="hidden" />
             خصم رصيد
           </label>
@@ -298,7 +298,7 @@ function CustomerLedger({ ledger }: { ledger?: CreditLedger }) {
                   )}
                 </div>
                 <div className="text-left">
-                  <span className={`font-mono font-semibold text-sm num ${meta.tone === 'success' ? 'text-success-400' : meta.tone === 'danger' ? 'text-danger-400' : meta.tone === 'warning' ? 'text-warning-400' : 'text-info-400'}`}>
+                  <span className={`font-mono font-semibold text-sm num ${meta.tone === 'success' ? 'text-success-600' : meta.tone === 'danger' ? 'text-danger-600' : meta.tone === 'warning' ? 'text-warning-600' : 'text-info-600'}`}>
                     {amount !== undefined ? `${sign}${isPoints ? amount : formatAmount(amount)}` : '—'}
                     {isPoints && <span className="text-[10px] text-gray-500 mr-1">نقطة</span>}
                   </span>
@@ -535,11 +535,11 @@ export default function Customers() {
           <div className="space-y-4">
             <div className="flex gap-6 text-center">
               <div className="flex-1 bg-success-500/10 rounded-lg p-4">
-                <p className="text-2xl font-bold text-success-400">{importResult.created}</p>
+                <p className="text-2xl font-bold text-success-600">{importResult.created}</p>
                 <p className="text-sm text-gray-400 mt-1">تم إنشاؤه</p>
               </div>
               <div className="flex-1 bg-warning-500/10 rounded-lg p-4">
-                <p className="text-2xl font-bold text-warning-400">{importResult.skipped}</p>
+                <p className="text-2xl font-bold text-warning-600">{importResult.skipped}</p>
                 <p className="text-sm text-gray-400 mt-1">تم تخطيه</p>
               </div>
             </div>
@@ -550,7 +550,7 @@ export default function Customers() {
                   {importResult.errors.map((e, i) => (
                     <div key={i} className="px-3 py-2 text-xs text-gray-300 flex items-center gap-3">
                       <span className="font-mono text-gray-500">سطر {e.row}</span>
-                      <span className="text-danger-400">{e.reason}</span>
+                      <span className="text-danger-600">{e.reason}</span>
                     </div>
                   ))}
                 </div>
