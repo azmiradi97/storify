@@ -460,7 +460,7 @@ export default function Reports() {
                   series={[{ key: 'value', name: 'القيمة' }]}
                   formatY={formatCurrency}
                   formatTooltip={(v) => formatCurrency(v)}
-                  colorByIndex={['#10B981', '#EF4444', '#6366F1', '#F59E0B', pnlData.netProfit >= 0 ? '#10B981' : '#EF4444']}
+                  colorByIndex={['#10B981', '#EF4444', '#1FA971', '#F59E0B', pnlData.netProfit >= 0 ? '#10B981' : '#EF4444']}
                 />
               </ChartCard>
             )}
