@@ -2349,7 +2349,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
             <Button variant="ghost" onClick={() => setStep(2)}>تعديل البيانات</Button>
           </div>
 
-          <div className="bg-gray-800/40 border border-gray-700 rounded-md px-4 py-3 text-xs text-gray-400 leading-relaxed">
+          <div className="bg-gray-800 border border-gray-700 rounded-md px-4 py-3 text-xs text-gray-400 leading-relaxed">
             بعد نجاح الاختبار، الفواتير الجديدة هتترسل تلقائياً لمصلحة الضرائب طول ما
             الإرسال الإلكتروني مفعّل من فوق. مفيش خطوة إضافية مطلوبة.
           </div>
@@ -2456,7 +2456,7 @@ function EtaSettings() {
         )}
 
         {!etaEnabled && (
-          <div className="bg-gray-800/40 border border-gray-700 rounded-md px-4 py-3 text-xs text-gray-400 leading-relaxed">
+          <div className="bg-gray-800 border border-gray-700 rounded-md px-4 py-3 text-xs text-gray-400 leading-relaxed">
             الإرسال الإلكتروني موقوف لهذا المتجر. الفواتير الجديدة ستُسجّل كـ «غير مطلوب».
             تأكد أن متجرك معفى من ضريبة القيمة المضافة قبل الإيقاف.
           </div>

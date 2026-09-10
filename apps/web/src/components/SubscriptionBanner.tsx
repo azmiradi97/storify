@@ -154,7 +154,7 @@ const LEVEL_ICON: Record<Level, string> = {
 
 const LEVEL_CTA: Record<Level, string> = {
   info: 'bg-brand-500 hover:bg-brand-600 text-white',
-  warning: 'bg-warning-500 hover:bg-warning-600 text-gray-900',
+  warning: 'bg-warning-500 hover:bg-warning-600 text-gray-50',
   danger: 'bg-danger-500 hover:bg-danger-600 text-white',
 }
 

@@ -13,7 +13,7 @@ const variantClasses: Record<CardVariant, string> = {
   default: 'bg-gray-800 shadow-sm border border-gray-700',
   elevated: 'bg-gray-800 shadow-md border border-gray-700',
   flat: 'bg-gray-800 border border-gray-700',
-  brand: 'bg-brand-900/30 border border-brand-500/40',
+  brand: 'bg-brand-100/50 border border-brand-500/40',
 }
 
 export function Card({ variant = 'default', children, className }: CardProps) {
