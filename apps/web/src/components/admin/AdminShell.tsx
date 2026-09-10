@@ -124,7 +124,7 @@ export function AdminShell({ children, title }: AdminShellProps) {
 
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-gray-900/70 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}

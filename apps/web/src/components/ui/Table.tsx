@@ -145,7 +145,7 @@ function CheckboxCell({ checked, indeterminate, onChange, 'aria-label': ariaLabe
       onChange={onChange}
       onClick={(e) => e.stopPropagation()}
       aria-label={ariaLabel}
-      className="w-4 h-4 accent-brand-500 cursor-pointer rounded border-gray-600 bg-gray-700"
+      className="w-4 h-4 accent-brand-500 cursor-pointer rounded border-gray-600 bg-white"
     />
   )
 }

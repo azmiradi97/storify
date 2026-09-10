@@ -75,7 +75,7 @@ export function Modal({ open, onClose, title, children, footer, size = 'md', cla
       aria-modal="true"
       aria-labelledby={title ? titleId : undefined}
     >
-      <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div
         ref={panelRef}
         tabIndex={-1}
@@ -97,7 +97,7 @@ export function Modal({ open, onClose, title, children, footer, size = 'md', cla
               type="button"
               onClick={onClose}
               aria-label="إغلاق"
-              className="shrink-0 w-9 h-9 rounded-md bg-gray-700/60 hover:bg-gray-600 text-gray-200 hover:text-white flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="shrink-0 w-9 h-9 rounded-md bg-gray-750 hover:bg-gray-700 text-gray-400 hover:text-gray-100 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
               <X className="w-5 h-5" />
             </button>

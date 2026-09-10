@@ -488,7 +488,7 @@ export default function Reports() {
                     { label: 'تكلفة المبيعات (COGS)', value: -(pnlData?.cogs ?? 0), cls: 'text-danger-400' },
                     { label: 'إجمالي الربح', value: pnlData?.grossProfit ?? 0, cls: 'text-brand-400 font-semibold', margin: pnlData?.grossMargin },
                     { label: 'مصروفات التشغيل', value: -(pnlData?.operatingExpenses ?? 0), cls: 'text-danger-400' },
-                    { label: 'صافي الربح', value: pnlData?.netProfit ?? 0, cls: 'text-success-300 font-bold text-base', margin: pnlData?.netMargin },
+                    { label: 'صافي الربح', value: pnlData?.netProfit ?? 0, cls: 'text-success-600 font-bold text-base', margin: pnlData?.netMargin },
                   ]
                   return rows.map((row) => (
                     <div
