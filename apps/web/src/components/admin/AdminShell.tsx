@@ -76,7 +76,7 @@ export function AdminShell({ children, title }: AdminShellProps) {
           sidebarOpen ? 'translate-x-0' : 'translate-x-full',
         )}
       >
-        <div className="px-6 py-5 border-b border-gray-800 flex items-center gap-2">
+        <div className="px-6 py-5 border-b border-gray-700 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-brand-400" />
           <div>
             <h1 className="font-display text-lg font-bold text-brand-400 leading-tight">حِسبة</h1>
@@ -106,7 +106,7 @@ export function AdminShell({ children, title }: AdminShellProps) {
           ))}
         </nav>
 
-        <div className="border-t border-gray-800 p-4 flex items-center gap-3">
+        <div className="border-t border-gray-700 p-4 flex items-center gap-3">
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-200 truncate">{admin?.fullName}</p>
             <p className="text-xs text-gray-500 truncate">{admin?.email}</p>

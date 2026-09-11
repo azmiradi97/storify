@@ -268,7 +268,7 @@ export default function Dashboard() {
                 </div>
               </>
             ) : (
-              <div className="h-16 flex items-center justify-center text-gray-600 text-sm">لا توجد بيانات</div>
+              <div className="h-16 flex items-center justify-center text-gray-500 text-sm">لا توجد بيانات</div>
             )}
           </div>
 
@@ -349,7 +349,7 @@ export default function Dashboard() {
                       <div className="flex items-center gap-3">
                         <Badge variant={s.variant}>{s.label}</Badge>
                         <Money value={inv.totalAmount} />
-                        <span className="text-xs text-gray-600">{formatTime(inv.createdAt)}</span>
+                        <span className="text-xs text-gray-500">{formatTime(inv.createdAt)}</span>
                       </div>
                     </div>
                   )
@@ -365,7 +365,7 @@ export default function Dashboard() {
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">رسوم الدفع اليوم (على التاجر)</p>
                 <Money value={data!.today.feeExpenses} size="lg" />
               </div>
-              <TrendingUp className="w-6 h-6 text-gray-600" />
+              <TrendingUp className="w-6 h-6 text-gray-500" />
             </div>
           )}
 

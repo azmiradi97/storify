@@ -105,7 +105,7 @@ function Header({ user }: { user: ReturnType<typeof useAuthStore.getState>['user
   )
 
   return (
-    <header className="sticky top-0 z-50 bg-app/80 backdrop-blur border-b border-gray-800">
+    <header className="sticky top-0 z-50 bg-app/80 backdrop-blur border-b border-gray-700">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-md bg-brand-500 flex items-center justify-center font-display font-bold text-white">
@@ -162,9 +162,9 @@ function Header({ user }: { user: ReturnType<typeof useAuthStore.getState>['user
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-gray-800 px-4 py-3 flex flex-col gap-3 bg-app">
+        <div className="md:hidden border-t border-gray-700 px-4 py-3 flex flex-col gap-3 bg-app">
           {NavLinks}
-          <div className="flex gap-2 pt-2 border-t border-gray-800">
+          <div className="flex gap-2 pt-2 border-t border-gray-700">
             {user ? (
               <Link to="/dashboard" className="flex-1">
                 <Button variant="primary" size="md" className="w-full">
@@ -197,11 +197,11 @@ function Header({ user }: { user: ReturnType<typeof useAuthStore.getState>['user
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-900/20 via-app to-app pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-500/6 via-app to-app pointer-events-none" />
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-900/40 border border-brand-500/30 text-brand-600 text-xs mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100 border border-brand-500/40 text-brand-700 text-xs mb-6">
           <Sparkles className="w-3.5 h-3.5" />
           نظام إدارة متاجر متكامل — مصري بالكامل
         </div>
@@ -209,7 +209,7 @@ function Hero() {
         <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-50 leading-tight mb-6">
           كل اللي تجارتك محتاجاه
           <br />
-          <span className="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
             في مكان واحد.
           </span>
         </h1>
@@ -272,7 +272,7 @@ function TrustBar() {
     { label: 'الفروع', value: 'بلا حدود' },
   ]
   return (
-    <section className="border-y border-gray-700 bg-gray-800/60">
+    <section className="border-y border-gray-700 bg-gray-750">
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {items.map((it) => (
           <div key={it.label} className="text-center">
@@ -340,7 +340,7 @@ function PainPoints() {
           {pains.map((p) => (
             <div
               key={p.title}
-              className="bg-gray-800/60 border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors"
+              className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-gray-600 hover:bg-gray-750 transition-colors"
             >
               <div className="w-10 h-10 rounded-md bg-danger-500/10 text-danger-500 flex items-center justify-center mb-4">
                 <p.icon className="w-5 h-5" />
@@ -434,7 +434,7 @@ function Features() {
   ]
 
   return (
-    <section id="features" className="py-20 md:py-28 bg-gray-800/60 border-y border-gray-700">
+    <section id="features" className="py-20 md:py-28 bg-gray-750 border-y border-gray-700">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="inline-block px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 text-xs font-medium mb-4">
@@ -452,13 +452,13 @@ function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group bg-gray-800/60 border border-gray-800 rounded-xl p-6 hover:border-brand-500/40 hover:bg-gray-800 transition-all"
+              className="group bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-brand-500/40 hover:bg-gray-800 transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="w-10 h-10 rounded-md bg-brand-500/10 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors">
                   <f.icon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-gray-600" dir="ltr">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500" dir="ltr">
                   {f.tag}
                 </span>
               </div>
@@ -478,7 +478,7 @@ function MidCTA() {
   return (
     <section className="py-10">
       <div className="max-w-3xl mx-auto px-4">
-        <div className="bg-gradient-to-l from-brand-900/40 to-gray-900/40 border border-brand-500/30 rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-brand-100/70 border border-brand-500/30 rounded-xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-right">
             <div className="font-semibold text-gray-100 mb-1">
               عجبتك المميزات؟ ابدأ تجربتك في 5 دقايق.
@@ -594,10 +594,10 @@ function Pricing({ plans }: { plans: Plan[] }) {
               return (
                 <div
                   key={plan.id}
-                  className={`relative bg-gray-800/60 border rounded-xl p-6 flex flex-col ${
+                  className={`relative bg-gray-800 border rounded-xl p-6 flex flex-col ${
                     isFeatured
                       ? 'border-brand-500 ring-2 ring-brand-500/30 lg:scale-105'
-                      : 'border-gray-800'
+                      : 'border-gray-700'
                   }`}
                 >
                   {isFeatured && (
@@ -754,7 +754,7 @@ function FeatureLine({ children, enabled = true }: { children: React.ReactNode; 
   return (
     <li className={`flex items-center gap-2 ${enabled ? '' : 'opacity-40 line-through'}`}>
       <Check
-        className={`w-4 h-4 ${enabled ? 'text-success-500' : 'text-gray-600'}`}
+        className={`w-4 h-4 ${enabled ? 'text-success-500' : 'text-gray-500'}`}
         aria-hidden="true"
       />
       <span>{children}</span>
@@ -819,7 +819,7 @@ function VsAlternativesStrip() {
     },
   ]
   return (
-    <div className="max-w-5xl mx-auto mb-12 bg-gray-800/40 border border-gray-800 rounded-xl overflow-hidden">
+    <div className="max-w-5xl mx-auto mb-12 bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
       <div className="px-5 py-3 border-b border-gray-700 bg-gray-750">
         <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">قارن بنفسك</div>
         <div className="text-sm text-gray-300">
@@ -836,7 +836,7 @@ function VsAlternativesStrip() {
         <div className="px-3 py-3 bg-gray-750/60 border-b border-gray-700 text-center text-gray-400">
           🧾 محاسب يدوي
         </div>
-        <div className="px-3 py-3 bg-brand-900/40 border-b border-brand-500/40 text-center font-semibold text-brand-600">
+        <div className="px-3 py-3 bg-brand-500/15 border-b border-brand-500/40 text-center font-semibold text-brand-700">
           ⚡ حِسبة
         </div>
 
@@ -844,21 +844,21 @@ function VsAlternativesStrip() {
           <Fragment key={r.label}>
             <div
               className={`px-3 py-3 text-gray-300 ${
-                i < rows.length - 1 ? 'border-b border-gray-800/60' : ''
+                i < rows.length - 1 ? 'border-b border-gray-700/40' : ''
               }`}
             >
               {r.label}
             </div>
             <div
               className={`px-3 py-3 text-center text-gray-500 ${
-                i < rows.length - 1 ? 'border-b border-gray-800/60' : ''
+                i < rows.length - 1 ? 'border-b border-gray-700/40' : ''
               }`}
             >
               {r.paper}
             </div>
             <div
               className={`px-3 py-3 text-center text-gray-500 ${
-                i < rows.length - 1 ? 'border-b border-gray-800/60' : ''
+                i < rows.length - 1 ? 'border-b border-gray-700/40' : ''
               }`}
             >
               {r.accountant}
@@ -866,7 +866,7 @@ function VsAlternativesStrip() {
             <div
               className={`px-3 py-3 text-center font-medium ${
                 r.hesbaGood ? 'text-success-500' : 'text-gray-300'
-              } ${i < rows.length - 1 ? 'border-b border-brand-500/20 bg-brand-900/20' : 'bg-brand-900/20'}`}
+              } ${i < rows.length - 1 ? 'border-b border-brand-500/20 bg-brand-100/30' : 'bg-brand-100/30'}`}
             >
               {r.hesba}
             </div>
@@ -935,7 +935,7 @@ function FAQ() {
             return (
               <div
                 key={it.q}
-                className="bg-gray-800/60 border border-gray-800 rounded-md overflow-hidden"
+                className="bg-gray-800 border border-gray-700 rounded-md overflow-hidden"
               >
                 <button
                   onClick={() => {
@@ -946,7 +946,7 @@ function FAQ() {
                       track('faq_open', { question_index: i, question: it.q.slice(0, 80) })
                     }
                   }}
-                  className="w-full px-5 py-4 flex items-center justify-between text-right gap-4 hover:bg-gray-800 transition-colors"
+                  className="w-full px-5 py-4 flex items-center justify-between text-right gap-4 hover:bg-gray-750 transition-colors"
                 >
                   <span className="font-medium text-gray-100">{it.q}</span>
                   <ChevronDown
@@ -956,7 +956,7 @@ function FAQ() {
                   />
                 </button>
                 {open && (
-                  <div className="px-5 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-800 pt-3">
+                  <div className="px-5 pb-4 text-sm text-gray-400 leading-relaxed border-t border-gray-700 pt-3">
                     {it.a}
                   </div>
                 )}
@@ -973,7 +973,7 @@ function FAQ() {
 
 function FinalCTA() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-brand-900/30 to-app border-y border-gray-800">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-brand-50 to-app border-y border-gray-700">
       <div className="max-w-3xl mx-auto px-4 text-center">
         <h2 className="font-display text-3xl md:text-5xl font-bold text-gray-50 mb-4">
           جاهز تبدأ؟

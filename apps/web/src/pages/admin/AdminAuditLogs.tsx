@@ -89,7 +89,7 @@ export default function AdminAuditLogs() {
                 <span className="text-xs text-gray-500 font-mono" dir="ltr">{r.entityId ?? '—'}</span>
               ) },
               { key: 'ip', header: 'IP', render: (r) => (
-                <span className="text-xs text-gray-600 font-mono" dir="ltr">{r.ip ?? '—'}</span>
+                <span className="text-xs text-gray-500 font-mono" dir="ltr">{r.ip ?? '—'}</span>
               ) },
             ]}
           />

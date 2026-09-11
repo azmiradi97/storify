@@ -67,7 +67,7 @@
   }
 
   * {
-    @apply border-gray-800;
+    @apply border-gray-700;
   }
 
   /* Scrollbar */

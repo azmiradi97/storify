@@ -315,7 +315,7 @@ function PlanFormModal({
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {BOOLEAN_FEATURES.map((f) => (
-              <label key={f.key} className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer rounded-md px-2 py-1 hover:bg-gray-800/40">
+              <label key={f.key} className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer rounded-md px-2 py-1 hover:bg-gray-750">
                 <input
                   type="checkbox"
                   className="w-4 h-4 accent-brand-500"

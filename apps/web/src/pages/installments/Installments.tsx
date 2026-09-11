@@ -729,7 +729,7 @@ export default function Installments() {
               }},
               { key: 'nextDueDate', header: 'الاستحقاق القادم', render: (c) => c.nextDueDate
                 ? <span className="text-gray-500 text-xs">{formatDate(c.nextDueDate)}</span>
-                : <span className="text-gray-600">—</span>
+                : <span className="text-gray-500">—</span>
               },
               { key: 'actions', header: '', render: (c) => (
                 <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>

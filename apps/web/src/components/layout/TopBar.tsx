@@ -97,7 +97,7 @@ export function TopBar({ title, onMenuClick }: { title?: string; onMenuClick?: (
     (data?.etaFailures ?? 0)
 
   return (
-    <header className="h-14 bg-white border-b border-gray-800 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 shadow-sm">
+    <header className="h-14 bg-white border-b border-gray-700 flex items-center px-4 sm:px-6 gap-3 sm:gap-4 shadow-sm">
       {onMenuClick && (
         <button
           onClick={onMenuClick}

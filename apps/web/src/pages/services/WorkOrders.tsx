@@ -332,7 +332,7 @@ function WorkOrderDetail({ id }: { id: string }) {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="bg-gray-800/40 border border-gray-700 rounded-md p-3">
+      <div className="bg-gray-800 border border-gray-700 rounded-md p-3">
         <div className="flex items-center justify-between mb-2">
           <p className="font-mono num-code text-brand-400" dir="ltr">{wo.ticketNumber}</p>
           <Badge variant={STATUS_VARIANT[wo.status]} dot>{STATUS_LABEL[wo.status]}</Badge>
@@ -361,7 +361,7 @@ function WorkOrderDetail({ id }: { id: string }) {
         <h3 className="text-xs uppercase tracking-wider text-gray-500 mb-2">العنصر</h3>
         <div className="bg-gray-750 border border-gray-700 rounded-md p-3 text-sm">
           <p className="text-gray-400 mb-1">
-            <span className="text-xs text-gray-600">النوع: </span>{ITEM_TYPE_LABEL[wo.itemType]}
+            <span className="text-xs text-gray-500">النوع: </span>{ITEM_TYPE_LABEL[wo.itemType]}
           </p>
           <ItemDetailsView itemType={wo.itemType} details={wo.itemDetails} />
         </div>
