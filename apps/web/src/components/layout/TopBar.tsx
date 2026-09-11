@@ -102,7 +102,7 @@ export function TopBar({ title, onMenuClick }: { title?: string; onMenuClick?: (
         <button
           onClick={onMenuClick}
           aria-label="فتح القائمة"
-          className="lg:hidden w-8 h-8 rounded-md text-gray-400 hover:text-gray-100 hover:bg-gray-800 flex items-center justify-center transition-colors"
+          className="lg:hidden w-8 h-8 rounded-md text-gray-400 hover:text-gray-100 hover:bg-gray-750 flex items-center justify-center transition-colors"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -118,7 +118,7 @@ export function TopBar({ title, onMenuClick }: { title?: string; onMenuClick?: (
           onClick={() => setOpen((v) => !v)}
           className={cn(
             'w-8 h-8 rounded-full flex items-center justify-center transition-colors relative',
-            open ? 'bg-gray-700 text-gray-100' : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800',
+            open ? 'bg-gray-700 text-gray-100' : 'text-gray-400 hover:text-gray-100 hover:bg-gray-750',
           )}
           aria-label="الإشعارات"
           aria-expanded={open}

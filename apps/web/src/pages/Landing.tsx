@@ -452,7 +452,7 @@ function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-brand-500/40 hover:bg-gray-800 transition-all"
+              className="group bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-brand-500/40 hover:bg-gray-750 transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="w-10 h-10 rounded-md bg-brand-500/10 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors">
