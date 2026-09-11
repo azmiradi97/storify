@@ -1217,7 +1217,7 @@ function UsersSettings() {
             { key: 'isActive', header: 'الحالة', render: (u) => <Badge variant={u.isActive ? 'success' : 'gray'} dot>{u.isActive ? 'نشط' : 'معطّل'}</Badge> },
             { key: 'lastLogin', header: 'آخر دخول', render: (u) => u.lastLogin
               ? <span className="text-gray-500 text-xs">{formatDate(u.lastLogin)}</span>
-              : <span className="text-gray-600">—</span>
+              : <span className="text-gray-500">—</span>
             },
           ]}
           data={users} keyExtractor={(u) => u.id} emptyMessage="لا يوجد مستخدمون"
@@ -1641,11 +1641,11 @@ function AuditLogSettings() {
                     <span className={cn('text-sm font-medium', act.color)}>{act.label}</span>
                     <span className="text-xs text-gray-400">{entityLabels[log.entity] ?? log.entity}</span>
                     {log.actor && <span className="text-xs text-gray-500">بواسطة {log.actor.fullName}</span>}
-                    {log.ip && <span className="text-xs text-gray-600 font-mono">{log.ip}</span>}
+                    {log.ip && <span className="text-xs text-gray-500 font-mono">{log.ip}</span>}
                   </div>
-                  <p className="text-xs text-gray-600 mt-0.5">{formatDateTime(log.createdAt)}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{formatDateTime(log.createdAt)}</p>
                 </div>
-                {hasDiff && <span className="text-[10px] text-gray-600 self-center">تفاصيل ←</span>}
+                {hasDiff && <span className="text-[10px] text-gray-500 self-center">تفاصيل ←</span>}
               </button>
             )
           })}
@@ -1983,7 +1983,7 @@ function CouponsSettings() {
             )},
             { key: 'expiresAt', header: 'الانتهاء', render: (c) => c.expiresAt
               ? <span className={cn('text-xs font-numeric num', new Date(c.expiresAt) < new Date() ? 'text-danger-600' : 'text-gray-400')}>{formatDate(c.expiresAt)}</span>
-              : <span className="text-gray-600">—</span>
+              : <span className="text-gray-500">—</span>
             },
             { key: 'isActive', header: 'الحالة', render: (c) => <Badge variant={c.isActive ? 'success' : 'gray'} dot>{c.isActive ? 'نشط' : 'معطّل'}</Badge> },
             { key: 'actions', header: '', render: (c) => (
@@ -2284,7 +2284,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
               value={creds.etaBranchCode} onChange={setC('etaBranchCode')} />
           </div>
 
-          <div className="border-t border-gray-800 pt-4 flex flex-col gap-4">
+          <div className="border-t border-gray-700 pt-4 flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-brand-400" />
               <h4 className="text-sm font-semibold text-gray-200">بيانات الاعتماد المشفّرة</h4>

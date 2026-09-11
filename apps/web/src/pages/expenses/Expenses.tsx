@@ -439,7 +439,7 @@ function TemplatesPanel({ categories }: { categories: Category[] }) {
                     </Button>
                   </div>
                   {t.lastUsedAt && (
-                    <p className="text-[10px] text-gray-600">آخر استخدام: {formatDate(t.lastUsedAt)}</p>
+                    <p className="text-[10px] text-gray-500">آخر استخدام: {formatDate(t.lastUsedAt)}</p>
                   )}
                 </div>
               )

@@ -105,7 +105,7 @@ export default function AdminAdmins() {
               ) },
               { key: 'actions', header: '', render: (a) => (
                 a.id === currentAdmin?.id ? (
-                  <span className="text-xs text-gray-600">(أنت)</span>
+                  <span className="text-xs text-gray-500">(أنت)</span>
                 ) : (
                   <Button
                     variant={a.isActive ? 'ghost' : 'success'}

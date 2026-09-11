@@ -98,7 +98,7 @@ export default function AdminLogin() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-gray-600 mt-6">
+        <p className="text-center text-xs text-gray-500 mt-6">
           هذه صفحة دخول مالكي المنصة فقط. لو كنت صاحب متجر، استخدم{' '}
           <a href="/login" className="text-brand-400 hover:text-brand-600">صفحة دخول المتاجر</a>.
         </p>

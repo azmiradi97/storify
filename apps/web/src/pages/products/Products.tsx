@@ -573,14 +573,14 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
             return (
               <div key={d.id} className="flex items-center justify-between text-sm bg-gray-800 rounded-md px-3 py-2">
                 <div>
-                  <span className={`font-mono font-semibold ${isLive ? 'text-success-600' : isPast ? 'text-gray-600' : 'text-brand-400'}`}>
+                  <span className={`font-mono font-semibold ${isLive ? 'text-success-600' : isPast ? 'text-gray-500' : 'text-brand-400'}`}>
                     {d.discountType === 'percentage' ? `${Number(d.discountValue)}%` : `${Number(d.discountValue)} ج`}
                   </span>
                   <span className="text-gray-500 text-xs mr-2">
                     {formatDate(d.startDate)} — {formatDate(d.endDate)}
                   </span>
                   {isLive && <span className="text-xs text-success-500 font-medium mr-1">● نشط</span>}
-                  {isPast && <span className="text-xs text-gray-600 mr-1">منتهي</span>}
+                  {isPast && <span className="text-xs text-gray-500 mr-1">منتهي</span>}
                 </div>
                 <Button variant="ghost" size="sm" className="text-danger-500" onClick={() => removeDiscount(d.id)}>
                   <Trash2 className="w-3 h-3" />

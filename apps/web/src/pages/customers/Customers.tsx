@@ -289,7 +289,7 @@ function CustomerLedger({ ledger }: { ledger?: CreditLedger }) {
                       <span className="text-xs text-gray-500 font-mono">{after.invoiceNumber}</span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-600 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5">
                     {formatDateTime(e.createdAt)}
                     {e.actor && ` · ${e.actor.fullName}`}
                   </p>
@@ -303,7 +303,7 @@ function CustomerLedger({ ledger }: { ledger?: CreditLedger }) {
                     {isPoints && <span className="text-[10px] text-gray-500 mr-1">نقطة</span>}
                   </span>
                   {after.newBalance !== undefined && !isPoints && (
-                    <p className="text-[10px] text-gray-600 mt-0.5">رصيد: {formatAmount(after.newBalance)} ج</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">رصيد: {formatAmount(after.newBalance)} ج</p>
                   )}
                 </div>
               </li>

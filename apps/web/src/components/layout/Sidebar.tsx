@@ -113,7 +113,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       )}
     >
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-gray-800">
+      <div className="px-6 py-5 border-b border-gray-700">
         <h1 className="font-display text-2xl font-bold text-brand-400">حِسبة</h1>
       </div>
 
@@ -140,7 +140,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       </nav>
 
       {/* User + Logout */}
-      <div className="border-t border-gray-800 p-4 flex items-center gap-3">
+      <div className="border-t border-gray-700 p-4 flex items-center gap-3">
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-200 truncate">{user?.fullName}</p>
           <p className="text-xs text-gray-500 truncate">{user?.email}</p>

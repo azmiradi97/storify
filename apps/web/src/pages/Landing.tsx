@@ -458,7 +458,7 @@ function Features() {
                 <div className="w-10 h-10 rounded-md bg-brand-500/10 text-brand-400 flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition-colors">
                   <f.icon className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-gray-600" dir="ltr">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-gray-500" dir="ltr">
                   {f.tag}
                 </span>
               </div>
@@ -754,7 +754,7 @@ function FeatureLine({ children, enabled = true }: { children: React.ReactNode; 
   return (
     <li className={`flex items-center gap-2 ${enabled ? '' : 'opacity-40 line-through'}`}>
       <Check
-        className={`w-4 h-4 ${enabled ? 'text-success-500' : 'text-gray-600'}`}
+        className={`w-4 h-4 ${enabled ? 'text-success-500' : 'text-gray-500'}`}
         aria-hidden="true"
       />
       <span>{children}</span>

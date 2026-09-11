@@ -723,7 +723,7 @@ export default function POS() {
                 <span className="text-xs uppercase text-gray-400 font-semibold tracking-wide">
                   دفع منقسم
                   {splitPM && <span className="mr-2 text-brand-400 normal-case font-normal">({splitPM.name})</span>}
-                  {!splitPM && <span className="mr-2 text-gray-600 normal-case font-normal">(اختياري)</span>}
+                  {!splitPM && <span className="mr-2 text-gray-500 normal-case font-normal">(اختياري)</span>}
                 </span>
                 <ChevronDown className={cn('w-4 h-4 text-gray-500 transition-transform duration-200', splitSectionOpen && 'rotate-180')} />
               </button>
@@ -919,7 +919,7 @@ export default function POS() {
               <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">تفصيل طرق الدفع</p>
               <div className="flex flex-col gap-1">
                 {eodByPM.map((pm) => (
-                  <div key={pm.paymentMethodName} className="flex items-center justify-between text-sm py-1 border-b border-gray-800 last:border-0">
+                  <div key={pm.paymentMethodName} className="flex items-center justify-between text-sm py-1 border-b border-gray-700 last:border-0">
                     <span className="text-gray-300">{pm.paymentMethodName}</span>
                     <div className="text-left">
                       <span className="font-mono text-gray-100">{formatNumber(pm.totalRevenue, { maximumFractionDigits: 2 })} ج</span>
@@ -948,7 +948,7 @@ export default function POS() {
                 }
               }}
               placeholder="0.00"
-              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-lg font-mono text-gray-100 placeholder:text-gray-600 focus:outline-none focus:border-brand-500 text-left"
+              className="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-lg font-mono text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-brand-500 text-left"
               dir="ltr"
             />
             {actualCash !== '' && eodDashboard && (() => {
@@ -1027,7 +1027,7 @@ export default function POS() {
 
             <div className="bg-gray-800 rounded-md p-3 flex flex-col gap-1 max-h-40 overflow-y-auto">
               {completedInvoice.items.map((item, i) => (
-                <div key={i} className="flex justify-between text-sm py-1 border-b border-gray-800 last:border-0">
+                <div key={i} className="flex justify-between text-sm py-1 border-b border-gray-700 last:border-0">
                   <div>
                     <span className="text-gray-200">{item.productName}</span>
                     <span className="text-gray-500 mr-1 text-xs">× {item.quantity}</span>

@@ -304,7 +304,7 @@ function CategoriesModal({
           ) : (
             <ul className="flex flex-col gap-1">
               {categories.map((c) => (
-                <li key={c.id} className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-gray-800/40">
+                <li key={c.id} className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-gray-750">
                   <span className={c.isActive ? 'text-gray-200' : 'text-gray-500 line-through'}>{c.name}</span>
                   <Button variant="ghost" size="sm" onClick={() => toggleActive(c)}>
                     {c.isActive ? 'تعطيل' : 'تفعيل'}

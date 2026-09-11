@@ -308,7 +308,7 @@ export default function AdminTenantDetail() {
 
               {s.paymentAttempts.length > 0 && (
                 <div className="border-t border-gray-700 pt-3 mt-3">
-                  <p className="text-[10px] uppercase text-gray-600 mb-2">آخر المحاولات</p>
+                  <p className="text-[10px] uppercase text-gray-500 mb-2">آخر المحاولات</p>
                   <ul className="text-xs space-y-1">
                     {s.paymentAttempts.map((p) => (
                       <li key={p.id} className="flex justify-between gap-2">

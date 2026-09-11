@@ -194,21 +194,21 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
               <p className="font-mono text-sm text-danger-600 mt-0.5 num">
                 {formatMoney(summary.totalPurchases)} ج
               </p>
-              <p className="text-[10px] text-gray-600">{summary.countPurchases} حركة</p>
+              <p className="text-[10px] text-gray-500">{summary.countPurchases} حركة</p>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">دفعات</p>
               <p className="font-mono text-sm text-success-600 mt-0.5 num">
                 {formatMoney(summary.totalPayments)} ج
               </p>
-              <p className="text-[10px] text-gray-600">{summary.countPayments} حركة</p>
+              <p className="text-[10px] text-gray-500">{summary.countPayments} حركة</p>
             </div>
             <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مرتجعات</p>
               <p className="font-mono text-sm text-warning-600 mt-0.5 num">
                 {formatMoney(summary.totalReturns)} ج
               </p>
-              <p className="text-[10px] text-gray-600">{summary.countReturns} حركة</p>
+              <p className="text-[10px] text-gray-500">{summary.countReturns} حركة</p>
             </div>
           </div>
         )}
@@ -242,7 +242,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
                       <span className="font-mono">{formatDateTime(t.createdAt, { dateStyle: 'short', timeStyle: 'short' })}</span>
                       {t.branch && ` · ${t.branch.name}`}
                     </p>
-                    {t.note && <p className="text-xs text-gray-600 mt-0.5 truncate">{t.note}</p>}
+                    {t.note && <p className="text-xs text-gray-500 mt-0.5 truncate">{t.note}</p>}
                   </div>
                   <span className={cn('font-mono font-semibold text-sm shrink-0 mr-3', amountColor)}>
                     {sign}{formatMoney(Number(t.amount))} ج
