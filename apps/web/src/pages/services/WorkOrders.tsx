@@ -562,7 +562,7 @@ function WorkOrderDetail({ id }: { id: string }) {
 
 function SmallStat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded px-2 py-1.5">
+    <div className="bg-white border border-gray-700 rounded px-2 py-1.5 shadow-sm">
       <p className="text-[10px] uppercase tracking-wider text-gray-500">{label}</p>
       <p className={cn('font-mono text-sm mt-0.5 num', color)}>{value}</p>
     </div>

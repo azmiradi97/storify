@@ -99,7 +99,7 @@ function FilterBar({
   isSuperAdmin: boolean
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-3 p-3 bg-gray-800 border border-gray-700 rounded-lg">
+    <div className="flex flex-wrap items-center gap-3 p-3 bg-white border border-gray-700 rounded-lg shadow-sm">
       <Filter className="w-4 h-4 text-gray-500 shrink-0" />
       <DateRangePicker
         value={{ from: filters.from, to: filters.to }}
@@ -465,7 +465,7 @@ export default function Reports() {
               </ChartCard>
             )}
             {pnlLoading ? <SkeletonTable rows={6} cols={2} /> : (
-              <div className="max-w-lg bg-gray-800 rounded-xl border border-gray-700 divide-y divide-gray-700">
+              <div className="max-w-lg bg-white rounded-xl border border-gray-700 divide-y divide-gray-700 shadow-sm">
                 {(() => {
                   // The revenue row is followed by two indented sub-rows breaking
                   // it into Invoices vs Services, but only when services revenue

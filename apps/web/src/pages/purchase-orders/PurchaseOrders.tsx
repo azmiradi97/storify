@@ -113,9 +113,9 @@ function ReceiveModal({ po, onClose, onConfirm, isPending }: { po: PurchaseOrder
           إذا بقيت كميات.
         </p>
 
-        <div className="bg-gray-800 border border-gray-700 rounded-md overflow-hidden">
+        <div className="bg-white border border-gray-700 rounded-md overflow-hidden shadow-sm">
           <table className="w-full text-sm">
-            <thead className="bg-gray-800 text-xs uppercase text-gray-500">
+            <thead className="bg-gray-750 text-xs uppercase text-gray-500">
               <tr>
                 <th className="text-right px-3 py-2 font-medium">الصنف</th>
                 <th className="text-center px-3 py-2 font-medium w-20">مطلوب</th>

@@ -88,7 +88,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
   return (
     <div className="flex flex-col gap-4">
       {/* Progress + summary */}
-      <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col gap-3">
+      <div className="bg-white rounded-lg border border-gray-700 p-4 flex flex-col gap-3 shadow-sm">
         <div className="flex items-center justify-between text-xs">
           <span className="text-gray-400">التقدم</span>
           <span className="font-mono text-gray-300">
@@ -124,12 +124,12 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
       {/* View toggle header */}
       <div className="flex items-center justify-between">
         <p className="text-xs text-gray-500">جدول السداد · {payments.length} قسط</p>
-        <div className="flex items-center bg-gray-800 border border-gray-700 rounded-md p-0.5">
+        <div className="flex items-center bg-gray-750 border border-gray-700 rounded-md p-0.5">
           <button
             type="button"
             onClick={() => setView('table')}
             aria-label="عرض جدول"
-            className={cn('px-2 py-1 rounded transition-colors flex items-center', view === 'table' ? 'bg-gray-700 text-gray-100' : 'text-gray-500 hover:text-gray-300')}
+            className={cn('px-2 py-1 rounded transition-colors flex items-center', view === 'table' ? 'bg-white text-gray-200 shadow-sm' : 'text-gray-400 hover:text-gray-200')}
           >
             <Table2 className="w-3.5 h-3.5" />
           </button>
@@ -137,7 +137,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
             type="button"
             onClick={() => setView('timeline')}
             aria-label="عرض خط زمني"
-            className={cn('px-2 py-1 rounded transition-colors flex items-center', view === 'timeline' ? 'bg-gray-700 text-gray-100' : 'text-gray-500 hover:text-gray-300')}
+            className={cn('px-2 py-1 rounded transition-colors flex items-center', view === 'timeline' ? 'bg-white text-gray-200 shadow-sm' : 'text-gray-400 hover:text-gray-200')}
           >
             <LayoutList className="w-3.5 h-3.5" />
           </button>
