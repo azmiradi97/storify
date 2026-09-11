@@ -347,7 +347,7 @@ export default function Dashboard() {
                   return (
                     <div key={inv.id} className={cn('flex items-center justify-between py-3', idx < recentInvoices.length - 1 && 'border-b border-gray-700')}>
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-xs font-mono num-muted">
+                        <div className="w-8 h-8 rounded-full bg-brand-500/10 flex items-center justify-center text-xs font-mono text-brand-500">
                           {inv.invoiceNumber.slice(-2)}
                         </div>
                         <div>

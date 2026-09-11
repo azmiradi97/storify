@@ -138,7 +138,7 @@ function StoreSettings() {
     onError: () => toast.error('فشل حفظ الإعدادات'),
   })
 
-  if (isLoading) return <div className="h-40 bg-gray-800 rounded-xl animate-pulse" />
+  if (isLoading) return <div className="h-40 bg-gray-750 rounded-xl animate-pulse" />
 
   return (
     <form onSubmit={handleSubmit((d) => save(d))} className="flex flex-col gap-6 max-w-lg">
