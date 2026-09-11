@@ -482,7 +482,7 @@ export default function Reports() {
                     ...(hasServicesRev
                       ? [
                           { label: '— مبيعات (فواتير)', value: pnlData?.invoiceRevenue ?? 0, cls: 'text-success-600/70', indent: true },
-                          { label: '— خدمات (طلبات عمل)', value: pnlData?.servicesRevenue ?? 0, cls: 'text-cyan-400/80', indent: true },
+                          { label: '— خدمات (طلبات عمل)', value: pnlData?.servicesRevenue ?? 0, cls: 'text-info-600', indent: true },
                         ]
                       : []),
                     { label: 'تكلفة المبيعات (COGS)', value: -(pnlData?.cogs ?? 0), cls: 'text-danger-600' },
