@@ -350,7 +350,7 @@ export default function Invoices() {
                       {item.variantSku ? (
                         <p className="text-xs"><span className="num-code">{item.variantSku}</span> × <span className="font-numeric num num-muted">{item.quantity}</span></p>
                       ) : (
-                        <p className="text-xs text-cyan-500/70">{item.lineDescription ?? 'خدمة'} × {item.quantity}</p>
+                        <p className="text-xs text-info-600/80">{item.lineDescription ?? 'خدمة'} × {item.quantity}</p>
                       )}
                     </div>
                     <Money value={item.totalPrice} />

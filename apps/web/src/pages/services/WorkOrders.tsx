@@ -435,7 +435,7 @@ function WorkOrderDetail({ id }: { id: string }) {
             <Button
               size="sm"
               variant="outline"
-              className="flex-1 border-cyan-600 text-cyan-400 hover:bg-cyan-900/30"
+              className="flex-1 border-info-500 text-info-600 hover:bg-info-50"
               loading={invoicePending}
               disabled={wo.status === 'cancelled' || wo.status === 'received'}
               onClick={() => setIssuingInvoice(true)}
@@ -524,7 +524,7 @@ function WorkOrderDetail({ id }: { id: string }) {
           }
         >
           <div className="text-sm text-gray-300 space-y-2">
-            <p>سيتم إنشاء فاتورة مكتملة (<span className="font-mono text-cyan-400">SVC-…</span>) بناءً على الخدمات المسجلة في هذا الطلب.</p>
+            <p>سيتم إنشاء فاتورة مكتملة (<span className="font-mono text-info-600">SVC-…</span>) بناءً على الخدمات المسجلة في هذا الطلب.</p>
             {wo.paymentMethod ? (
               <p>طريقة الدفع: <span className="text-gray-100 font-medium">{wo.paymentMethod.name}</span></p>
             ) : (
