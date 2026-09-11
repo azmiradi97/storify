@@ -562,7 +562,7 @@ export default function POS() {
         </div>
 
         {/* RIGHT: Totals + Payment */}
-        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 min-h-0 lg:overflow-y-auto lg:pb-2">
+        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 min-h-0 overflow-y-auto pb-2">
           <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4">
             {customer ? (
               <div className="flex flex-col gap-2">
@@ -627,7 +627,7 @@ export default function POS() {
             </button>
             {pmSectionOpen && (
               <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700">
-                <div className="flex flex-col gap-2 pt-3 max-h-52 overflow-y-auto">
+                <div className="flex flex-col gap-2 pt-3">
                   {paymentMethods.map((pm) => {
                     const pmFee = calculateFee(subtotal, pm)
                     return (
@@ -733,8 +733,8 @@ export default function POS() {
                 <ChevronDown className={cn('w-4 h-4 text-gray-500 transition-transform duration-200', splitSectionOpen && 'rotate-180')} />
               </button>
               {splitSectionOpen && (
-                <div className="px-4 pb-4 flex flex-col gap-2 border-t border-gray-700/60 pt-3">
-                  <div className="flex flex-col gap-1.5 max-h-44 overflow-y-auto">
+                <div className="px-4 pb-4 flex flex-col gap-2 border-t border-gray-700 pt-3">
+                  <div className="flex flex-col gap-1.5">
                     {paymentMethods.filter((pm) => pm.id !== selectedPM.id).map((pm) => (
                       <button
                         key={pm.id}
