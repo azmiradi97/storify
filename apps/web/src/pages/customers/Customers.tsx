@@ -192,7 +192,7 @@ function CustomerDetailDrawer({ customer }: { customer: Customer }) {
         <h4 className="text-sm font-semibold text-gray-300 mb-3">سجل الفواتير</h4>
         {isLoading ? (
           <div className="flex flex-col gap-2">
-            {Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-10 bg-gray-700 rounded animate-pulse" />)}
+            {Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-10 bg-gray-750 rounded animate-pulse" />)}
           </div>
         ) : invoices.length === 0 ? (
           <p className="text-sm text-gray-500 text-center py-6">لا توجد فواتير</p>
@@ -243,7 +243,7 @@ function CustomerLedger({ ledger }: { ledger?: CreditLedger }) {
       <div>
         <h4 className="text-sm font-semibold text-gray-300 mb-3">السجل المالي</h4>
         <div className="flex flex-col gap-2">
-          {Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-10 bg-gray-700 rounded animate-pulse" />)}
+          {Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-10 bg-gray-750 rounded animate-pulse" />)}
         </div>
       </div>
     )

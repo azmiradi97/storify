@@ -229,7 +229,7 @@ export default function Dashboard() {
               {formatNumber(todayRevenue, { maximumFractionDigits: 0 })} / {formatNumber(dailyTarget, { maximumFractionDigits: 0 })} ج
             </p>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div className="w-full bg-gray-750 rounded-full h-3 overflow-hidden">
             <div
               className={cn('h-3 rounded-full transition-all duration-500', targetProgress >= 100 ? 'bg-success-500' : targetProgress >= 70 ? 'bg-brand-500' : 'bg-warning-500')}
               style={{ width: `${targetProgress}%` }}
@@ -329,7 +329,7 @@ export default function Dashboard() {
               </button>
             </div>
             {!recentInvoices ? (
-              <div className="flex flex-col gap-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-10 bg-gray-700 rounded animate-pulse" />)}</div>
+              <div className="flex flex-col gap-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-10 bg-gray-750 rounded animate-pulse" />)}</div>
             ) : recentInvoices.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 py-10">
                 <div className="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center">
