@@ -407,7 +407,7 @@ export default function POS() {
             : `${offlineQueue.length} فاتورة معلقة — سيتم إرسالها تلقائياً`}
         </div>
       )}
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:h-[calc(100dvh-8rem)]">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
         {/* LEFT: Search + Cart */}
         <div className="flex-1 flex flex-col gap-4 min-w-0 min-h-0">
           <div className="flex flex-col sm:flex-row gap-2">
@@ -562,7 +562,7 @@ export default function POS() {
         </div>
 
         {/* RIGHT: Totals + Payment */}
-        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 min-h-0 overflow-y-auto pb-2">
+        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 pb-2 lg:sticky lg:top-0 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto">
           <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4">
             {customer ? (
               <div className="flex flex-col gap-2">
