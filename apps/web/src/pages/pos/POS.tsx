@@ -626,7 +626,7 @@ export default function POS() {
               <ChevronDown className={cn('w-4 h-4 text-gray-500 transition-transform duration-200', pmSectionOpen && 'rotate-180')} />
             </button>
             {pmSectionOpen && (
-              <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700/60">
+              <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700">
                 <div className="flex flex-col gap-2 pt-3 max-h-52 overflow-y-auto">
                   {paymentMethods.map((pm) => {
                     const pmFee = calculateFee(subtotal, pm)
@@ -641,7 +641,7 @@ export default function POS() {
                           'flex items-center justify-between rounded-md px-3 py-2 text-sm border transition-all',
                           selectedPM?.id === pm.id
                             ? 'bg-brand-500/12 border-brand-500 text-brand-400'
-                            : 'border-gray-700 text-gray-300 hover:border-gray-500',
+                            : 'bg-gray-800 border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-750',
                         )}
                       >
                         <span>{pm.name}</span>
@@ -660,7 +660,7 @@ export default function POS() {
                         'flex-1 py-1 rounded text-xs border transition-all',
                         feeBearer === 'merchant'
                           ? 'border-brand-500 text-brand-400 bg-brand-500/10'
-                          : 'border-gray-700 text-gray-500',
+                          : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500',
                       )}
                     >
                       التاجر يتحمل
@@ -671,7 +671,7 @@ export default function POS() {
                         'flex-1 py-1 rounded text-xs border transition-all',
                         feeBearer === 'customer'
                           ? 'border-warning-500 text-warning-600 bg-warning-500/10'
-                          : 'border-gray-700 text-gray-500',
+                          : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500',
                       )}
                     >
                       العميل يتحمل
@@ -743,7 +743,7 @@ export default function POS() {
                           'flex items-center justify-between rounded-md px-3 py-1.5 text-xs border transition-all',
                           splitPM?.id === pm.id
                             ? 'bg-brand-500/12 border-brand-500 text-brand-400'
-                            : 'border-gray-700 text-gray-400 hover:border-gray-500',
+                            : 'bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:bg-gray-750',
                         )}
                       >
                         <span>{pm.name}</span>
