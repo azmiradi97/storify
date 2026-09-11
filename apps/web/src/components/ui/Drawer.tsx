@@ -91,7 +91,7 @@ export function Drawer({ open, onClose, title, children, width = 'w-96', footer 
           // h-screen (not h-full) because the portal target is <body> whose
           // own height is auto — h-full would collapse the panel and let
           // content push the header/footer off-screen.
-          'fixed top-0 left-0 z-modal h-screen max-h-screen bg-gray-800 border-r border-gray-700 shadow-xl',
+          'fixed top-0 left-0 z-modal h-screen max-h-screen bg-white border-r border-gray-700 shadow-xl',
           'flex flex-col transition-transform duration-slow focus:outline-none',
           width,
           open ? 'translate-x-0' : '-translate-x-full',

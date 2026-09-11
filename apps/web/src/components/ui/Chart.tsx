@@ -56,7 +56,7 @@ interface ChartCardProps {
 }
 export function ChartCard({ title, subtitle, height = 280, children, actions }: ChartCardProps) {
   return (
-    <div className="bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-700">
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-700">
       {(title || actions) && (
         <div className="flex items-center justify-between mb-3">
           <div>

@@ -118,7 +118,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* DB Migrations panel */}
-          <div className="mt-6 bg-gray-800 border border-gray-700 rounded-xl p-4 flex items-start gap-4">
+          <div className="mt-6 bg-white border border-gray-700 rounded-xl shadow-sm p-4 flex items-start gap-4">
             <Database className="w-5 h-5 text-brand-400 mt-0.5 shrink-0" />
             <div className="flex-1 min-w-0">
               <h3 className="text-sm font-semibold text-gray-100 mb-1">ترقيات قاعدة البيانات (Tenant Migrations)</h3>

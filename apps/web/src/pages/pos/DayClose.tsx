@@ -22,7 +22,7 @@ interface DayCloseData {
 
 function BreakdownTable({ rows, total, count, label }: { rows: MethodRow[]; total: number; count: number; label: string }) {
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+    <div className="bg-white border border-gray-700 rounded-xl shadow-sm overflow-hidden">
       <div className="px-5 py-3 border-b border-gray-700 flex items-center justify-between">
         <h3 className="font-semibold text-gray-100">{label}</h3>
         <span className="text-xs text-gray-500">{count} معاملة</span>

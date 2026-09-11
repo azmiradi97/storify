@@ -10,9 +10,9 @@ interface CardProps {
 }
 
 const variantClasses: Record<CardVariant, string> = {
-  default: 'bg-gray-800 shadow-sm border border-gray-700',
-  elevated: 'bg-gray-800 shadow-md border border-gray-700',
-  flat: 'bg-gray-800 border border-gray-700',
+  default: 'bg-white shadow-sm border border-gray-700',
+  elevated: 'bg-white shadow-md border border-gray-700',
+  flat: 'bg-white border border-gray-700',
   brand: 'bg-brand-100/50 border border-brand-500/40',
 }
 
@@ -54,14 +54,14 @@ export function StatCard({ label, value, change, accentColor = 'bg-brand-500', i
     </>
   )
 
-  const baseClasses = 'bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-700 flex flex-col gap-3 relative overflow-hidden'
+  const baseClasses = 'bg-white rounded-xl p-4 shadow-sm border border-gray-700 flex flex-col gap-3 relative overflow-hidden'
 
   if (onClick) {
     return (
       <button
         type="button"
         onClick={onClick}
-        className={cn(baseClasses, 'text-right hover:border-gray-500 hover:bg-gray-750 transition-colors duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500')}
+        className={cn(baseClasses, 'text-right hover:border-gray-600 hover:shadow-md transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500')}
       >
         {inner}
       </button>

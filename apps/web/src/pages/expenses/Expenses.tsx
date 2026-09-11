@@ -186,7 +186,7 @@ function BudgetPanel({ categories }: { categories: Category[] }) {
   const openEdit = (b: Budget) => { setEditing(b); setModalOpen(true) }
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-xl">
+    <div className="bg-white border border-gray-700 rounded-xl shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
         <h3 className="text-sm font-semibold text-gray-100 flex items-center gap-2">
           <Wallet className="w-4 h-4 text-brand-400" />الميزانيات
@@ -388,7 +388,7 @@ function TemplatesPanel({ categories }: { categories: Category[] }) {
   })
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-xl">
+    <div className="bg-white border border-gray-700 rounded-xl shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
         <h3 className="text-sm font-semibold text-gray-100 flex items-center gap-2">
           <FileText className="w-4 h-4 text-brand-400" />القوالب
