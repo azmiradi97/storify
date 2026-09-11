@@ -189,21 +189,21 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
         {/* Summary stats over the FILTERED set */}
         {summary && (
           <div className="grid grid-cols-3 gap-2 mb-3">
-            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-750 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مشتريات</p>
               <p className="font-mono text-sm text-danger-600 mt-0.5 num">
                 {formatMoney(summary.totalPurchases)} ج
               </p>
               <p className="text-[10px] text-gray-500">{summary.countPurchases} حركة</p>
             </div>
-            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-750 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">دفعات</p>
               <p className="font-mono text-sm text-success-600 mt-0.5 num">
                 {formatMoney(summary.totalPayments)} ج
               </p>
               <p className="text-[10px] text-gray-500">{summary.countPayments} حركة</p>
             </div>
-            <div className="bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
+            <div className="bg-gray-750 border border-gray-700 rounded-md px-3 py-2">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">مرتجعات</p>
               <p className="font-mono text-sm text-warning-600 mt-0.5 num">
                 {formatMoney(summary.totalReturns)} ج
@@ -214,7 +214,7 @@ function SupplierDetailDrawer({ supplier }: { supplier: Supplier }) {
         )}
 
         {txnLoading ? (
-          <div className="flex flex-col gap-2">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-12 bg-gray-700 rounded animate-pulse" />)}</div>
+          <div className="flex flex-col gap-2">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-12 bg-gray-750 rounded animate-pulse" />)}</div>
         ) : txns.length === 0 ? (
           <p className="text-sm text-gray-500 text-center py-6">
             {hasFilters ? 'لا توجد معاملات تطابق الفلاتر' : 'لا توجد معاملات'}

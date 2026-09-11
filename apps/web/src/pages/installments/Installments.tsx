@@ -95,7 +95,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
             <span className="text-success-600">{paidCount}</span> / {payments.length} قسط
           </span>
         </div>
-        <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-750 rounded-full overflow-hidden">
           <div
             className="h-full bg-success-500 transition-all duration-slow"
             style={{ width: `${progressPct}%` }}
@@ -210,7 +210,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
               ? { bg: 'bg-success-500', ring: 'ring-success-500/30', icon: <Check className="w-3 h-3 text-white" /> }
               : isOverdue
               ? { bg: 'bg-danger-500', ring: 'ring-danger-500/30', icon: <AlertCircle className="w-3 h-3 text-white" /> }
-              : { bg: 'bg-gray-700', ring: 'ring-gray-600/30', icon: <Clock className="w-3 h-3 text-gray-400" /> }
+              : { bg: 'bg-gray-750', ring: 'ring-gray-700/30', icon: <Clock className="w-3 h-3 text-gray-400" /> }
 
             return (
               <li key={p.id} className="relative">
@@ -220,7 +220,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
                 >
                   {dot.icon}
                 </span>
-                <div className={`flex items-center justify-between rounded-md px-3 py-2 border ${isNext ? 'bg-brand-500/5 border-brand-500/30' : isOverdue ? 'bg-danger-500/5 border-danger-500/30' : 'bg-gray-800 border-gray-700'}`}>
+                <div className={`flex items-center justify-between rounded-md px-3 py-2 border ${isNext ? 'bg-brand-500/5 border-brand-500/30' : isOverdue ? 'bg-danger-500/5 border-danger-500/30' : 'bg-gray-750 border-gray-700'}`}>
                   <div>
                     <p className="text-sm font-mono text-gray-200">
                       <span className="text-gray-500 ml-2">#{idx + 1}</span>

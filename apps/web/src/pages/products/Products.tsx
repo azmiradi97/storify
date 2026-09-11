@@ -562,7 +562,7 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
       )}
 
       {isLoading ? (
-        <div className="h-8 bg-gray-700 rounded animate-pulse" />
+        <div className="h-8 bg-gray-750 rounded animate-pulse" />
       ) : activeDiscounts.length === 0 ? (
         <p className="text-xs text-gray-500 py-2">لا توجد خصومات مجدولة</p>
       ) : (
@@ -571,7 +571,7 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
             const isLive = d.startDate <= today && d.endDate >= today
             const isPast = d.endDate < today
             return (
-              <div key={d.id} className="flex items-center justify-between text-sm bg-gray-800 rounded-md px-3 py-2">
+              <div key={d.id} className="flex items-center justify-between text-sm bg-gray-750 border border-gray-700 rounded-md px-3 py-2">
                 <div>
                   <span className={`font-mono font-semibold ${isLive ? 'text-success-600' : isPast ? 'text-gray-500' : 'text-brand-400'}`}>
                     {d.discountType === 'percentage' ? `${Number(d.discountValue)}%` : `${Number(d.discountValue)} ج`}

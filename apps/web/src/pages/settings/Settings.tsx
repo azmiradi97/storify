@@ -1622,7 +1622,7 @@ function AuditLogSettings() {
       </div>
 
       {isLoading ? (
-        <div className="flex flex-col gap-2">{Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-12 bg-gray-700 rounded animate-pulse" />)}</div>
+        <div className="flex flex-col gap-2">{Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-12 bg-gray-750 rounded animate-pulse" />)}</div>
       ) : logs.length === 0 ? (
         <p className="text-sm text-gray-500 text-center py-8">لا توجد سجلات</p>
       ) : (
@@ -1966,7 +1966,7 @@ function CouponsSettings() {
       </div>
 
       {isLoading ? (
-        <div className="flex flex-col gap-2">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-12 bg-gray-700 rounded animate-pulse" />)}</div>
+        <div className="flex flex-col gap-2">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-12 bg-gray-750 rounded animate-pulse" />)}</div>
       ) : (
         <Table
           columns={[
@@ -2488,7 +2488,7 @@ function EtaSettings() {
       </div>
 
       {isLoading ? (
-        <div className="flex flex-col gap-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-12 bg-gray-700 rounded animate-pulse" />)}</div>
+        <div className="flex flex-col gap-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-12 bg-gray-750 rounded animate-pulse" />)}</div>
       ) : invoices.length === 0 ? (
         <p className="text-gray-500 text-sm text-center py-12">لا توجد فواتير بهذه الحالة</p>
       ) : (
