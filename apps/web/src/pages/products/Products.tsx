@@ -541,7 +541,7 @@ function ProductDiscountsSection({ productId }: { productId: string }) {
       </div>
 
       {showForm && (
-        <div className="bg-gray-800 rounded-md p-3 mb-3 flex flex-col gap-3">
+        <div className="bg-gray-750 border border-gray-700 rounded-md p-3 mb-3 flex flex-col gap-3">
           <div className="flex gap-2">
             <Select value={discountType} onChange={(e) => setDiscountType(e.target.value as 'percentage' | 'fixed')}>
               <option value="percentage">نسبة %</option>

@@ -332,7 +332,7 @@ function WorkOrderDetail({ id }: { id: string }) {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="bg-gray-800 border border-gray-700 rounded-md p-3">
+      <div className="bg-white border border-gray-700 rounded-md p-3 shadow-sm">
         <div className="flex items-center justify-between mb-2">
           <p className="font-mono num-code text-brand-400" dir="ltr">{wo.ticketNumber}</p>
           <Badge variant={STATUS_VARIANT[wo.status]} dot>{STATUS_LABEL[wo.status]}</Badge>
