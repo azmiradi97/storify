@@ -490,11 +490,16 @@ export default function POS() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto bg-gray-800 rounded-xl border border-gray-700 min-h-[240px] lg:min-h-0">
+          <div className="flex-1 overflow-auto bg-white rounded-xl border border-gray-700 shadow-sm min-h-[240px] lg:min-h-0">
             {cart.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-gray-500 gap-3 py-12">
-                <ShoppingCart className="w-12 h-12 opacity-30" />
-                <p>السلة فارغة — ابحث عن منتج للبدء</p>
+              <div className="flex flex-col items-center justify-center h-full gap-3 py-12">
+                <div className="w-16 h-16 rounded-2xl bg-brand-500/10 flex items-center justify-center">
+                  <ShoppingCart className="w-8 h-8 text-brand-500/60" />
+                </div>
+                <div className="flex flex-col gap-1 text-center">
+                  <p className="text-sm font-medium text-gray-300">السلة فارغة</p>
+                  <p className="text-xs text-gray-500">ابحث عن منتج أو امسح الباركود للبدء</p>
+                </div>
               </div>
             ) : (
               <table className="w-full text-sm">
@@ -558,7 +563,7 @@ export default function POS() {
 
         {/* RIGHT: Totals + Payment */}
         <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 min-h-0 lg:overflow-y-auto lg:pb-2">
-          <div className="bg-gray-800 rounded-xl border border-gray-700 p-4">
+          <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4">
             {customer ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -608,7 +613,7 @@ export default function POS() {
             )}
           </div>
 
-          <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+          <div className="bg-white rounded-xl border border-gray-700 shadow-sm overflow-hidden">
             <button
               type="button"
               onClick={() => setPmSectionOpen((v) => !v)}
@@ -621,7 +626,7 @@ export default function POS() {
               <ChevronDown className={cn('w-4 h-4 text-gray-500 transition-transform duration-200', pmSectionOpen && 'rotate-180')} />
             </button>
             {pmSectionOpen && (
-              <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700/60">
+              <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700">
                 <div className="flex flex-col gap-2 pt-3 max-h-52 overflow-y-auto">
                   {paymentMethods.map((pm) => {
                     const pmFee = calculateFee(subtotal, pm)
@@ -636,7 +641,7 @@ export default function POS() {
                           'flex items-center justify-between rounded-md px-3 py-2 text-sm border transition-all',
                           selectedPM?.id === pm.id
                             ? 'bg-brand-500/12 border-brand-500 text-brand-400'
-                            : 'border-gray-700 text-gray-300 hover:border-gray-500',
+                            : 'bg-gray-800 border-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-750',
                         )}
                       >
                         <span>{pm.name}</span>
@@ -655,7 +660,7 @@ export default function POS() {
                         'flex-1 py-1 rounded text-xs border transition-all',
                         feeBearer === 'merchant'
                           ? 'border-brand-500 text-brand-400 bg-brand-500/10'
-                          : 'border-gray-700 text-gray-500',
+                          : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500',
                       )}
                     >
                       التاجر يتحمل
@@ -666,7 +671,7 @@ export default function POS() {
                         'flex-1 py-1 rounded text-xs border transition-all',
                         feeBearer === 'customer'
                           ? 'border-warning-500 text-warning-600 bg-warning-500/10'
-                          : 'border-gray-700 text-gray-500',
+                          : 'bg-gray-800 border-gray-700 text-gray-500 hover:border-gray-500',
                       )}
                     >
                       العميل يتحمل
@@ -679,7 +684,7 @@ export default function POS() {
 
           {/* Currency selector — only shown when multiple currencies exist */}
           {currencies.length > 1 && (
-            <div className="bg-gray-800 rounded-xl border border-gray-700 p-3">
+            <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-3">
               <p className="text-xs uppercase text-gray-500 font-medium mb-2">العملة</p>
               <div className="flex flex-wrap gap-1.5">
                 <button
@@ -714,7 +719,7 @@ export default function POS() {
 
           {/* Split payment */}
           {selectedPM && (
-            <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+            <div className="bg-white rounded-xl border border-gray-700 shadow-sm overflow-hidden">
               <button
                 type="button"
                 onClick={() => setSplitSectionOpen((v) => !v)}
@@ -738,7 +743,7 @@ export default function POS() {
                           'flex items-center justify-between rounded-md px-3 py-1.5 text-xs border transition-all',
                           splitPM?.id === pm.id
                             ? 'bg-brand-500/12 border-brand-500 text-brand-400'
-                            : 'border-gray-700 text-gray-400 hover:border-gray-500',
+                            : 'bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500 hover:bg-gray-750',
                         )}
                       >
                         <span>{pm.name}</span>
@@ -772,7 +777,7 @@ export default function POS() {
           )}
 
           {/* Coupon input */}
-          <div className="bg-gray-800 rounded-xl border border-gray-700 p-3">
+          <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-3">
             {appliedCoupon ? (
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -806,7 +811,7 @@ export default function POS() {
             )}
           </div>
 
-          <div className="bg-gray-800 rounded-xl border border-gray-700 p-4 flex flex-col gap-3">
+          <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4 flex flex-col gap-3">
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">المجموع الفرعي</span>
               <Money value={subtotal} />

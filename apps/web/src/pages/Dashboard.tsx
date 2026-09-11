@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { TrendingUp, ShoppingBag, AlertTriangle, Clock, PackageOpen, FileX, Wrench } from 'lucide-react'
+import { TrendingUp, ShoppingBag, AlertTriangle, Clock, PackageOpen, FileX, Wrench, FileText } from 'lucide-react'
 import { AppShell } from '@/components/layout/AppShell'
 import { StatCard, Badge, Alert, Skeleton, Money } from '@/components/ui'
 import { UsageBanner } from '@/components/UsageBanner'
@@ -268,7 +268,12 @@ export default function Dashboard() {
                 </div>
               </>
             ) : (
-              <div className="h-16 flex items-center justify-center text-gray-500 text-sm">لا توجد بيانات</div>
+              <div className="h-20 flex flex-col items-center justify-center gap-2">
+                <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-brand-500/60" />
+                </div>
+                <p className="text-xs text-gray-500">لا توجد بيانات مبيعات بعد</p>
+              </div>
             )}
           </div>
 
@@ -326,7 +331,15 @@ export default function Dashboard() {
             {!recentInvoices ? (
               <div className="flex flex-col gap-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-10 bg-gray-700 rounded animate-pulse" />)}</div>
             ) : recentInvoices.length === 0 ? (
-              <p className="text-sm text-gray-500 text-center py-8">لا توجد فواتير اليوم</p>
+              <div className="flex flex-col items-center justify-center gap-3 py-10">
+                <div className="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-brand-500/60" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-gray-300">لا توجد فواتير اليوم</p>
+                  <p className="text-xs text-gray-500 mt-0.5">ابدأ البيع من نقطة البيع أو أنشئ فاتورة جديدة</p>
+                </div>
+              </div>
             ) : (
               <div className="flex flex-col">
                 {recentInvoices.map((inv, idx) => {
