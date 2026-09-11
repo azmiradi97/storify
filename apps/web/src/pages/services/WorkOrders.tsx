@@ -15,6 +15,7 @@ import {
   Trash2,
   FileText,
   Printer,
+  ClipboardList,
 } from 'lucide-react'
 import { AppShell } from '@/components/layout/AppShell'
 import { Table, Money, SkeletonTable, Badge, Button, Drawer, Modal, Input, Select, Pagination } from '@/components/ui'
@@ -278,7 +279,7 @@ export default function WorkOrders() {
               ]}
               data={items}
               keyExtractor={(w) => w.id}
-              emptyMessage="لا توجد طلبات عمل بعد"
+              emptyMessage="لا توجد طلبات عمل بعد" emptyIcon={<ClipboardList className="w-8 h-8" />} emptyDescription="أنشئ طلب عمل لإدارة خدمات العملاء"
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

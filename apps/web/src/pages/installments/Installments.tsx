@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Check, X, Search, Plus, Trash2, Printer, Download, Clock, AlertCircle, Send, Table2, LayoutList } from 'lucide-react'
+import { Check, X, Search, Plus, Trash2, Printer, Download, Clock, AlertCircle, Send, Table2, LayoutList, CreditCard } from 'lucide-react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -749,7 +749,7 @@ export default function Installments() {
                 </div>
               )},
             ]}
-            data={data} keyExtractor={(c) => c.id} emptyMessage="لا توجد عقود أقساط"
+            data={data} keyExtractor={(c) => c.id} emptyMessage="لا توجد عقود أقساط" emptyIcon={<CreditCard className="w-8 h-8" />} emptyDescription="أنشئ عقد أقساط من صفحة الفواتير"
           />
           {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>
