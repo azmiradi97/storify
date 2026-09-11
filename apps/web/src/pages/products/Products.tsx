@@ -301,17 +301,17 @@ export default function Products() {
         <Modal open title="نتيجة الاستيراد" onClose={() => setImportResult(null)}>
           <div className="space-y-4">
             <div className="flex gap-6 text-center">
-              <div className="flex-1 bg-green-900/30 rounded-lg p-4">
-                <p className="text-2xl font-bold text-green-400">{importResult.created}</p>
+              <div className="flex-1 bg-success-50 border border-success-500/30 rounded-lg p-4">
+                <p className="text-2xl font-bold text-success-600">{importResult.created}</p>
                 <p className="text-sm text-gray-400 mt-1">تم إنشاؤه</p>
               </div>
-              <div className="flex-1 bg-yellow-900/30 rounded-lg p-4">
-                <p className="text-2xl font-bold text-yellow-400">{importResult.skipped}</p>
+              <div className="flex-1 bg-warning-50 border border-warning-500/30 rounded-lg p-4">
+                <p className="text-2xl font-bold text-warning-600">{importResult.skipped}</p>
                 <p className="text-sm text-gray-400 mt-1">تم تخطيه</p>
               </div>
               {importResult.errors.length > 0 && (
-                <div className="flex-1 bg-red-900/30 rounded-lg p-4">
-                  <p className="text-2xl font-bold text-red-400">{importResult.errors.length}</p>
+                <div className="flex-1 bg-danger-50 border border-danger-500/30 rounded-lg p-4">
+                  <p className="text-2xl font-bold text-danger-600">{importResult.errors.length}</p>
                   <p className="text-sm text-gray-400 mt-1">أخطاء</p>
                 </div>
               )}
@@ -320,7 +320,7 @@ export default function Products() {
               <div className="max-h-48 overflow-y-auto space-y-1">
                 <p className="text-sm font-medium text-gray-300 mb-2">تفاصيل الأخطاء:</p>
                 {importResult.errors.map((e) => (
-                  <div key={e.row} className="text-xs text-red-400 bg-red-900/20 rounded px-3 py-1.5">
+                  <div key={e.row} className="text-xs text-danger-600 bg-danger-50 rounded px-3 py-1.5">
                     صف {e.row}: {e.reason}
                   </div>
                 ))}
