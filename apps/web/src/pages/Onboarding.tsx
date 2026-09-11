@@ -64,7 +64,7 @@ export default function Onboarding() {
             <button
               key={href}
               onClick={() => finish(href)}
-              className="flex items-center gap-4 p-4 rounded-xl bg-gray-800 border border-gray-700 hover:border-brand-500 hover:bg-gray-750 transition-colors text-right w-full group"
+              className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-700 shadow-sm hover:border-brand-500 hover:shadow-md transition-all text-right w-full group"
             >
               <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${bg} flex items-center justify-center`}>
                 <Icon className={`w-6 h-6 ${color}`} />

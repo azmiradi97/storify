@@ -62,7 +62,7 @@ export default function Settings() {
             </button>
           ))}
         </nav>
-        <div className="flex-1 bg-gray-800 rounded-xl border border-gray-700 p-6">
+        <div className="flex-1 bg-white rounded-xl border border-gray-700 p-6 shadow-sm">
           {tab === 'store' && <StoreSettings />}
           {tab === 'billing' && <BillingSettings />}
           {tab === 'branches' && <BranchesSettings />}
@@ -160,7 +160,7 @@ function StoreSettings() {
           <option value="Europe/London">Europe/London (GMT+0)</option>
         </Select>
 
-        <div className="flex items-center justify-between bg-gray-800 border border-gray-700 rounded-md px-4 py-3">
+        <div className="flex items-center justify-between bg-white border border-gray-700 rounded-md px-4 py-3 shadow-sm">
           <div>
             <p className="text-sm text-gray-200">ضريبة القيمة المضافة (VAT)</p>
             <p className="text-xs text-gray-500">تطبيق الضريبة تلقائياً على الفواتير</p>
@@ -196,7 +196,7 @@ function StoreSettings() {
           {...register('dailySalesTarget')}
         />
 
-        <div className="flex items-center justify-between bg-gray-800 border border-gray-700 rounded-md px-4 py-3">
+        <div className="flex items-center justify-between bg-white border border-gray-700 rounded-md px-4 py-3 shadow-sm">
           <div>
             <p className="text-sm text-gray-200">نقاط الولاء</p>
             <p className="text-xs text-gray-500">اكسب نقاط عند كل عملية شراء</p>
@@ -1019,7 +1019,7 @@ function PermissionMatrix({ roles }: { roles: Role[] }) {
   if (roles.length === 0) return null
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden">
+    <div className="bg-white border border-gray-700 rounded-xl shadow-sm overflow-hidden">
       <div className="px-4 py-3 border-b border-gray-700 flex items-center justify-between gap-3">
         <h4 className="text-sm font-semibold text-gray-100">مصفوفة الصلاحيات</h4>
         {editing ? (
@@ -2209,7 +2209,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
     isSet ? 'محفوظ مسبقاً — اتركه فارغاً للإبقاء عليه، أو اكتب قيمة جديدة لاستبداله' : undefined
 
   return (
-    <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex flex-col gap-5">
+    <div className="bg-white border border-gray-700 rounded-lg p-4 flex flex-col gap-5 shadow-sm">
       <div>
         <h3 className="text-base font-semibold text-gray-100">إعداد الفاتورة الإلكترونية (ETA)</h3>
         <p className="text-xs text-gray-500 mt-1 leading-relaxed">
@@ -2231,7 +2231,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
                 'w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors',
                 step === s.n ? 'bg-brand-500 text-white'
                   : step > s.n ? 'bg-success-500/20 text-success-600 border border-success-500/40'
-                  : 'bg-gray-800 text-gray-500 border border-gray-700',
+                  : 'bg-gray-750 text-gray-400 border border-gray-700',
               )}>
                 {step > s.n ? <Check className="w-3.5 h-3.5" /> : s.n}
               </span>
@@ -2239,7 +2239,7 @@ function EtaSetupWizard({ settings }: { settings?: TenantSettings }) {
                 {s.label}
               </span>
             </button>
-            {i < STEPS.length - 1 && <div className="flex-1 h-px bg-gray-800" />}
+            {i < STEPS.length - 1 && <div className="flex-1 h-px bg-gray-700" />}
           </Fragment>
         ))}
       </div>
@@ -2423,7 +2423,7 @@ function EtaSettings() {
   return (
     <div className="flex flex-col gap-6">
       {/* Enable/disable toggle + setup status */}
-      <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 flex flex-col gap-4">
+      <div className="bg-white border border-gray-700 rounded-lg p-4 flex flex-col gap-4 shadow-sm">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="text-base font-semibold text-gray-100">إرسال الإيصالات الإلكترونية (ETA)</h3>

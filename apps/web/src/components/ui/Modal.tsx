@@ -82,7 +82,7 @@ export function Modal({ open, onClose, title, children, footer, size = 'md', cla
         className={cn(
           // max-h cap + flex column so long modal bodies scroll inside
           // instead of pushing the footer off the screen.
-          'relative w-full max-h-[calc(100vh-2rem)] bg-gray-800 rounded-xl shadow-xl border border-gray-700 animate-fade-in-up focus:outline-none',
+          'relative w-full max-h-[calc(100vh-2rem)] bg-white rounded-xl shadow-xl border border-gray-700 animate-fade-in-up focus:outline-none',
           'flex flex-col',
           sizeClasses[size],
           className,
