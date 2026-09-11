@@ -78,7 +78,7 @@ function ForbiddenView({ resource, action }: { resource: string; action: string 
   const actionLabel = ACTION_LABEL[action] ?? action
   return (
     <div className="min-h-[60vh] flex items-center justify-center p-8">
-      <div className="max-w-md w-full bg-gray-800 border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center gap-4">
+      <div className="max-w-md w-full bg-white border border-gray-700 rounded-xl p-6 flex flex-col items-center text-center gap-4 shadow-sm">
         <div className="w-14 h-14 rounded-full bg-warning-500/10 flex items-center justify-center">
           <ShieldOff className="w-7 h-7 text-warning-500" />
         </div>

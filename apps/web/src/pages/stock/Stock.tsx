@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Settings2, ArrowLeftRight, TrendingUp, Search, Plus, Check, X, Download } from 'lucide-react'
+import { Settings2, ArrowLeftRight, TrendingUp, Search, Plus, Check, X, Download, Package } from 'lucide-react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -388,7 +388,7 @@ function StockTab() {
                 </div>
               )},
             ]}
-            data={items} keyExtractor={(s) => s.id} emptyMessage="لا توجد بيانات مخزون"
+            data={items} keyExtractor={(s) => s.id} emptyMessage="لا توجد بيانات مخزون" emptyIcon={<Package className="w-8 h-8" />} emptyDescription="أضف منتجات وسجّل المخزون الأولي"
           />
           {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
         </>
@@ -498,7 +498,7 @@ function MovementsTab() {
                 <span className="text-gray-500 text-xs">{formatDateTime(m.createdAt)}</span>
               )},
             ]}
-            data={items} keyExtractor={(m) => m.id} emptyMessage="لا توجد حركات مخزون"
+            data={items} keyExtractor={(m) => m.id} emptyMessage="لا توجد حركات مخزون" emptyIcon={<TrendingUp className="w-8 h-8" />} emptyDescription="ستظهر هنا حركات الدخول والخروج تلقائياً"
           />
           {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
         </>
@@ -606,7 +606,7 @@ function TransfersTab() {
                 </div>
               )},
             ]}
-            data={items} keyExtractor={(t) => t.id} emptyMessage="لا توجد طلبات تحويل"
+            data={items} keyExtractor={(t) => t.id} emptyMessage="لا توجد طلبات تحويل" emptyIcon={<ArrowLeftRight className="w-8 h-8" />} emptyDescription="أنشئ طلب تحويل لنقل المخزون بين الفروع"
           />
           {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
         </>

@@ -576,7 +576,7 @@ export default function Expenses() {
                 </div>
               ) : null },
             ]}
-            data={data} keyExtractor={(e) => e.id} emptyMessage="لا توجد مصروفات"
+            data={data} keyExtractor={(e) => e.id} emptyMessage="لا توجد مصروفات" emptyIcon={<Wallet className="w-8 h-8" />} emptyDescription="سجّل مصاريفك لمتابعة التكاليف"
           />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

@@ -497,7 +497,7 @@ export default function PurchaseOrders() {
                 </div>
               )},
             ]}
-            data={data} keyExtractor={(po) => po.id} emptyMessage="لا توجد أوامر شراء"
+            data={data} keyExtractor={(po) => po.id} emptyMessage="لا توجد أوامر شراء" emptyIcon={<PackageCheck className="w-8 h-8" />} emptyDescription="أنشئ أمر شراء لتتبّع طلباتك من الموردين"
           />
           {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>
