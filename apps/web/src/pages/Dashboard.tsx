@@ -198,7 +198,7 @@ export default function Dashboard() {
             <StatCard
               label="خدمات اليوم"
               value={`${formatNumber(data?.today.servicesRevenue ?? 0, { maximumFractionDigits: 0 })} ج`}
-              accentColor="bg-cyan-500"
+              accentColor="bg-info-500"
               icon={<Wrench className="w-4 h-4" />}
               onClick={() => navigate('/work-orders')}
             />
