@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Search, Plus, Edit2, Wallet, FileText, Download, Upload } from 'lucide-react'
+import { Search, Plus, Edit2, Wallet, FileText, Download, Upload, Users } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -465,7 +465,7 @@ export default function Customers() {
                   </div>
                 )},
               ]}
-              data={customers} keyExtractor={(c) => c.id} emptyMessage="لا يوجد عملاء"
+              data={customers} keyExtractor={(c) => c.id} emptyMessage="لا يوجد عملاء" emptyDescription="أضف عملاءك لتتبّع مشترياتهم ورصيدهم" emptyIcon={<Users className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

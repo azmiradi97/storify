@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Plus, Search, ChevronDown, ChevronUp, Edit2, PlusCircle, ToggleLeft, ToggleRight, Tag, Trash2, Upload, Download, Barcode } from 'lucide-react'
+import { Plus, Search, ChevronDown, ChevronUp, Edit2, PlusCircle, ToggleLeft, ToggleRight, Tag, Trash2, Upload, Download, Barcode, Package } from 'lucide-react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -271,7 +271,7 @@ export default function Products() {
                   </Button>
                 )},
               ]}
-              data={products} keyExtractor={(p) => p.id} emptyMessage="لا توجد منتجات"
+              data={products} keyExtractor={(p) => p.id} emptyMessage="لا توجد منتجات" emptyDescription="أضف أول منتج لتبدأ البيع" emptyIcon={<Package className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

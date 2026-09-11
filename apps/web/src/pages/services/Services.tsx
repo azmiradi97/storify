@@ -195,7 +195,7 @@ export default function Services() {
               ]}
               data={services}
               keyExtractor={(s) => s.id}
-              emptyMessage="لا توجد خدمات بعد"
+              emptyMessage="لا توجد خدمات بعد" emptyDescription="أضف خدماتك وأسعارها" emptyIcon={<Settings2 className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

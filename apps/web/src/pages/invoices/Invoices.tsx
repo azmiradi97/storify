@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Search, Eye, RotateCcw, Printer, Download, Ban, Mail } from 'lucide-react'
+import { Search, Eye, RotateCcw, Printer, Download, Ban, Mail, FileText } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { AppShell } from '@/components/layout/AppShell'
 import { Input, Table, Badge, Money, SkeletonTable, Button, Drawer, Pagination, Modal, DateRangePicker, BulkActionBar, Select } from '@/components/ui'
@@ -296,7 +296,7 @@ export default function Invoices() {
                   <Button variant="ghost" size="sm" onClick={() => openDetail(i)}><Eye className="w-3 h-3" /></Button>
                 )},
               ]}
-              data={invoices} keyExtractor={(i) => i.id} emptyMessage="لا توجد فواتير"
+              data={invoices} keyExtractor={(i) => i.id} emptyMessage="لا توجد فواتير" emptyDescription="لم يتم إصدار أي فاتورة بعد" emptyIcon={<FileText className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

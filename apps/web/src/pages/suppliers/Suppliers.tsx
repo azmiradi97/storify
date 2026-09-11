@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Plus, Edit2, Trash2, ReceiptText, CreditCard, Search, Download } from 'lucide-react'
+import { Plus, Edit2, Trash2, ReceiptText, CreditCard, Search, Download, Truck } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -415,7 +415,7 @@ export default function Suppliers() {
                   </div>
                 )},
               ]}
-              data={suppliers} keyExtractor={(s) => s.id} emptyMessage="لا يوجد موردون"
+              data={suppliers} keyExtractor={(s) => s.id} emptyMessage="لا يوجد موردون" emptyDescription="أضف مورديك لإدارة المشتريات" emptyIcon={<Truck className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>

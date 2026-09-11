@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Download } from 'lucide-react'
+import { Download, RotateCcw } from 'lucide-react'
 import { AppShell } from '@/components/layout/AppShell'
 import { Table, Badge, Money, SkeletonTable, Pagination, Drawer, DateRangePicker, BulkActionBar, Button, Select } from '@/components/ui'
 import { api } from '@/api/client'
@@ -157,7 +157,7 @@ export default function Returns() {
                 { key: 'processedBy', header: 'الموظف', render: (r) => <span className="text-gray-500 text-sm">{r.processedBy.fullName}</span> },
                 { key: 'createdAt', header: 'التاريخ', render: (r) => <span className="text-gray-500 text-xs">{formatDate(r.createdAt)}</span> },
               ]}
-              data={returns} keyExtractor={(r) => r.id} emptyMessage="لا توجد مرتجعات"
+              data={returns} keyExtractor={(r) => r.id} emptyMessage="لا توجد مرتجعات" emptyDescription="لم تُسجَّل أي مرتجعات في هذه الفترة" emptyIcon={<RotateCcw className="w-8 h-8" />}
             />
             {meta && <Pagination page={meta.page} pages={meta.pages} total={meta.total} limit={meta.limit} onPage={setPage} />}
           </>
