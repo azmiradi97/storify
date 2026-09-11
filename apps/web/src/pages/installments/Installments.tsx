@@ -95,7 +95,7 @@ function ScheduleTimeline({ contract, onRecord, isRecording }: ScheduleTimelineP
             <span className="text-success-600">{paidCount}</span> / {payments.length} قسط
           </span>
         </div>
-        <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-success-500 transition-all duration-slow"
             style={{ width: `${progressPct}%` }}
