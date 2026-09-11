@@ -79,7 +79,7 @@ function CreditModal({ customer, onClose }: { customer: Customer; onClose: () =>
         {(customer.loyaltyPoints ?? 0) > 0 && (
           <div>
             <p className="text-sm text-gray-400 mb-1">نقاط الولاء</p>
-            <p className="text-lg font-bold text-yellow-400">{customer.loyaltyPoints} نقطة</p>
+            <p className="text-lg font-bold text-warning-600">{customer.loyaltyPoints} نقطة</p>
           </div>
         )}
       </div>
@@ -266,7 +266,7 @@ function CustomerLedger({ ledger }: { ledger?: CreditLedger }) {
         </div>
         <div className="bg-gray-750 border border-gray-700 rounded-md p-3">
           <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">نقاط الولاء</p>
-          <p className="font-mono text-base font-bold text-yellow-400 num">{formatNumber(ledger.balance.loyaltyPoints)}</p>
+          <p className="font-mono text-base font-bold text-warning-600 num">{formatNumber(ledger.balance.loyaltyPoints)}</p>
         </div>
       </div>
 
@@ -450,7 +450,7 @@ export default function Customers() {
                 { key: 'email', header: 'البريد الإلكتروني', className: 'text-gray-500 text-sm' },
                 { key: 'invoices', header: 'الفواتير', render: (c) => <span className="text-center font-numeric num num-strong">{c._count?.invoices ?? 0}</span> },
                 { key: 'creditBalance', header: 'الرصيد', render: (c) => c.creditBalance > 0 ? <Money value={c.creditBalance} /> : <span className="text-gray-500">—</span> },
-                { key: 'loyaltyPoints', header: 'النقاط', render: (c) => c.loyaltyPoints > 0 ? <span className="font-numeric num text-yellow-400">{c.loyaltyPoints} نقطة</span> : <span className="text-gray-500">—</span> },
+                { key: 'loyaltyPoints', header: 'النقاط', render: (c) => c.loyaltyPoints > 0 ? <span className="font-numeric num text-warning-600">{c.loyaltyPoints} نقطة</span> : <span className="text-gray-500">—</span> },
                 { key: 'actions', header: '', render: (c) => (
                   <div className="flex items-center gap-1">
                     <Button variant="ghost" size="sm" title="السجل" onClick={(e) => { e.stopPropagation(); setDetailCustomer(c) }}>

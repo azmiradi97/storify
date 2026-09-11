@@ -17,7 +17,7 @@ const variantClasses: Record<BadgeVariant, string> = {
   warning: 'bg-warning-50 text-warning-700',
   danger: 'bg-danger-50 text-danger-600',
   info: 'bg-info-50 text-info-600',
-  gray: 'bg-gray-800 text-gray-300',
+  gray: 'bg-gray-750 text-gray-300',
 }
 
 const dotClasses: Record<BadgeVariant, string> = {
