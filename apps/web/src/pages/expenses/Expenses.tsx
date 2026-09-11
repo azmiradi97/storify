@@ -230,7 +230,7 @@ function BudgetPanel({ categories }: { categories: Category[] }) {
                       </button>
                     </div>
                   </div>
-                  <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                  <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                     <div className={cn('h-full transition-all duration-slow', tone)} style={{ width: `${pct}%` }} />
                   </div>
                   <div className="flex items-center justify-between text-xs">
