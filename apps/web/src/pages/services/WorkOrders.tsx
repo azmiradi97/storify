@@ -514,7 +514,6 @@ function WorkOrderDetail({ id }: { id: string }) {
             <div className="flex gap-2 justify-end">
               <Button variant="secondary" onClick={() => setIssuingInvoice(false)} disabled={invoicePending}>إلغاء</Button>
               <Button
-                className="bg-cyan-600 hover:bg-cyan-500 text-white"
                 loading={invoicePending}
                 onClick={() => issueInvoice()}
               >

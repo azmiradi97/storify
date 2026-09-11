@@ -120,7 +120,7 @@ function FilterBar({
             <button
               key={g}
               onClick={() => onChange({ groupBy: g })}
-              className={`px-2 py-1 rounded text-xs transition-colors ${filters.groupBy === g ? 'bg-brand-600 text-white' : 'bg-gray-700 text-gray-400 hover:text-gray-200'}`}
+              className={`px-2 py-1 rounded text-xs transition-colors ${filters.groupBy === g ? 'bg-brand-600 text-white' : 'bg-gray-700 text-gray-300 hover:text-gray-100'}`}
             >
               {g === 'day' ? 'يومي' : g === 'week' ? 'أسبوعي' : 'شهري'}
             </button>
