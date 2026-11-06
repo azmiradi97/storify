@@ -4,13 +4,18 @@ import { useEffect } from 'react'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 import { SubscriptionBanner } from '@/components/SubscriptionBanner'
+import { cn } from '@/lib/cn'
 
 interface AppShellProps {
   children: ReactNode
   title?: string
+  // Desktop-only: pin the shell to the viewport height (h-dvh) and let <main>
+  // own its overflow, so a page can build a real flex height-chain instead of
+  // guessing the chrome height with a calc() constant. Mobile keeps page scroll.
+  fillHeight?: boolean
 }
 
-export function AppShell({ children, title }: AppShellProps) {
+export function AppShell({ children, title, fillHeight = false }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const location = useLocation()
 
@@ -21,7 +26,7 @@ export function AppShell({ children, title }: AppShellProps) {
   }, [location.pathname])
 
   return (
-    <div className="min-h-dvh bg-app">
+    <div className={cn('min-h-dvh bg-app', fillHeight && 'lg:h-dvh lg:min-h-0 lg:overflow-hidden')}>
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:right-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-md focus:text-sm focus:font-medium"
@@ -39,10 +44,10 @@ export function AppShell({ children, title }: AppShellProps) {
         />
       )}
 
-      <div className="lg:mr-60 flex flex-col min-h-dvh">
+      <div className={cn('lg:mr-60 flex flex-col min-h-dvh', fillHeight && 'lg:h-dvh lg:min-h-0')}>
         <SubscriptionBanner />
         <TopBar title={title} onMenuClick={() => setSidebarOpen(true)} />
-        <main id="main-content" className="flex-1 p-4 sm:p-6 lg:p-8 animate-fade-in">{children}</main>
+        <main id="main-content" className={cn('flex-1 p-4 sm:p-6 lg:p-8 animate-fade-in', fillHeight && 'lg:min-h-0 lg:overflow-hidden')}>{children}</main>
       </div>
     </div>
   )

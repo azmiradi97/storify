@@ -393,7 +393,7 @@ export default function POS() {
   )
 
   return (
-    <AppShell title="نقطة البيع">
+    <AppShell title="نقطة البيع" fillHeight>
       {/* Offline banner */}
       {(!isOnline || offlineQueue.length > 0) && (
         <div className={cn(
@@ -406,7 +406,7 @@ export default function POS() {
             : `${offlineQueue.length} فاتورة معلقة — سيتم إرسالها تلقائياً`}
         </div>
       )}
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:h-full lg:min-h-0">
         {/* LEFT: Search + Cart */}
         <div className="flex-1 flex flex-col gap-4 min-w-0 min-h-0">
           <div className="flex flex-col sm:flex-row gap-2">
@@ -561,7 +561,14 @@ export default function POS() {
         </div>
 
         {/* RIGHT: Totals + Payment */}
-        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 pb-2 lg:sticky lg:top-0 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto">
+        <div className="w-full lg:w-80 lg:flex-shrink-0 flex flex-col gap-4 pb-2 lg:h-full lg:min-h-0">
+          {/* Scrollable zone — the single scroll owner for the whole panel. No
+              nested overflow containers live inside it, so there is never more
+              than one scrollbar and the wheel never gets trapped in a sub-list.
+              Height flows from AppShell's fillHeight chain (h-dvh → min-h-0), so
+              there is no fragile calc() constant to drift out of sync with the
+              subscription banner or responsive padding. */}
+          <div className="flex flex-col gap-4 lg:flex-1 lg:min-h-0 lg:overflow-y-auto lg:pl-1 [&>*]:shrink-0">
           <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4">
             {customer ? (
               <div className="flex flex-col gap-2">
@@ -627,7 +634,7 @@ export default function POS() {
             {pmSectionOpen && (
               <div className="px-4 pb-4 flex flex-col gap-3 border-t border-gray-700">
                 {/* Primary payment method */}
-                <div className="flex flex-col gap-2 pt-3 max-h-52 overflow-y-auto">
+                <div className="flex flex-col gap-2 pt-3">
                   {paymentMethods.map((pm) => {
                     const pmFee = calculateFee(subtotal, pm)
                     return (
@@ -684,7 +691,7 @@ export default function POS() {
                 {selectedPM && paymentMethods.length > 1 && (
                   <div className="flex flex-col gap-2 border-t border-gray-700 pt-3">
                     <p className="text-xs text-gray-500 font-medium">دفع منقسم <span className="text-gray-600">(اختياري)</span></p>
-                    <div className="flex flex-col gap-1.5 max-h-44 overflow-y-auto">
+                    <div className="flex flex-col gap-1.5">
                       {paymentMethods.filter((pm) => pm.id !== selectedPM.id).map((pm) => (
                         <button
                           key={pm.id}
@@ -796,7 +803,12 @@ export default function POS() {
               </div>
             )}
           </div>
+          </div>
+          {/* end scrollable zone */}
 
+          {/* Pinned footer — totals + checkout stay visible no matter how long
+              the payment list grows, so the cashier never scrolls to pay. */}
+          <div className="flex flex-col gap-4 lg:shrink-0">
           <div className="bg-white rounded-xl border border-gray-700 shadow-sm p-4 flex flex-col gap-3">
             <div className="flex justify-between text-sm">
               <span className="text-gray-400">المجموع الفرعي</span>
@@ -856,6 +868,8 @@ export default function POS() {
             <BookCheck className="w-3.5 h-3.5" />
             إغلاق اليوم
           </button>
+          </div>
+          {/* end pinned footer */}
         </div>
       </div>
 
