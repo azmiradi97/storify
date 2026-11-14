@@ -12,22 +12,46 @@ export function buildEtaPayload(params: EtaPayloadParams): EtaDocument {
     issuer,
     receiver,
     branchCode,
+    invoiceExtraDiscount,
   } = params
 
   const invoiceLines = items.map((item, idx) => buildInvoiceLine(item, idx + 1))
 
+  // ETA-01: make the submitted document reflect the discounts the POS actually
+  // applied so ETA's record (and the QR total) reconcile with the invoice the
+  // customer paid. Two discount channels:
+  //   • line-level (product/line discount): carried on each line's
+  //     discount.amount — already subtracted in that line's netTotal and in its
+  //     tax base, and summed here into totalDiscountAmount.
+  //   • invoice-level (coupon + store credit): the document-level
+  //     extraDiscountAmount.
+  // Fee-free reconciliation this yields:
+  //   netAmount   = Σ salesTotal − Σ line-discount            = invoice.subtotal
+  //   totalAmount = netAmount + Σ tax − extraDiscountAmount    = invoice.totalAmount
+  //
+  // NOTE (must validate on preprod before production): the exact ETA field
+  // semantics for totalDiscountAmount vs totalItemsDiscountAmount vs
+  // extraDiscountAmount are spec-sensitive, and a customer-borne payment fee
+  // (feeAddedToTotal) is intentionally NOT represented here — the e-invoice
+  // reflects the sale of goods, not the payment surcharge, so the printed
+  // receipt total can exceed the ETA total by the fee in that case.
   const totalSalesAmount = invoiceLines.reduce(
     (s, l) => s.plus(l.salesTotal),
     new Decimal(0),
   )
-  const totalDiscountAmount = new Decimal(0)
+  const totalItemsDiscount = invoiceLines.reduce(
+    (s, l) => s.plus(l.discount.amount),
+    new Decimal(0),
+  )
+  const extraDiscountAmount = new Decimal(String(invoiceExtraDiscount ?? 0))
+  const totalDiscountAmount = totalItemsDiscount
   const netAmount = totalSalesAmount.minus(totalDiscountAmount)
   const totalTaxableFees = new Decimal(0)
   const totalItemsDiscountAmount = new Decimal(0)
 
   const taxTotals = computeTaxTotals(invoiceLines)
-  const totalAmount = netAmount.plus(taxTotals.reduce((s, t) => s.plus(t.amount), new Decimal(0)))
-  const extraDiscountAmount = new Decimal(0)
+  const taxSum = taxTotals.reduce((s, t) => s.plus(t.amount), new Decimal(0))
+  const totalAmount = netAmount.plus(taxSum).minus(extraDiscountAmount)
   const totalValueAdded = totalAmount
 
   return {
@@ -133,6 +157,9 @@ export interface EtaPayloadParams {
   issuer: { name: string; taxpayerId: string; activityCode: string; address: EtaAddress }
   receiver?: { name: string; nationalId?: string; type?: string; address: EtaAddress }
   branchCode?: string
+  // ETA-01: invoice-level discount (coupon + store credit) applied after line
+  // items — maps to the document-level extraDiscountAmount. Defaults to 0.
+  invoiceExtraDiscount?: number | string
 }
 
 interface EtaInvoiceItem {

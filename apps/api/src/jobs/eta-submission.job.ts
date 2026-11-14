@@ -35,6 +35,8 @@ interface InvoiceRow {
   invoice_number: string
   created_at: Date
   total_amount: string
+  // ETA-01: invoice-level discount (coupon + credit) → extraDiscountAmount.
+  discount_amount: string
   eta_enabled: boolean
   eta_taxpayer_id: string | null
   eta_activity_code: string | null
@@ -58,6 +60,8 @@ interface ItemRow {
   quantity: number
   unit_price: string
   vat_rate: string
+  // ETA-01: per-line product/line discount → line discount.amount.
+  discount_amount: string
 }
 
 export function startEtaWorker() {
@@ -68,7 +72,7 @@ export function startEtaWorker() {
       const db = getTenantDb(schemaName)
 
       const invoiceRows = await db.$queryRawUnsafe<InvoiceRow[]>(`
-        SELECT i.id, i.invoice_number, i.created_at, i.total_amount,
+        SELECT i.id, i.invoice_number, i.created_at, i.total_amount, i.discount_amount,
                ts.eta_enabled, ts.eta_taxpayer_id, ts.eta_activity_code,
                ts.eta_branch_code, ts.eta_client_id, ts.eta_client_secret,
                ts.eta_signing_cert_pem, COALESCE(ts.eta_is_production, false) AS is_production,
@@ -119,6 +123,7 @@ export function startEtaWorker() {
 
       const itemRows = await db.$queryRawUnsafe<ItemRow[]>(`
         SELECT p.name AS product_name, pv.sku, ii.quantity, ii.unit_price,
+               COALESCE(ii.discount_amount, 0) AS discount_amount,
                COALESCE(tr.rate, 0) AS vat_rate
         FROM invoice_items ii
         JOIN product_variants pv ON pv.id = ii.variant_id
@@ -145,12 +150,14 @@ export function startEtaWorker() {
 
       const payloadParams = {
         invoice: { invoiceNumber: inv.invoice_number, issuedAt: new Date(inv.created_at) },
+        invoiceExtraDiscount: inv.discount_amount,
         items: itemRows.map((item: ItemRow) => ({
           description: item.product_name,
           internalCode: item.sku,
           quantity: Number(item.quantity),
           unitPrice: item.unit_price,
           vatRate: item.vat_rate,
+          discountAmount: item.discount_amount,
         })),
         issuer: {
           name: inv.eta_issuer_name!,
