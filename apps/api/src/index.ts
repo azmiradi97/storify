@@ -31,7 +31,7 @@ import { billingRoutes, billingWebhookRoutes } from './modules/billing/billing.r
 import { adminRoutes } from './modules/admin/admin.routes'
 import { seedOwnerFromEnv } from './modules/admin/admin.auth.service'
 import { migrateAllTenants } from '@hesba/database'
-import { authenticate } from './shared/middleware/auth.middleware'
+import { authenticate, requirePermission } from './shared/middleware/auth.middleware'
 import { requireUnderLimit } from './shared/middleware/limit.middleware'
 import { startEtaWorker } from './jobs/eta-submission.job'
 import { startDunningWorker, scheduleDunning } from './jobs/dunning.job'
@@ -40,6 +40,12 @@ import { startTrialExpiryWorker, scheduleTrialExpiry } from './jobs/trial-expiry
 import { startRenewalWorker, scheduleRenewal } from './jobs/renewal.job'
 
 const app = Fastify({
+  // The app always runs behind a reverse proxy (Caddy / Railway's edge), so
+  // without this every request has the proxy's IP and the per-IP rate limits
+  // (login, signup, password reset) become one bucket shared by all users.
+  // Trust only the configured number of hops so a client can't spoof its IP
+  // with its own X-Forwarded-For header.
+  trustProxy: config.TRUST_PROXY_HOPS,
   logger: {
     level: config.NODE_ENV === 'development' ? 'info' : 'warn',
     // Strip credentials before anything reaches the logs (or Sentry, which
@@ -272,7 +278,7 @@ app.register(async function apiContext(api) {
     })
   })
 
-  sub.patch('/api/settings', { preHandler: [authenticate] }, async (request, reply) => {
+  sub.patch('/api/settings', { preHandler: [authenticate, requirePermission('settings', 'update')] }, async (request, reply) => {
     const { z } = await import('zod')
     const schema = z.object({
       vatEnabled: z.boolean().optional(),
@@ -341,7 +347,7 @@ app.register(async function apiContext(api) {
   // with APP_ENCRYPTION_KEY, write-only (never returned), and each field is
   // only touched when a non-empty value is supplied (so saving the wizard
   // without re-typing a secret keeps the existing one).
-  sub.put('/api/settings/eta/credentials', { preHandler: [authenticate] }, async (request, reply) => {
+  sub.put('/api/settings/eta/credentials', { preHandler: [authenticate, requirePermission('settings', 'update')] }, async (request, reply) => {
     const { z } = await import('zod')
     const { encrypt } = await import('@/shared/utils/encryption')
     const schema = z.object({
@@ -378,7 +384,7 @@ app.register(async function apiContext(api) {
   // Decrypts the stored credentials and performs a real OAuth handshake with
   // ETA's /connect/token. Lets the merchant confirm enrollment before the
   // first invoice is issued, instead of discovering a bad secret at submit time.
-  sub.post('/api/settings/eta/test', { preHandler: [authenticate] }, async (request, reply) => {
+  sub.post('/api/settings/eta/test', { preHandler: [authenticate, requirePermission('settings', 'update')] }, async (request, reply) => {
     const { decrypt } = await import('@/shared/utils/encryption')
     const { EtaClient } = await import('@/modules/eta/eta.client')
 
@@ -425,7 +431,7 @@ app.register(async function apiContext(api) {
     return reply.send({ success: true, data: branches })
   })
 
-  sub.post('/api/branches', { preHandler: [authenticate, requireUnderLimit('branches')] }, async (request, reply) => {
+  sub.post('/api/branches', { preHandler: [authenticate, requirePermission('settings', 'update'), requireUnderLimit('branches')] }, async (request, reply) => {
     const { z } = await import('zod')
     const schema = z.object({ name: z.string().min(1), address: z.string().optional(), phone: z.string().optional() })
     const parsed = schema.safeParse(request.body)
@@ -436,7 +442,7 @@ app.register(async function apiContext(api) {
     return reply.status(201).send({ success: true, data: branch })
   })
 
-  sub.patch<{ Params: { id: string } }>('/api/branches/:id', { preHandler: [authenticate] }, async (request, reply) => {
+  sub.patch<{ Params: { id: string } }>('/api/branches/:id', { preHandler: [authenticate, requirePermission('settings', 'update')] }, async (request, reply) => {
     const { z } = await import('zod')
     const schema = z.object({ name: z.string().min(1).optional(), address: z.string().optional(), phone: z.string().optional(), isActive: z.boolean().optional() })
     const parsed = schema.safeParse(request.body)

@@ -11,6 +11,9 @@ const envSchema = z.object({
   API_HOST: z.string().default('0.0.0.0'),
   FRONTEND_URL: z.string().url(),
   APP_BASE_DOMAIN: z.string().optional(), // e.g. hesbaapp.com — enables per-tenant subdomain URLs
+  // Number of reverse proxies in front of the app (Caddy / Railway edge = 1).
+  // Drives request.ip, which the per-IP rate limits key on. 0 = no proxy.
+  TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(1),
 
   // Database
   DATABASE_MASTER_URL: z.string().url(),

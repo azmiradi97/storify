@@ -887,7 +887,7 @@ export async function adminRoutes(app: FastifyInstance) {
     // ─── Manual migration trigger (OWNER only) ────────────────────────────────
     // Safety valve: run pending tenant SQL migrations on-demand without
     // needing a full redeploy. Idempotent — safe to call multiple times.
-    scoped.post('/run-migrations', { preHandler: [requireOwner] }, async (_request, reply) => {
+    scoped.post('/run-migrations', { preHandler: [requireOwner()] }, async (_request, reply) => {
       const result = await migrateAllTenants()
       return reply.send({ success: true, data: result })
     })
