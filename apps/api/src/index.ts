@@ -1,4 +1,4 @@
-import Fastify from 'fastify'
+import Fastify, { type FastifyError } from 'fastify'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
 import helmet from '@fastify/helmet'
@@ -45,7 +45,15 @@ const app = Fastify({
   // (login, signup, password reset) become one bucket shared by all users.
   // Trust only the configured number of hops so a client can't spoof its IP
   // with its own X-Forwarded-For header.
-  trustProxy: config.TRUST_PROXY_HOPS,
+  //
+  // Fastify 5 makes a bare numeric `trustProxy` fail closed (it trusts no hop),
+  // so the hop count is expressed as a trust function instead. `hop < N`
+  // trusts the N closest addresses — the same semantics Fastify 4 gave the
+  // number — and 0 disables proxy trust entirely.
+  trustProxy:
+    config.TRUST_PROXY_HOPS > 0
+      ? (_address: string, hop: number) => hop < config.TRUST_PROXY_HOPS
+      : false,
   logger: {
     level: config.NODE_ENV === 'development' ? 'info' : 'warn',
     // Strip credentials before anything reaches the logs (or Sentry, which
@@ -107,7 +115,7 @@ app.register(rateLimit, {
 // Global error handler — never leak stack traces or internal messages in
 // production. Fastify validation errors keep their message; other errors are
 // normalized to `{ success: false, error: { code, message } }`.
-app.setErrorHandler((error, request, reply) => {
+app.setErrorHandler<FastifyError>((error, request, reply) => {
   const status =
     typeof error.statusCode === 'number' && error.statusCode >= 400 && error.statusCode < 600
       ? error.statusCode
@@ -209,6 +217,9 @@ app.register(async function apiContext(api) {
       cb(allowed ? null : new Error('CORS: origin not allowed'), allowed ?? false)
     },
     credentials: true,
+    // @fastify/cors 10+ narrowed the default to GET,HEAD,POST. Keep the full
+    // set the API uses so cross-origin PUT/PATCH/DELETE preflights still pass.
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Tenant-Subdomain'],
   })
 
