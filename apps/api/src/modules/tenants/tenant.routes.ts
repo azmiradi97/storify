@@ -1,9 +1,14 @@
 import { FastifyInstance } from 'fastify'
 import { registerTenantSchema } from './tenant.schema'
 import { provisionTenant } from './tenant.service'
+import { config } from '../../config/env'
 
 export async function tenantRoutes(app: FastifyInstance) {
-  app.post('/register', async (request, reply) => {
+  // Each signup provisions a full Postgres schema, so throttle per IP to stop
+  // scripted signups from exhausting the database.
+  app.post('/register', {
+    config: { rateLimit: { max: 5, timeWindow: 60 * 60_000 } },
+  }, async (request, reply) => {
     const parseResult = registerTenantSchema.safeParse(request.body)
 
     if (!parseResult.success) {
@@ -17,7 +22,10 @@ export async function tenantRoutes(app: FastifyInstance) {
     try {
       const result = await provisionTenant(parseResult.data)
 
-      const loginUrl = `http://${result.subdomain}.localhost:5173/login`
+      const base = config.APP_BASE_DOMAIN
+        ? `https://${result.subdomain}.${config.APP_BASE_DOMAIN}`
+        : config.FRONTEND_URL
+      const loginUrl = `${base}/login`
 
       return reply.status(201).send({
         success: true,

@@ -143,7 +143,7 @@ export async function billingRoutes(app: FastifyInstance) {
 
   app.post(
     '/billing/cancel',
-    { preHandler: [authenticate] },
+    { preHandler: [authenticate, requirePermission('billing', 'update')] },
     async (request, reply) => {
       const tenant = request.tenant!
       const updated = await cancelSubscription(tenant.id)
@@ -179,7 +179,7 @@ export async function billingRoutes(app: FastifyInstance) {
   // true and the sweep hasn't fired yet (status still ACTIVE/PAST_DUE).
   app.post(
     '/billing/resume',
-    { preHandler: [authenticate] },
+    { preHandler: [authenticate, requirePermission('billing', 'update')] },
     async (request, reply) => {
       const tenantId = request.tenant!.id
       const sub = await masterDb.subscription.findFirst({
